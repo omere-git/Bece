@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BudgetIQ — B&C Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#F5F4F0;--surface:#FFFFFF;--surface2:#F0EEE9;--border:rgba(0,0,0,0.09);
+    --border2:rgba(0,0,0,0.15);--text:#1A1917;--text2:#6B6860;--text3:#A09E99;
+    --accent:#3D35C8;--accent-bg:#EEEDFC;--accent-t:#2D27A0;
+    --green:#1A7F5A;--green-bg:#E8F5EF;--red:#C0392B;--red-bg:#FDEEEC;
+    --amber:#92600A;--amber-bg:#FEF3E2;
+    --radius:10px;--radius-lg:14px;
+    --shadow:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md:0 4px 12px rgba(0,0,0,0.08),0 1px 3px rgba(0,0,0,0.05);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh;display:flex;}
+  .sidebar{width:220px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;}
+  .logo{padding:22px 20px 18px;font-size:16px;font-weight:600;color:var(--text);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;letter-spacing:-0.3px;}
+  .logo-mark{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;}
+  .logo-mark svg{width:16px;height:16px;fill:white;}
+  .nav-group-label{padding:16px 20px 6px;font-size:10px;font-weight:600;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;}
+  .nav-item{padding:9px 16px;margin:1px 8px;border-radius:var(--radius);font-size:13.5px;color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:10px;transition:background 0.15s,color 0.15s;}
+  .nav-item:hover{background:var(--surface2);color:var(--text);}
+  .nav-item.active{background:var(--accent-bg);color:var(--accent-t);font-weight:500;}
+  .nav-pip{width:7px;height:7px;border-radius:50%;background:var(--border2);flex-shrink:0;}
+  .nav-item.active .nav-pip{background:var(--accent);}
+  .sidebar-footer{margin-top:auto;border-top:1px solid var(--border);padding:10px 8px;}
+  .main{flex:1;display:flex;flex-direction:column;min-width:0;}
+  .topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:16px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow);}
+  .tb-left{display:flex;align-items:center;gap:14px;}
+  .tb-title{font-size:15px;font-weight:600;letter-spacing:-0.2px;}
+  .vdivider{width:1px;height:22px;background:var(--border2);}
+  select.discipline-select{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:6px 32px 6px 12px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--surface);color:var(--text);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236B6860' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;transition:border-color 0.15s,box-shadow 0.15s;}
+  select.discipline-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(61,53,200,0.12);}
+  .tb-right{display:flex;align-items:center;gap:10px;}
+  .btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:7px 14px;border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);background:var(--surface);cursor:pointer;transition:background 0.15s;white-space:nowrap;}
+  .btn:hover{background:var(--surface2);}
+  .btn.pri{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .btn.pri:hover{background:#2D27A0;}
+  .avatar{width:32px;height:32px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--accent-t);border:1.5px solid rgba(61,53,200,0.2);cursor:pointer;}
+  .content{flex:1;padding:24px;overflow-y:auto;display:flex;flex-direction:column;gap:20px;}
+  .controls-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  .view-toggle{display:flex;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:3px;gap:2px;}
+  .vt-btn{padding:6px 18px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;border-radius:7px;cursor:pointer;color:var(--text2);border:1px solid transparent;background:transparent;transition:all 0.15s;}
+  .vt-btn.active{background:var(--surface);color:var(--text);font-weight:500;border-color:var(--border2);box-shadow:var(--shadow);}
+  .month-nav{display:flex;align-items:center;gap:10px;}
+  .month-nav span{font-size:13px;font-weight:500;color:var(--text);min-width:100px;text-align:center;font-variant-numeric:tabular-nums;}
+  .arrow{width:30px;height:30px;border:1px solid var(--border2);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--text2);background:var(--surface);transition:background 0.15s;user-select:none;}
+  .arrow:hover{background:var(--surface2);}
+  .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
+  .metric{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;box-shadow:var(--shadow);transition:box-shadow 0.2s;}
+  .metric:hover{box-shadow:var(--shadow-md);}
+  .metric-lbl{font-size:11.5px;color:var(--text2);margin-bottom:8px;font-weight:500;}
+  .metric-val{font-size:22px;font-weight:600;color:var(--text);letter-spacing:-0.5px;font-variant-numeric:tabular-nums;}
+  .metric-sub{font-size:12px;margin-top:5px;}
+  .up{color:var(--green);}.dn{color:var(--red);}.muted{color:var(--text3);}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow);}
+  .card-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+  .card-title{font-size:14px;font-weight:600;letter-spacing:-0.2px;}
+  .card-sub{font-size:12px;color:var(--text3);}
+  .tbl{width:100%;border-collapse:collapse;font-size:13px;}
+  .tbl th{padding:9px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text3);background:var(--surface2);text-transform:uppercase;letter-spacing:0.05em;}
+  .tbl th:first-child{border-radius:6px 0 0 6px;}
+  .tbl th:last-child{border-radius:0 6px 6px 0;}
+  .tbl td{padding:9px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;}
+  .tbl tbody tr:last-child td{border-bottom:none;}
+  .tbl tbody tr:hover td{background:rgba(0,0,0,0.015);}
+  .tbl td.dim{color:var(--text2);}
+  .tbl td.mono{font-family:'DM Mono',monospace;font-size:12.5px;}
+  .vpos{color:var(--green);font-weight:600;font-family:'DM Mono',monospace;font-size:12.5px;}
+  .vneg{color:var(--red);font-weight:600;font-family:'DM Mono',monospace;font-size:12.5px;}
+  .badge{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:500;padding:3px 9px;border-radius:20px;}
+  .badge::before{content:'';width:5px;height:5px;border-radius:50%;}
+  .badge.green{background:var(--green-bg);color:var(--green);}
+  .badge.green::before{background:var(--green);}
+  .badge.amber{background:var(--amber-bg);color:var(--amber);}
+  .badge.amber::before{background:var(--amber);}
+  .badge.red{background:var(--red-bg);color:var(--red);}
+  .badge.red::before{background:var(--red);}
+  .prog-wrap{width:90px;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;}
+  .prog-bar{height:5px;border-radius:3px;transition:width 0.4s ease;}
+  .trend-bars{display:flex;align-items:flex-end;gap:8px;height:90px;}
+  .tb-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
+  .tb-bar-wrap{flex:1;display:flex;align-items:flex-end;gap:3px;width:100%;}
+  .tb-b{flex:1;border-radius:3px 3px 0 0;min-height:2px;}
+  .tb-lbl{font-size:10px;color:var(--text3);font-weight:500;}
+  .health-list{display:flex;flex-direction:column;gap:14px;}
+  .health-top{display:flex;justify-content:space-between;margin-bottom:5px;font-size:12.5px;}
+  .health-name{color:var(--text);font-weight:500;}
+  .health-vals{color:var(--text2);font-family:'DM Mono',monospace;font-size:11.5px;}
+  .health-bar-wrap{height:6px;background:var(--surface2);border-radius:4px;overflow:hidden;}
+  .health-bar{height:6px;border-radius:4px;transition:width 0.5s ease;}
+  .heat-grid{display:grid;gap:4px;}
+  .hg-header{text-align:center;font-size:10px;font-weight:600;color:var(--text3);padding:2px 0;letter-spacing:0.03em;}
+  .hg-label{display:flex;align-items:center;font-size:11px;color:var(--text2);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .hg-cell{height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;font-family:'DM Mono',monospace;cursor:default;transition:transform 0.1s;}
+  .hg-cell:hover{transform:scale(1.1);z-index:1;position:relative;}
+  .legend{display:flex;gap:16px;}
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);}
+  .legend-dot{width:9px;height:9px;border-radius:3px;}
+  .page{display:none;flex-direction:column;gap:18px;}
+  .page.active{display:flex;}
+  #annual-label{font-size:13px;font-weight:500;color:var(--text2);background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:6px 14px;}
+  .entity-tag{display:inline-block;font-size:10px;font-weight:500;padding:1px 6px;border-radius:4px;background:var(--surface2);color:var(--text3);margin-left:6px;vertical-align:middle;}
+  @media(max-width:960px){.grid4{grid-template-columns:repeat(2,1fr);}}.
+  @media(max-width:700px){.sidebar{display:none;}.grid4{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="4" rx="1.5"/><rect x="2" y="8" width="8" height="2" rx="1"/><rect x="2" y="12" width="10" height="2" rx="1"/></svg>
+    </div>
+    BudgetIQ
+  </div>
+  <div class="nav-group-label">Manage</div>
+  <div class="nav-item active"><div class="nav-pip"></div>Dashboard</div>
+  <div class="nav-item"><div class="nav-pip"></div>Budget setup</div>
+  <div class="nav-item"><div class="nav-pip"></div>Upload invoice</div>
+  <div class="nav-item"><div class="nav-pip"></div>Invoice history</div>
+  <div class="sidebar-footer">
+    <div class="nav-item"><div class="nav-pip"></div>Settings</div>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="tb-left">
+      <span class="tb-title">Dashboard</span>
+      <div class="vdivider"></div>
+      <select class="discipline-select" id="disc-select" onchange="onDiscChange()">
+        <option value="all">All entities</option>
+        <option value="bc">B&amp;C Int only</option>
+        <option value="trendiy">Trendiy only</option>
+      </select>
+    </div>
+    <div class="tb-right">
+      <button class="btn" onclick="exportCSV()">Export CSV</button>
+      <div class="avatar">BC</div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="controls-row">
+      <div class="view-toggle">
+        <button class="vt-btn active" id="btn-monthly" onclick="setView('monthly')">Monthly</button>
+        <button class="vt-btn" id="btn-annual" onclick="setView('annual')">Annual</button>
+      </div>
+      <div class="month-nav" id="month-nav">
+        <div class="arrow" onclick="changeMonth(-1)">&#8592;</div>
+        <span id="month-label">January 2026</span>
+        <div class="arrow" onclick="changeMonth(1)">&#8594;</div>
+      </div>
+      <div id="annual-label" style="display:none;">FY 2026 &mdash; Full year overview</div>
+    </div>
+
+    <!-- MONTHLY PAGE -->
+    <div class="page active" id="pg-monthly">
+      <div class="grid4" id="m-metrics"></div>
+      <div style="display:grid;grid-template-columns:3fr 2fr;gap:16px;">
+        <div class="card">
+          <div class="card-hd"><span class="card-title" id="m-table-title">Budget vs actual</span></div>
+          <div style="max-height:420px;overflow-y:auto;">
+            <table class="tbl">
+              <thead><tr><th>Vendor</th><th>Description</th><th>Entity</th><th>Budget</th><th>Status</th></tr></thead>
+              <tbody id="m-table"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><span class="card-title">Top spends this month</span></div>
+          <div class="health-list" id="health-list"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd">
+          <span class="card-title">6-month spend trend</span>
+          <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#D5D3F5;"></div>Budget</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--accent);"></div>Actual spend</div>
+          </div>
+        </div>
+        <div class="trend-bars" id="trend-bars"></div>
+      </div>
+    </div>
+
+    <!-- ANNUAL PAGE -->
+    <div class="page" id="pg-annual">
+      <div class="grid4" id="a-metrics"></div>
+      <div class="card">
+        <div class="card-hd">
+          <span class="card-title">Year-to-date by vendor</span>
+          <span class="card-sub">Forecast = avg monthly spend × 12</span>
+        </div>
+        <div style="max-height:500px;overflow-y:auto;">
+          <table class="tbl">
+            <thead><tr><th>Vendor</th><th>Entity</th><th>Budget/mo</th><th>YTD actual</th><th>YTD variance</th><th>Full-year forecast</th><th>Annual budget</th></tr></thead>
+            <tbody id="a-table"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd">
+          <span class="card-title">Monthly spend heatmap</span>
+          <span class="card-sub">Budget used per vendor per month</span>
+        </div>
+        <div id="heat-grid"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const FULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+let currentMonth=0;
+let currentView='monthly';
+
+const RAW=[
+  {name:"Other / Unforeseen",desc:"",entity:"B&C Int",ytd:[2885,2308,2308,2885,2308,2308,2885,2308,2308,2885,2308,2308]},
+  {name:"Sieval Dedicated Sol",desc:"Woontotaal",entity:"B&C Int",ytd:[2885,2308,2308,2885,2308,2308,2885,2308,2308,2885,2308,2308]},
+  {name:"Lucrasoft Digital BV",desc:"Configurator Karwei",entity:"B&C Int",ytd:[7308,5846,5846,7308,5846,5846,7308,5846,5846,7308,5846,5846]},
+  {name:"Centric Netherlands",desc:"Locus",entity:"Trendiy",ytd:[8919,7135,7135,8919,7135,7135,8919,7135,7135,8919,7135,7135]},
+  {name:"Axians Business Solu",desc:"i-Make",entity:"B&C Int",ytd:[3011,2409,2409,3011,2409,2409,3011,2409,2409,3011,2409,2409]},
+  {name:"InRiver AB",desc:"PIM platform",entity:"B&C Int",ytd:[4381,3505,3505,4381,3505,3505,4381,3505,3505,4381,3505,3505]},
+  {name:"Boomi (CTAC/GEN25)",desc:"SF integrations + Support",entity:"B&C Int",ytd:[962,769,769,962,769,769,962,769,769,962,769,769]},
+  {name:"GS1",desc:"Barcodes & EAN numbers",entity:"Trendiy",ytd:[444,355,355,444,355,355,444,355,355,444,355,355]},
+  {name:"Ctac BV",desc:"WT License & Support + Boomi",entity:"B&C Int",ytd:[10577,8462,8462,10577,8462,8462,10577,8462,8462,10577,8462,8462]},
+  {name:"Caseware Nederland",desc:"",entity:"B&C Int",ytd:[415,332,332,415,332,332,415,332,332,415,332,332]},
+  {name:"AFAS Software BV",desc:"HR system license",entity:"B&C Int",ytd:[3916,3133,3133,3916,3133,3133,3916,3133,3133,3916,3133,3133]},
+  {name:"XICT",desc:"UPS, Airco, PIM+, Maintenance",entity:"B&C Int",ytd:[2404,1923,1923,2404,1923,1923,2404,1923,1923,2404,1923,1923]},
+  {name:"JWS mfp decure printing",desc:"PrintX Go",entity:"B&C Int",ytd:[2115,1692,1692,2115,1692,1692,2115,1692,1692,2115,1692,1692]},
+  {name:"ACA IT solutions",desc:"Support Core switches",entity:"B&C Int",ytd:[481,385,385,481,385,385,481,385,385,481,385,385]},
+  {name:"ECI Software",desc:"Mailing software on I5",entity:"B&C Int",ytd:[159,128,128,159,128,128,159,128,128,159,128,128]},
+  {name:"ExtraVar bv / Yielder",desc:"IBMi Licensing & Support",entity:"B&C Int",ytd:[7243,5794,5794,7243,5794,5794,7243,5794,5794,7243,5794,5794]},
+  {name:"Atlassian Pty Ltd",desc:"Jira software license",entity:"B&C Int",ytd:[207,165,165,207,165,165,207,165,165,207,165,165]},
+  {name:"UNIT4 Emisplz",desc:"",entity:"B&C Int",ytd:[473,378,378,473,378,378,473,378,378,473,378,378]},
+  {name:"D-Basics b.v.",desc:"FIS & Onguard connection",entity:"Other",ytd:[96,77,77,96,77,77,96,77,77,96,77,77]},
+  {name:"Pantheon Automatiser",desc:"Datawarehouse finance",entity:"B&C Int",ytd:[4712,3769,3769,4712,3769,3769,4712,3769,3769,4712,3769,3769]},
+  {name:"Vodafone Libertel BV",desc:"PSTN abonnement analoog",entity:"B&C Int",ytd:[456,365,365,456,365,365,456,365,365,456,365,365]},
+  {name:"Realhosting",desc:"Domain name registration",entity:"B&C Int",ytd:[621,497,497,621,497,497,621,497,497,621,497,497]},
+  {name:"Adobe Systems",desc:"Adobe License",entity:"B&C Int",ytd:[795,636,636,795,636,636,795,636,636,795,636,636]},
+  {name:"Xolphin",desc:"Certificates",entity:"B&C Int",ytd:[75,60,60,75,60,60,75,60,60,75,60,60]},
+  {name:"GTT International",desc:"Network support France",entity:"B&C Int",ytd:[981,785,785,981,785,785,981,785,785,981,785,785]},
+  {name:"Visionplanner BV",desc:"Annual reporting",entity:"B&C Int",ytd:[158,126,126,158,126,126,158,126,126,158,126,126]},
+  {name:"SRC Systems",desc:"DIY solution GS1",entity:"Trendiy",ytd:[2205,1764,1764,2205,1764,1764,2205,1764,1764,2205,1764,1764]},
+  {name:"Basys",desc:"AIP",entity:"B&C Int",ytd:[481,385,385,481,385,385,481,385,385,481,385,385]},
+  {name:"CAI Breednet",desc:"Internet line Fiber",entity:"B&C Int",ytd:[230,184,184,230,184,184,230,184,184,230,184,184]},
+  {name:"Access42 BV",desc:"Nessus Pro",entity:"B&C Int",ytd:[343,274,274,343,274,274,343,274,274,343,274,274]},
+  {name:"Proven Web Concepts",desc:"Giraffes4zebras",entity:"B&C Int",ytd:[29,23,23,29,23,23,29,23,23,29,23,23]},
+  {name:"Bol.com bv",desc:"",entity:"B&C Int",ytd:[29,23,23,29,23,23,29,23,23,29,23,23]},
+  {name:"OnGuard BV",desc:"Collect unpaid bills",entity:"B&C Int",ytd:[1250,1000,1000,1250,1000,1000,1250,1000,1000,1250,1000,1000]},
+  {name:"Capture Tech",desc:"",entity:"B&C Int",ytd:[1375,1100,1100,1375,1100,1100,1375,1100,1100,1375,1100,1100]},
+  {name:"Webstores internet",desc:"Friday Webhosting",entity:"B&C Int",ytd:[0,0,0,0,0,0,0,0,0,0,0,0]},
+  {name:"Whiz-Tec Northern Eu",desc:"I5 Printing/emailing",entity:"B&C Int",ytd:[321,257,257,321,257,257,321,257,257,321,257,257]},
+  {name:"TeamViewer GmbH",desc:"Remote desktop",entity:"B&C Int",ytd:[484,387,387,484,387,387,484,387,387,484,387,387]},
+  {name:"Remain software",desc:"OMS - RPG software",entity:"B&C Int",ytd:[1075,860,860,1075,860,860,1075,860,860,1075,860,860]},
+  {name:"Slimstock BV",desc:"Forecasting Supply chain",entity:"Trendiy",ytd:[2151,1721,1721,2151,1721,1721,2151,1721,1721,2151,1721,1721]},
+  {name:"Previder BV",desc:"Internet lines",entity:"B&C Int",ytd:[1731,1385,1385,1731,1385,1385,1731,1385,1385,1731,1385,1385]},
+  {name:"Allekabels BV",desc:"Hardware - Cables",entity:"B&C Int",ytd:[96,77,77,96,77,77,96,77,77,96,77,77]},
+  {name:"Overhoff Telecommuni",desc:"Alcatel Maintenance SLA",entity:"B&C Int",ytd:[1397,1118,1118,1397,1118,1118,1397,1118,1118,1397,1118,1118]},
+  {name:"Koningh Coding",desc:"Bartender Ent License",entity:"B&C Int",ytd:[60,48,48,60,48,48,60,48,48,60,48,48]},
+  {name:"PCextreme BV",desc:"Linkbuilder / Versio",entity:"B&C Int",ytd:[331,265,265,331,265,265,331,265,265,331,265,265]},
+  {name:"PCI IT",desc:"M-files document management",entity:"B&C Int",ytd:[866,693,693,866,693,693,866,693,693,866,693,693]},
+  {name:"Keizer Karel webdesign",desc:"beceprojects.nl",entity:"B&C Int",ytd:[239,191,191,239,191,191,239,191,191,239,191,191]},
+  {name:"Spotler BV",desc:"Email / newsletters to dealers",entity:"B&C Int",ytd:[512,409,409,512,409,409,512,409,409,512,409,409]},
+  {name:"Think Cell Software",desc:"",entity:"B&C Int",ytd:[25,20,20,25,20,20,25,20,20,25,20,20]},
+  {name:"Fashion Cloud BV",desc:"",entity:"B&C Int",ytd:[279,223,223,279,223,223,279,223,223,279,223,223]},
+  {name:"Microsoft BV",desc:"TBD",entity:"B&C Int",ytd:[1078,862,862,1078,862,862,1078,862,862,1078,862,862]},
+  {name:"PowerOffice AS",desc:"",entity:"B&C Int",ytd:[224,179,179,224,179,179,224,179,179,224,179,179]},
+  {name:"Topdesk",desc:"ITSM ticketing system",entity:"B&C Int",ytd:[1730,1384,1384,1730,1384,1384,1730,1384,1384,1730,1384,1384]},
+  {name:"nShift A/S",desc:"Transport label printing",entity:"B&C Int",ytd:[1507,1205,1205,1507,1205,1205,1507,1205,1205,1507,1205,1205]},
+  {name:"Estunt BV",desc:"",entity:"B&C Int",ytd:[463,370,370,463,370,370,463,370,370,463,370,370]},
+  {name:"CloudCrossing BVBA",desc:"PDF Butler for Boomi/SF",entity:"B&C Int",ytd:[440,352,352,440,352,352,440,352,352,440,352,352]},
+  {name:"CAD2M BV",desc:"Drawing program",entity:"B&C Int",ytd:[673,538,538,673,538,538,673,538,538,673,538,538]},
+  {name:"SynergyIT",desc:"VMware Poland license",entity:"B&C Int",ytd:[0,0,0,0,0,0,0,0,0,0,0,0]},
+  {name:"SFDC Ireland",desc:"Salesforce",entity:"B&C Int",ytd:[9808,7846,7846,9808,7846,7846,9808,7846,7846,9808,7846,7846]},
+  {name:"ISProjects BV",desc:"Automatic invoicing",entity:"B&C Int",ytd:[4231,3385,3385,4231,3385,3385,4231,3385,3385,4231,3385,3385]},
+  {name:"Victa BV",desc:"BI tool",entity:"B&C Int",ytd:[3846,3077,3077,3846,3077,3077,3846,3077,3077,3846,3077,3077]},
+  {name:"SphereMall BV",desc:"Configurator HEMA",entity:"B&C Int",ytd:[16346,13077,13077,16346,13077,13077,16346,13077,13077,16346,13077,13077]},
+  {name:"Descartes Systems",desc:"EDI for Trendiy",entity:"Trendiy",ytd:[1599,1279,1279,1599,1279,1279,1599,1279,1279,1599,1279,1279]},
+  {name:"Koningduller",desc:"FSC Portal / Adeo QMS",entity:"B&C Int",ytd:[986,789,789,986,789,789,986,789,789,986,789,789]},
+  {name:"ARP Nederland BV",desc:"Clearpass + Fortigate",entity:"B&C Int",ytd:[4808,3846,3846,4808,3846,3846,4808,3846,3846,4808,3846,3846]},
+  {name:"Axians Performance",desc:"i5 Development platform",entity:"B&C Int",ytd:[101,81,81,101,81,81,101,81,81,101,81,81]},
+  {name:"LucaNet Benelux BV",desc:"Financial reporting license",entity:"B&C Int",ytd:[4808,3846,3846,4808,3846,3846,4808,3846,3846,4808,3846,3846]},
+  {name:"Giraffes4Zebras",desc:"",entity:"B&C Int",ytd:[36,29,29,36,29,29,36,29,29,36,29,29]},
+  {name:"Trigono AS",desc:"",entity:"B&C Int",ytd:[158,127,127,158,127,127,158,127,127,158,127,127]},
+  {name:"Stila a/s",desc:"",entity:"B&C Int",ytd:[107,85,85,107,85,85,107,85,85,107,85,85]},
+  {name:"Mayker NV",desc:"",entity:"B&C Int",ytd:[1442,1154,1154,1442,1154,1154,1442,1154,1154,1442,1154,1154]},
+  {name:"TNG",desc:"",entity:"B&C Int",ytd:[962,769,769,962,769,769,962,769,769,962,769,769]},
+  {name:"SmartSheet + Consultancy",desc:"",entity:"B&C Int",ytd:[962,769,769,962,769,769,962,769,769,962,769,769]},
+];
+
+function getItems(){
+  const d=document.getElementById('disc-select').value;
+  if(d==='bc') return RAW.filter(r=>r.entity==='B&C Int');
+  if(d==='trendiy') return RAW.filter(r=>r.entity==='Trendiy');
+  return RAW;
+}
+
+function fmt(n){return '€'+Math.round(n).toLocaleString('nl-NL');}
+function pct(a,b){return b?Math.round(a/b*100):0;}
+function barColor(u){return u>100?'var(--red)':u>=80?'var(--amber)':'var(--accent)';}
+function statusBadge(u){
+  if(u>100) return '<span class="badge red">Over budget</span>';
+  if(u>=80)  return '<span class="badge amber">Near limit</span>';
+  return '<span class="badge green">On track</span>';
+}
+function entityTag(e){
+  const c=e==='Trendiy'?'color:#1A7F5A;background:#E8F5EF;':e==='B&C Int'?'color:#2D27A0;background:#EEEDFC;':'';
+  return `<span style="font-size:10px;font-weight:500;padding:1px 6px;border-radius:4px;${c}">${e}</span>`;
+}
+
+function renderMonthly(){
+  const m=currentMonth, items=getItems();
+  document.getElementById('m-table-title').textContent='Budget — '+FULL[m]+' 2026';
+  document.getElementById('month-label').textContent=FULL[m]+' 2026';
+
+  // Since this is a pure budget (no actuals yet), budget = planned spend
+  const totalBudget=items.reduce((s,c)=>s+c.ytd[m],0);
+  const vendors=items.length;
+  const highMonths=items.filter(c=>c.ytd[m]>c.ytd[(m+1)%12]).length;
+
+  document.getElementById('m-metrics').innerHTML=`
+    <div class="metric"><div class="metric-lbl">Total monthly budget</div><div class="metric-val">${fmt(totalBudget)}</div><div class="metric-sub muted">${FULL[m]} 2026</div></div>
+    <div class="metric"><div class="metric-lbl">Active vendors</div><div class="metric-val">${vendors}</div><div class="metric-sub muted">${items.filter(c=>c.ytd[m]>0).length} with spend this month</div></div>
+    <div class="metric"><div class="metric-lbl">B&amp;C Int spend</div><div class="metric-val">${fmt(items.filter(r=>r.entity==='B&C Int').reduce((s,c)=>s+c.ytd[m],0))}</div><div class="metric-sub muted">of total budget</div></div>
+    <div class="metric"><div class="metric-lbl">Trendiy spend</div><div class="metric-val">${fmt(items.filter(r=>r.entity==='Trendiy').reduce((s,c)=>s+c.ytd[m],0))}</div><div class="metric-sub muted">of total budget</div></div>`;
+
+  const sorted=[...items].sort((a,b)=>b.ytd[m]-a.ytd[m]);
+  let rows='';
+  sorted.forEach(c=>{
+    const v=c.ytd[m];
+    if(v===0) return;
+    rows+=`<tr>
+      <td style="font-weight:500;">${c.name}</td>
+      <td class="dim" style="font-size:12px;">${c.desc||'—'}</td>
+      <td>${entityTag(c.entity)}</td>
+      <td class="mono">${fmt(v)}</td>
+      <td><span style="font-size:12px;color:var(--text2);">${Math.round(v/totalBudget*100)}% of total</span></td>
+    </tr>`;
+  });
+  document.getElementById('m-table').innerHTML=rows;
+
+  // Top 8 spends for health bars
+  let healthHTML='';
+  sorted.slice(0,8).forEach(c=>{
+    const v=c.ytd[m], pctOfTotal=Math.round(v/totalBudget*100);
+    healthHTML+=`<div>
+      <div class="health-top"><span class="health-name" style="font-size:12px;">${c.name}</span><span class="health-vals">${fmt(v)}</span></div>
+      <div class="health-bar-wrap"><div class="health-bar" style="width:${pctOfTotal*3}%;background:var(--accent);max-width:100%;"></div></div>
+    </div>`;
+  });
+  document.getElementById('health-list').innerHTML=healthHTML;
+
+  // Trend bars — total budget by month
+  const totByMonth=Array.from({length:12},(_,mi)=>items.reduce((s,c)=>s+c.ytd[mi],0));
+  const trendIdx=[m-5,m-4,m-3,m-2,m-1,m].map(i=>i<0?i+12:i);
+  const vals=trendIdx.map(i=>({m:MONTHS[i],v:totByMonth[i],idx:i}));
+  const maxV=Math.max(...vals.map(d=>d.v),1);
+  let bars='';
+  vals.forEach(d=>{
+    const h=Math.round(d.v/maxV*80);
+    const isActive=d.idx===m;
+    bars+=`<div class="tb-col">
+      <div class="tb-bar-wrap">
+        <div class="tb-b" style="height:${h}px;background:${isActive?'var(--accent)':'#D5D3F5'};opacity:${isActive?1:0.7};width:100%;"></div>
+      </div>
+      <div class="tb-lbl" style="font-weight:${isActive?600:400};color:${isActive?'var(--text)':'var(--text3)'};">${d.m}</div>
+    </div>`;
+  });
+  document.getElementById('trend-bars').innerHTML=bars;
+}
+
+function renderAnnual(){
+  const items=getItems();
+  const annualTotal=items.reduce((s,c)=>s+c.ytd.reduce((a,b)=>a+b,0),0);
+  const avgMonthly=annualTotal/12;
+  const bcTotal=items.filter(r=>r.entity==='B&C Int').reduce((s,c)=>s+c.ytd.reduce((a,b)=>a+b,0),0);
+  const trendiyTotal=items.filter(r=>r.entity==='Trendiy').reduce((s,c)=>s+c.ytd.reduce((a,b)=>a+b,0),0);
+
+  document.getElementById('a-metrics').innerHTML=`
+    <div class="metric"><div class="metric-lbl">Total annual budget</div><div class="metric-val">${fmt(annualTotal)}</div><div class="metric-sub muted">FY 2026</div></div>
+    <div class="metric"><div class="metric-lbl">Avg monthly spend</div><div class="metric-val">${fmt(avgMonthly)}</div><div class="metric-sub muted">Across all vendors</div></div>
+    <div class="metric"><div class="metric-lbl">B&amp;C Int annual</div><div class="metric-val">${fmt(bcTotal)}</div><div class="metric-sub muted">${Math.round(bcTotal/annualTotal*100)}% of total</div></div>
+    <div class="metric"><div class="metric-lbl">Trendiy annual</div><div class="metric-val">${fmt(trendiyTotal)}</div><div class="metric-sub muted">${Math.round(trendiyTotal/annualTotal*100)}% of total</div></div>`;
+
+  const sorted=[...items].sort((a,b)=>b.ytd.reduce((x,y)=>x+y,0)-a.ytd.reduce((x,y)=>x+y,0));
+  let rows='';
+  sorted.forEach(c=>{
+    const annual=c.ytd.reduce((a,b)=>a+b,0);
+    const nonZero=c.ytd.filter(v=>v>0);
+    const avgMo=nonZero.length?nonZero.reduce((a,b)=>a+b,0)/nonZero.length:0;
+    const forecast=Math.round(avgMo*12);
+    if(annual===0) return;
+    rows+=`<tr>
+      <td style="font-weight:500;">${c.name}</td>
+      <td>${entityTag(c.entity)}</td>
+      <td class="mono">${fmt(c.ytd[0])}<span style="font-size:10px;color:var(--text3);"> /mo</span></td>
+      <td class="mono">${fmt(annual)}</td>
+      <td class="vpos">budgeted</td>
+      <td class="mono">${fmt(forecast)}</td>
+      <td class="mono dim">${fmt(annual)}</td>
+    </tr>`;
+  });
+  document.getElementById('a-table').innerHTML=rows;
+
+  // Heatmap
+  const palettes=[
+    ['#E6F1FB','#B5D4F4','#85B7EB','#378ADD','#185FA5'],
+    ['#EEEDFE','#CECBF6','#AFA9EC','#7F77DD','#534AB7'],
+    ['#EAF3DE','#C0DD97','#97C459','#639922','#3B6D11'],
+    ['#FAEEDA','#FAC775','#EF9F27','#BA7517','#854F0B'],
+  ];
+  const txtPal=['#185FA5','#3C3489','#3B6D11','#854F0B'];
+  const topItems=sorted.slice(0,20);
+
+  let hg=`<div class="heat-grid" style="grid-template-columns:160px repeat(12,1fr);">`;
+  hg+=`<div class="hg-header" style="text-align:left;font-size:10px;color:var(--text3);">Vendor</div>`;
+  MONTHS.forEach(m=>{hg+=`<div class="hg-header">${m}</div>`;});
+  const allVals=topItems.flatMap(c=>c.ytd.filter(v=>v>0));
+  const maxVal=Math.max(...allVals,1);
+  topItems.forEach((c,ci)=>{
+    const pal=palettes[ci%4],tc=txtPal[ci%4];
+    const short=c.name.length>22?c.name.slice(0,21)+'…':c.name;
+    hg+=`<div class="hg-label" title="${c.name}">${short}</div>`;
+    c.ytd.forEach(v=>{
+      const r=v/maxVal;
+      let bg,fc,lbl;
+      if(v===0){bg='var(--surface2)';fc='var(--text3)';lbl='';}
+      else if(r>0.8){bg=pal[4];fc='#fff';lbl=fmt(v).replace('€','');}
+      else if(r>0.6){bg=pal[3];fc='#fff';lbl=fmt(v).replace('€','');}
+      else if(r>0.4){bg=pal[2];fc=tc;lbl=fmt(v).replace('€','');}
+      else if(r>0.2){bg=pal[1];fc=tc;lbl=fmt(v).replace('€','');}
+      else{bg=pal[0];fc=tc;lbl=fmt(v).replace('€','');}
+      hg+=`<div class="hg-cell" style="background:${bg};color:${fc};font-size:9px;" title="${c.name}: ${fmt(v)}">${lbl}</div>`;
+    });
+  });
+  hg+='</div>';
+  document.getElementById('heat-grid').innerHTML=hg;
+}
+
+function setView(v){
+  currentView=v;
+  document.getElementById('btn-monthly').classList.toggle('active',v==='monthly');
+  document.getElementById('btn-annual').classList.toggle('active',v==='annual');
+  document.getElementById('pg-monthly').style.display=v==='monthly'?'flex':'none';
+  document.getElementById('pg-annual').style.display=v==='annual'?'flex':'none';
+  document.getElementById('month-nav').style.display=v==='monthly'?'flex':'none';
+  document.getElementById('annual-label').style.display=v==='annual'?'block':'none';
+  if(v==='monthly') renderMonthly(); else renderAnnual();
+}
+
+function changeMonth(d){
+  currentMonth=Math.max(0,Math.min(11,currentMonth+d));
+  renderMonthly();
+}
+function onDiscChange(){
+  if(currentView==='monthly') renderMonthly(); else renderAnnual();
+}
+
+function exportCSV(){
+  const items=getItems(), m=currentMonth;
+  let csv='Vendor,Description,Entity,Budget ('+FULL[m]+')\n';
+  [...items].sort((a,b)=>b.ytd[m]-a.ytd[m]).forEach(c=>{
+    csv+=`"${c.name}","${c.desc}","${c.entity}",${c.ytd[m]}\n`;
+  });
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='budget-'+FULL[m]+'-2026.csv';
+  a.click();
+}
+
+document.getElementById('pg-monthly').style.display='flex';
+document.getElementById('pg-annual').style.display='none';
+renderMonthly();
+</script>
+</body>
+</html>

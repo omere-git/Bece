@@ -3,102 +3,153 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BudgetIQ — B&C Dashboard</title>
+<title>Forecast & Invoice Control — B&C International</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#F5F4F0;--surface:#FFF;--surface2:#F0EEE9;--border:rgba(0,0,0,0.09);--border2:rgba(0,0,0,0.15);--text:#1A1917;--text2:#6B6860;--text3:#A09E99;--accent:#3D35C8;--accent-bg:#EEEDFC;--accent-t:#2D27A0;--green:#1A7F5A;--green-bg:#E8F5EF;--red:#C0392B;--red-bg:#FDEEEC;--amber:#92600A;--amber-bg:#FEF3E2;--radius:10px;--radius-lg:14px;--shadow:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);--shadow-md:0 4px 12px rgba(0,0,0,0.08),0 1px 3px rgba(0,0,0,0.05);}
+  :root {
+    --navy:#1B2E3C;--navy2:#243d50;--navy3:#2e4f66;
+    --cream:#F5F0E8;--cream2:#EDE7D9;--cream3:#E0D8C8;
+    --surface:#FFFFFF;--surface2:#F8F6F2;
+    --border:rgba(27,46,60,0.1);--border2:rgba(27,46,60,0.2);
+    --text:#1B2E3C;--text2:#4A6070;--text3:#8A9EAD;
+    --accent:#1B2E3C;--accent-bg:#EBF0F4;--accent-t:#1B2E3C;
+    --green:#2D7A5F;--green-bg:#EAF4EF;
+    --red:#B83C2B;--red-bg:#FAF0EE;
+    --amber:#9A6B1A;--amber-bg:#FBF4E6;
+    --radius:8px;--radius-lg:12px;
+    --shadow:0 1px 4px rgba(27,46,60,0.08),0 1px 2px rgba(27,46,60,0.05);
+    --shadow-md:0 4px 16px rgba(27,46,60,0.12),0 2px 4px rgba(27,46,60,0.06);
+  }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh;display:flex;}
-  .sidebar{width:220px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;}
-  .logo{padding:22px 20px 18px;font-size:16px;font-weight:600;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;letter-spacing:-0.3px;}
-  .logo-mark{width:30px;height:30px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;}
-  .logo-mark svg{width:16px;height:16px;fill:white;}
-  .nav-section{padding:16px 20px 6px;font-size:10px;font-weight:600;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;}
-  .nav-item{padding:9px 16px;margin:1px 8px;border-radius:var(--radius);font-size:13.5px;color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:10px;transition:background 0.15s,color 0.15s;}
-  .nav-item:hover{background:var(--surface2);color:var(--text);}
-  .nav-item.active{background:var(--accent-bg);color:var(--accent-t);font-weight:500;}
-  .nav-pip{width:7px;height:7px;border-radius:50%;background:var(--border2);flex-shrink:0;}
-  .nav-item.active .nav-pip{background:var(--accent);}
-  .sidebar-footer{margin-top:auto;border-top:1px solid var(--border);padding:10px 8px;}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:14px;min-height:100vh;display:flex;}
+
+  /* ── SIDEBAR ── */
+  .sidebar{width:240px;flex-shrink:0;background:var(--navy);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;}
+  .logo{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:12px;}
+  .logo-svg{flex-shrink:0;}
+  .logo-text{display:flex;flex-direction:column;}
+  .logo-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:#fff;letter-spacing:0.02em;line-height:1.1;}
+  .logo-sub{font-size:9px;font-weight:500;color:rgba(255,255,255,0.45);letter-spacing:0.15em;text-transform:uppercase;margin-top:2px;}
+  .app-name{padding:16px 20px 8px;font-size:10px;font-weight:600;color:rgba(255,255,255,0.35);letter-spacing:0.12em;text-transform:uppercase;}
+  .nav-section{padding:14px 20px 5px;font-size:9px;font-weight:600;color:rgba(255,255,255,0.3);letter-spacing:0.1em;text-transform:uppercase;}
+  .nav-item{padding:9px 16px;margin:1px 10px;border-radius:6px;font-size:13px;color:rgba(255,255,255,0.6);cursor:pointer;display:flex;align-items:center;gap:10px;transition:all 0.15s;}
+  .nav-item:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
+  .nav-item.active{background:rgba(255,255,255,0.12);color:#fff;font-weight:500;}
+  .nav-pip{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.25);flex-shrink:0;}
+  .nav-item.active .nav-pip{background:var(--cream2);}
+  .sidebar-footer{margin-top:auto;border-top:1px solid rgba(255,255,255,0.1);padding:12px 10px;}
+  .sidebar-version{padding:8px 16px;font-size:10px;color:rgba(255,255,255,0.25);letter-spacing:0.05em;}
+
+  /* ── TOPBAR ── */
   .main{flex:1;display:flex;flex-direction:column;min-width:0;}
-  .topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:16px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow);}
+  .topbar{height:58px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;gap:16px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow);}
   .tb-left{display:flex;align-items:center;gap:14px;}
-  .tb-title{font-size:15px;font-weight:600;letter-spacing:-0.2px;}
+  .tb-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:var(--navy);letter-spacing:0.01em;}
   .vdivider{width:1px;height:22px;background:var(--border2);}
-  select.disc-sel{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:6px 32px 6px 12px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--surface);color:var(--text);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236B6860' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;}
-  select.disc-sel:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(61,53,200,0.1);}
+  select.disc-sel{font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 30px 6px 12px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--surface);color:var(--text);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234A6070' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;}
+  select.disc-sel:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(27,46,60,0.1);}
   .tb-right{display:flex;align-items:center;gap:10px;}
-  .btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:7px 14px;border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);background:var(--surface);cursor:pointer;transition:background 0.15s;white-space:nowrap;}
-  .btn:hover{background:var(--surface2);}
-  .btn.pri{background:var(--accent);border-color:var(--accent);color:#fff;}
-  .btn.pri:hover{background:#2D27A0;}
+  .btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:7px 14px;border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);background:var(--surface);cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+  .btn:hover{background:var(--surface2);border-color:var(--navy);}
+  .btn.pri{background:var(--navy);border-color:var(--navy);color:#fff;}
+  .btn.pri:hover{background:var(--navy2);}
+  .btn.sec{background:var(--cream2);border-color:var(--cream3);color:var(--navy);}
+  .btn.sec:hover{background:var(--cream3);}
   .btn.danger{background:var(--red-bg);border-color:var(--red);color:var(--red);}
-  .btn.success{background:var(--green-bg);border-color:var(--green);color:var(--green);}
-  .avatar{width:32px;height:32px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--accent-t);border:1.5px solid rgba(61,53,200,0.2);cursor:pointer;}
-  .content{flex:1;padding:24px;overflow-y:auto;display:flex;flex-direction:column;gap:20px;}
-  .page{display:none;flex-direction:column;gap:18px;}
+  .avatar{width:32px;height:32px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;cursor:pointer;}
+
+  /* ── CONTENT ── */
+  .content{flex:1;padding:28px;overflow-y:auto;display:flex;flex-direction:column;gap:22px;}
+  .page{display:none;flex-direction:column;gap:20px;}
   .page.active{display:flex;}
-  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow);}
+
+  /* ── CARDS ── */
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow);}
   .card-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
-  .card-title{font-size:14px;font-weight:600;letter-spacing:-0.2px;}
+  .card-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--navy);letter-spacing:0.01em;}
   .card-sub{font-size:12px;color:var(--text3);}
+  .card.navy{background:var(--navy);border-color:var(--navy);}
+  .card.cream{background:var(--cream2);border-color:var(--cream3);}
+
+  /* ── METRICS ── */
   .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
   .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
-  .metric{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px;box-shadow:var(--shadow);}
-  .metric-lbl{font-size:11.5px;color:var(--text2);margin-bottom:8px;font-weight:500;}
-  .metric-val{font-size:22px;font-weight:600;letter-spacing:-0.5px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .metric{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow);transition:box-shadow 0.2s;}
+  .metric:hover{box-shadow:var(--shadow-md);}
+  .metric-lbl{font-size:11px;color:var(--text3);margin-bottom:8px;font-weight:500;letter-spacing:0.03em;text-transform:uppercase;}
+  .metric-val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;color:var(--navy);letter-spacing:-0.5px;}
   .metric-sub{font-size:12px;margin-top:5px;}
   .up{color:var(--green);}.dn{color:var(--red);}.warn{color:var(--amber);}.muted{color:var(--text3);}
+
+  /* ── TABLE ── */
   .tbl{width:100%;border-collapse:collapse;font-size:13px;}
-  .tbl th{padding:9px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text3);background:var(--surface2);text-transform:uppercase;letter-spacing:0.05em;}
+  .tbl th{padding:9px 14px;text-align:left;font-size:10px;font-weight:600;color:var(--text3);background:var(--surface2);text-transform:uppercase;letter-spacing:0.06em;}
   .tbl th:first-child{border-radius:6px 0 0 6px;}
   .tbl th:last-child{border-radius:0 6px 6px 0;}
-  .tbl td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:middle;}
+  .tbl td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle;}
   .tbl tbody tr:last-child td{border-bottom:none;}
-  .tbl tbody tr:hover td{background:rgba(0,0,0,0.015);}
+  .tbl tbody tr:hover td{background:var(--surface2);}
   .tbl td.dim{color:var(--text2);}
   .tbl td.mono{font-family:'DM Mono',monospace;font-size:12.5px;}
   .vpos{color:var(--green);font-weight:600;font-family:'DM Mono',monospace;font-size:12.5px;}
   .vneg{color:var(--red);font-weight:600;font-family:'DM Mono',monospace;font-size:12.5px;}
-  .badge{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:500;padding:3px 9px;border-radius:20px;}
+
+  /* ── BADGES ── */
+  .badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;}
   .badge::before{content:'';width:5px;height:5px;border-radius:50%;}
   .badge.green{background:var(--green-bg);color:var(--green);}.badge.green::before{background:var(--green);}
   .badge.amber{background:var(--amber-bg);color:var(--amber);}.badge.amber::before{background:var(--amber);}
   .badge.red{background:var(--red-bg);color:var(--red);}.badge.red::before{background:var(--red);}
-  .badge.blue{background:var(--accent-bg);color:var(--accent-t);}.badge.blue::before{background:var(--accent);}
-  .prog-wrap{width:90px;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;}
-  .prog-bar{height:5px;border-radius:3px;}
-  .controls-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
-  .view-toggle{display:flex;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:3px;gap:2px;}
-  .vt-btn{padding:6px 18px;font-family:'DM Sans',sans-serif;font-size:13px;border-radius:7px;cursor:pointer;color:var(--text2);border:1px solid transparent;background:transparent;transition:all 0.15s;}
-  .vt-btn.active{background:var(--surface);color:var(--text);font-weight:500;border-color:var(--border2);box-shadow:var(--shadow);}
-  .month-nav{display:flex;align-items:center;gap:10px;}
-  .month-nav span{font-size:13px;font-weight:500;min-width:100px;text-align:center;}
-  .arrow{width:30px;height:30px;border:1px solid var(--border2);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--text2);background:var(--surface);transition:background 0.15s;user-select:none;}
-  .arrow:hover{background:var(--surface2);}
-  #annual-label{font-size:13px;font-weight:500;color:var(--text2);background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:6px 14px;}
-  .upload-zone{border:2px dashed var(--border2);border-radius:var(--radius-lg);padding:36px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--surface2);cursor:pointer;transition:border-color 0.2s,background 0.2s;}
-  .upload-zone:hover,.upload-zone.drag{border-color:var(--accent);background:var(--accent-bg);}
+  .badge.navy{background:var(--accent-bg);color:var(--navy);}.badge.navy::before{background:var(--navy);}
+
+  /* ── PROGRESS ── */
+  .prog-wrap{width:90px;height:4px;background:var(--cream2);border-radius:3px;overflow:hidden;}
+  .prog-bar{height:4px;border-radius:3px;}
+
+  /* ── UPLOAD ZONE ── */
+  .upload-zone{border:2px dashed var(--border2);border-radius:var(--radius-lg);padding:36px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--surface2);cursor:pointer;transition:all 0.2s;}
+  .upload-zone:hover,.upload-zone.drag{border-color:var(--navy);background:var(--cream2);}
   .upload-icon{width:44px;height:44px;border-radius:50%;background:var(--surface);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;}
-  .upload-icon svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;}
+  .upload-icon svg{width:20px;height:20px;stroke:var(--navy);fill:none;stroke-width:1.8;stroke-linecap:round;}
+
+  /* ── FORM ── */
   .field-row{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
-  .field-label{font-size:12px;font-weight:500;color:var(--text2);}
-  .field-input{font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 12px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--surface);color:var(--text);transition:border-color 0.15s,box-shadow 0.15s;width:100%;}
-  .field-input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(61,53,200,0.1);}
-  .field-input.ai-filled{background:var(--accent-bg);border-color:rgba(61,53,200,0.3);}
+  .field-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.04em;}
+  .field-input{font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 12px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--surface);color:var(--text);transition:all 0.15s;width:100%;}
+  .field-input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(27,46,60,0.08);}
+  .field-input.ai-filled{background:#EBF0F4;border-color:rgba(27,46,60,0.3);}
+
+  /* ── RESULTS ── */
   .result-box{border-radius:var(--radius-lg);padding:14px 16px;display:flex;gap:12px;align-items:flex-start;}
-  .result-box.ok{background:var(--green-bg);border:1px solid #97C459;}
-  .result-box.breach{background:var(--red-bg);border:1px solid #F09595;}
-  .result-box.warn{background:var(--amber-bg);border:1px solid #FAC775;}
+  .result-box.ok{background:var(--green-bg);border:1px solid #90CDAF;}
+  .result-box.breach{background:var(--red-bg);border:1px solid #E8A090;}
+  .result-box.warn{background:var(--amber-bg);border:1px solid #DDB870;}
   .result-icon{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
-  .result-icon.ok{background:#C0DD97;}
-  .result-icon.breach{background:#F7C1C1;}
-  .result-icon.warn{background:#FAC775;}
+  .result-icon.ok{background:#B8E4CC;}.result-icon.breach{background:#F2C0B0;}.result-icon.warn{background:#F2D8A0;}
+
+  /* ── AI ── */
   .ai-thinking{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2);padding:10px 0;}
-  .spinner{width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
+  .spinner{width:16px;height:16px;border:2px solid var(--border2);border-top-color:var(--navy);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0;}
   @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* ── CHAT ── */
+  .chat-wrap{display:flex;flex-direction:column;gap:12px;max-height:420px;overflow-y:auto;padding:4px 0;}
+  .chat-msg{display:flex;gap:10px;align-items:flex-start;}
+  .chat-msg.user{flex-direction:row-reverse;}
+  .chat-bubble{max-width:80%;padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.6;}
+  .chat-bubble.user{background:var(--navy);color:#fff;border-radius:12px 12px 2px 12px;}
+  .chat-bubble.ai{background:var(--surface2);color:var(--text);border-radius:12px 12px 12px 2px;border:1px solid var(--border);}
+  .chat-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;}
+  .chat-avatar.user{background:var(--navy);color:#fff;}
+  .chat-avatar.ai{background:var(--cream2);color:var(--navy);}
+  .chat-input-row{display:flex;gap:10px;margin-top:12px;}
+  .chat-input{flex:1;font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 14px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--surface);color:var(--text);}
+  .chat-input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(27,46,60,0.08);}
+
+  /* ── TREND ── */
   .trend-bars{display:flex;align-items:flex-end;gap:8px;height:90px;}
   .tb-col{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;}
   .tb-bar-wrap{flex:1;display:flex;align-items:flex-end;gap:3px;width:100%;}
@@ -107,48 +158,74 @@
   .legend{display:flex;gap:16px;}
   .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);}
   .legend-dot{width:9px;height:9px;border-radius:3px;}
+
+  /* ── HEATMAP ── */
   .heat-grid{display:grid;gap:4px;}
   .hg-header{text-align:center;font-size:10px;font-weight:600;color:var(--text3);padding:2px 0;}
   .hg-label{display:flex;align-items:center;font-size:11px;color:var(--text2);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .hg-cell{height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;font-family:'DM Mono',monospace;cursor:default;}
   .hg-cell:hover{transform:scale(1.1);z-index:1;position:relative;}
-  .contract-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;display:flex;gap:14px;align-items:flex-start;}
-  .contract-icon{width:38px;height:38px;border-radius:8px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-  .contract-match-ok{color:var(--green);font-weight:600;}
-  .contract-match-warn{color:var(--red);font-weight:600;}
-  .forecast-bar-wrap{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden;margin-top:4px;}
-  .forecast-bar{height:8px;border-radius:4px;}
-  @media(max-width:960px){.grid4{grid-template-columns:repeat(2,1fr);}.grid3{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:700px){.sidebar{display:none;}.grid4{grid-template-columns:1fr 1fr;}}
 
-  /* PRINT STYLES FOR REPORT */
-  @media print{
-    .sidebar,.topbar,.no-print{display:none!important;}
-    .main{display:block;}
-    .content{padding:0;}
-    .page{display:flex!important;}
-    body{background:#fff;}
-    .card{box-shadow:none;border:1px solid #ddd;}
-  }
+  /* ── CALENDAR ── */
+  .renewal-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--surface);margin-bottom:8px;}
+  .renewal-days{width:52px;height:52px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;font-weight:600;}
+  .renewal-days .num{font-family:'Cormorant Garamond',serif;font-size:22px;line-height:1;}
+  .renewal-days .lbl{font-size:9px;text-transform:uppercase;letter-spacing:0.05em;margin-top:1px;}
+
+  /* ── CONTRACT ── */
+  .contract-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;display:flex;gap:14px;align-items:flex-start;margin-bottom:8px;}
+  .contract-icon{width:38px;height:38px;border-radius:8px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+
+  /* ── CONTROLS ── */
+  .controls-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  .view-toggle{display:flex;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:3px;gap:2px;}
+  .vt-btn{padding:6px 18px;font-family:'DM Sans',sans-serif;font-size:13px;border-radius:6px;cursor:pointer;color:var(--text2);border:1px solid transparent;background:transparent;transition:all 0.15s;}
+  .vt-btn.active{background:var(--navy);color:#fff;font-weight:500;box-shadow:var(--shadow);}
+  .month-nav{display:flex;align-items:center;gap:10px;}
+  .month-nav span{font-size:13px;font-weight:500;min-width:110px;text-align:center;color:var(--text);}
+  .arrow{width:30px;height:30px;border:1px solid var(--border2);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--text2);background:var(--surface);transition:background 0.15s;user-select:none;}
+  .arrow:hover{background:var(--surface2);}
+  #annual-label{font-size:13px;font-weight:500;color:var(--text2);background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:6px 14px;}
+
+  /* ── ENTITY TAGS ── */
+  .etag-bc{font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px;background:#EBF0F4;color:var(--navy);}
+  .etag-tr{font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px;background:var(--green-bg);color:var(--green);}
+  .etag-ot{font-size:10px;font-weight:500;padding:2px 7px;border-radius:4px;background:var(--cream2);color:var(--text2);}
+
+  @media(max-width:960px){.grid4{grid-template-columns:repeat(2,1fr);}.grid2{grid-template-columns:1fr;}}
+  @media(max-width:700px){.sidebar{display:none;}.grid4{grid-template-columns:1fr 1fr;}}
+  @media print{.sidebar,.topbar,.no-print{display:none!important;}.main{display:block;}.content{padding:0;}.page{display:flex!important;}body{background:#fff;}.card{box-shadow:none;}}
 </style>
 </head>
 <body>
 
 <aside class="sidebar">
+  <!-- B&C International SVG Logo -->
   <div class="logo">
-    <div class="logo-mark"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="4" rx="1.5"/><rect x="2" y="8" width="8" height="2" rx="1"/><rect x="2" y="12" width="10" height="2" rx="1"/></svg></div>
-    BudgetIQ
+    <svg class="logo-svg" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="18" cy="18" r="17" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+      <circle cx="18" cy="18" r="17" fill="rgba(255,255,255,0.08)"/>
+      <path d="M18 28 L18 8 M18 8 L12 14 M18 8 L24 14" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="logo-text">
+      <div class="logo-name">B&amp;C International</div>
+      <div class="logo-sub">Forecast &amp; Invoice Control</div>
+    </div>
   </div>
   <div class="nav-section">Manage</div>
   <div class="nav-item active" onclick="showPage('dashboard')"><div class="nav-pip"></div>Dashboard</div>
   <div class="nav-item" onclick="showPage('upload')"><div class="nav-pip"></div>Upload invoice</div>
-  <div class="nav-item" onclick="showPage('log')"><div class="nav-pip"></div>Invoice log <span id="log-count-badge" style="display:none;margin-left:auto;font-size:10px;font-weight:600;background:var(--accent);color:#fff;padding:1px 6px;border-radius:10px;"></span></div>
+  <div class="nav-item" onclick="showPage('log')"><div class="nav-pip"></div>Invoice log <span id="log-count-badge" style="display:none;margin-left:auto;font-size:10px;font-weight:600;background:var(--cream2);color:var(--navy);padding:1px 6px;border-radius:10px;"></span></div>
   <div class="nav-section">Reports</div>
   <div class="nav-item" onclick="showPage('monthly-report')"><div class="nav-pip"></div>Monthly report</div>
   <div class="nav-item" onclick="showPage('forecast')"><div class="nav-pip"></div>Year-end forecast</div>
-  <div class="nav-item" onclick="showPage('contracts')"><div class="nav-pip"></div>Vendor contracts <span id="contract-count-badge" style="display:none;margin-left:auto;font-size:10px;font-weight:600;background:var(--green);color:#fff;padding:1px 6px;border-radius:10px;"></span></div>
+  <div class="nav-item" onclick="showPage('contracts')"><div class="nav-pip"></div>Vendor contracts <span id="contract-count-badge" style="display:none;margin-left:auto;font-size:10px;font-weight:600;background:var(--cream2);color:var(--navy);padding:1px 6px;border-radius:10px;"></span></div>
+  <div class="nav-section">Intelligence</div>
+  <div class="nav-item" onclick="showPage('chat')"><div class="nav-pip"></div>Ask your budget</div>
+  <div class="nav-item" onclick="showPage('renewals')"><div class="nav-pip"></div>Renewal calendar <span id="renewal-badge" style="display:none;margin-left:auto;font-size:10px;font-weight:600;background:#F2D8A0;color:#7A4E0A;padding:1px 6px;border-radius:10px;"></span></div>
   <div class="sidebar-footer">
     <div class="nav-item"><div class="nav-pip"></div>Settings</div>
+    <div class="sidebar-version">FIC v2.0 · B&amp;C International</div>
   </div>
 </aside>
 
@@ -165,15 +242,15 @@
     </div>
     <div class="tb-right no-print">
       <button class="btn pri" onclick="showPage('upload')">+ Upload invoice</button>
-      <button class="btn" id="export-btn" onclick="exportCSV()" style="display:none">Export CSV</button>
-      <button class="btn success" id="print-btn" onclick="window.print()" style="display:none">Print / PDF</button>
+      <button class="btn sec" id="export-btn" onclick="exportCSV()" style="display:none">Export CSV</button>
+      <button class="btn sec" id="print-btn" onclick="window.print()" style="display:none">Print / PDF</button>
       <div class="avatar">BC</div>
     </div>
   </header>
 
   <main class="content">
 
-    <!-- ══════════════════════ DASHBOARD ══════════════════════ -->
+    <!-- ══════════════ DASHBOARD ══════════════ -->
     <div class="page active" id="pg-dashboard">
       <div class="controls-row">
         <div class="view-toggle">
@@ -185,11 +262,11 @@
           <span id="month-label">January 2026</span>
           <div class="arrow" onclick="changeMonth(1)">&#8594;</div>
         </div>
-        <div id="annual-label" style="display:none;">FY 2026 &mdash; Full year overview</div>
+        <div id="annual-label" style="display:none;">FY 2026 — Full year overview</div>
       </div>
       <div id="sub-monthly" style="display:flex;flex-direction:column;gap:18px;">
         <div class="grid4" id="m-metrics"></div>
-        <div style="display:grid;grid-template-columns:3fr 2fr;gap:16px;">
+        <div class="grid2">
           <div class="card">
             <div class="card-hd"><span class="card-title" id="m-table-title">Budget</span></div>
             <div style="max-height:400px;overflow-y:auto;">
@@ -198,11 +275,11 @@
           </div>
           <div class="card">
             <div class="card-hd"><span class="card-title">Top spends</span></div>
-            <div id="health-list" style="display:flex;flex-direction:column;gap:12px;"></div>
+            <div id="health-list" style="display:flex;flex-direction:column;gap:13px;"></div>
           </div>
         </div>
         <div class="card">
-          <div class="card-hd"><span class="card-title">6-month trend</span><div class="legend"><div class="legend-item"><div class="legend-dot" style="background:#D5D3F5;"></div>Budget</div><div class="legend-item"><div class="legend-dot" style="background:var(--accent);"></div>Invoiced</div></div></div>
+          <div class="card-hd"><span class="card-title">6-month trend</span><div class="legend"><div class="legend-item"><div class="legend-dot" style="background:var(--cream3);"></div>Budget</div><div class="legend-item"><div class="legend-dot" style="background:var(--navy);"></div>Invoiced</div></div></div>
           <div class="trend-bars" id="trend-bars"></div>
         </div>
       </div>
@@ -221,22 +298,22 @@
       </div>
     </div>
 
-    <!-- ══════════════════════ UPLOAD ═════════════════════════ -->
+    <!-- ══════════════ UPLOAD ══════════════ -->
     <div class="page" id="pg-upload">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div class="grid2">
         <div style="display:flex;flex-direction:column;gap:16px;">
           <div class="card">
             <div class="card-hd"><span class="card-title">Upload invoice</span></div>
             <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleDrop(event)">
               <div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-              <div style="font-size:14px;font-weight:600;">Drop invoice here or click to browse</div>
-              <div style="font-size:12px;color:var(--text2);text-align:center;">PNG, JPG screenshot or PDF<br>AI reads vendor, amount &amp; date automatically</div>
+              <div style="font-size:14px;font-weight:600;color:var(--navy);">Drop invoice here or click to browse</div>
+              <div style="font-size:12px;color:var(--text2);text-align:center;">PNG, JPG screenshot or PDF · AI reads all details automatically</div>
             </div>
             <input type="file" id="file-input" accept="image/*,.pdf" style="display:none" onchange="handleFile(this.files[0])">
-            <div id="preview-wrap" style="display:none;margin-top:12px;text-align:center;"><img id="preview-img" style="max-width:100%;max-height:260px;border-radius:var(--radius);border:1px solid var(--border);object-fit:contain;" src="" alt=""></div>
+            <div id="preview-wrap" style="display:none;margin-top:14px;text-align:center;"><img id="preview-img" style="max-width:100%;max-height:240px;border-radius:var(--radius);border:1px solid var(--border);object-fit:contain;" src="" alt=""></div>
           </div>
           <div class="card">
-            <div class="card-hd"><span class="card-title">Invoice details</span><span class="card-sub" id="ai-status" style="color:var(--green);"></span></div>
+            <div class="card-hd"><span class="card-title">Invoice details</span><span style="font-size:12px;color:var(--green);" id="ai-status"></span></div>
             <div id="ai-thinking-row" style="display:none;" class="ai-thinking"><div class="spinner"></div><span>AI is reading your invoice…</span></div>
             <div class="field-row"><div class="field-label">Vendor name</div><input class="field-input" id="f-vendor" type="text" placeholder="Auto-detected…"></div>
             <div class="field-row"><div class="field-label">Invoice amount (€)</div><input class="field-input" id="f-amount" type="number" placeholder="Auto-detected…"></div>
@@ -253,106 +330,139 @@
       </div>
     </div>
 
-    <!-- ══════════════════════ INVOICE LOG ════════════════════ -->
+    <!-- ══════════════ INVOICE LOG ══════════════ -->
     <div class="page" id="pg-log">
       <div class="grid4" id="log-metrics"></div>
       <div class="card">
-        <div class="card-hd"><span class="card-title">Invoice log</span><div style="display:flex;gap:8px;"><button class="btn" onclick="exportLog()">Export CSV</button><button class="btn danger" onclick="clearLog()">Clear log</button></div></div>
-        <div id="log-table-wrap"><div style="text-align:center;padding:40px;color:var(--text3);font-size:13px;">No invoices yet. Go to <strong>Upload invoice</strong> to get started.</div></div>
+        <div class="card-hd"><span class="card-title">Invoice log</span><div style="display:flex;gap:8px;"><button class="btn sec" onclick="exportLog()">Export CSV</button><button class="btn danger" onclick="clearLog()">Clear log</button></div></div>
+        <div id="log-table-wrap"><div style="text-align:center;padding:40px;color:var(--text3);font-size:13px;">No invoices yet.</div></div>
       </div>
     </div>
 
-    <!-- ══════════════════════ MONTHLY REPORT ═════════════════ -->
+    <!-- ══════════════ MONTHLY REPORT ══════════════ -->
     <div class="page" id="pg-monthly-report">
       <div class="controls-row">
-        <div>
-          <div style="font-size:13px;color:var(--text2);margin-bottom:6px;">Select month</div>
-          <div class="month-nav">
-            <div class="arrow" onclick="changeReportMonth(-1)">&#8592;</div>
-            <span id="report-month-label">January 2026</span>
-            <div class="arrow" onclick="changeReportMonth(1)">&#8594;</div>
-          </div>
+        <div class="month-nav">
+          <div class="arrow" onclick="changeReportMonth(-1)">&#8592;</div>
+          <span id="report-month-label">January 2026</span>
+          <div class="arrow" onclick="changeReportMonth(1)">&#8594;</div>
         </div>
         <div style="display:flex;gap:10px;">
-          <button class="btn success" onclick="window.print()">Print / Save as PDF</button>
-          <button class="btn" onclick="exportReportCSV()">Export CSV</button>
+          <button class="btn sec" onclick="window.print()">Print / Save PDF</button>
+          <button class="btn sec" onclick="exportReportCSV()">Export CSV</button>
         </div>
       </div>
-
-      <!-- REPORT CONTENT (also rendered on print) -->
-      <div id="report-content">
-        <div class="card" style="border-left:4px solid var(--accent);">
-          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-            <div>
-              <div style="font-size:20px;font-weight:600;letter-spacing:-0.5px;" id="rpt-title">Budget vs Actual — January 2026</div>
-              <div style="font-size:13px;color:var(--text2);margin-top:4px;">B&amp;C Group IT Budget · Generated <span id="rpt-date"></span></div>
-            </div>
-            <div style="text-align:right;">
-              <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;">Entity</div>
-              <div style="font-size:13px;font-weight:500;" id="rpt-entity">All entities</div>
-            </div>
+      <div class="card" style="border-left:4px solid var(--navy);">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--navy);" id="rpt-title">Budget vs Actual — January 2026</div>
+            <div style="font-size:13px;color:var(--text2);margin-top:4px;">B&amp;C International · IT Budget · Generated <span id="rpt-date"></span></div>
           </div>
+          <svg width="80" height="32" viewBox="0 0 120 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#1B2E3C" stroke-width="2"/><path d="M24 36 L24 12 M24 12 L16 20 M24 12 L32 20" stroke="#1B2E3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><text x="52" y="20" font-family="sans-serif" font-size="13" font-weight="700" fill="#1B2E3C">B&amp;C</text><text x="52" y="34" font-family="sans-serif" font-size="8" letter-spacing="2" fill="#4A6070">INTERNATIONAL</text></svg>
         </div>
-        <div class="grid4" id="rpt-metrics"></div>
-        <div class="card">
-          <div class="card-hd"><span class="card-title">Budget vs actual by vendor</span></div>
-          <table class="tbl"><thead><tr><th>Vendor</th><th>Entity</th><th>Description</th><th>Budget</th><th>Invoiced</th><th>Remaining</th><th>% used</th><th>Status</th></tr></thead><tbody id="rpt-table"></tbody></table>
-        </div>
-        <div class="card">
-          <div class="card-hd"><span class="card-title">Summary notes</span></div>
-          <div id="rpt-summary" style="font-size:13px;color:var(--text2);line-height:1.8;"></div>
-        </div>
+      </div>
+      <div class="grid4" id="rpt-metrics"></div>
+      <div class="card">
+        <div class="card-hd"><span class="card-title">Budget vs actual by vendor</span></div>
+        <table class="tbl"><thead><tr><th>Vendor</th><th>Entity</th><th>Description</th><th>Budget</th><th>Invoiced</th><th>Remaining</th><th>% used</th><th>Status</th></tr></thead><tbody id="rpt-table"></tbody></table>
+      </div>
+      <div class="card">
+        <div class="card-hd"><span class="card-title">Summary</span></div>
+        <div id="rpt-summary" style="font-size:13px;color:var(--text2);line-height:1.9;"></div>
       </div>
     </div>
 
-    <!-- ══════════════════════ YEAR-END FORECAST ══════════════ -->
+    <!-- ══════════════ FORECAST ══════════════ -->
     <div class="page" id="pg-forecast">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-        <div style="font-size:13px;color:var(--text2);">Based on invoices logged so far · Simple avg monthly × 12</div>
-        <div style="display:flex;gap:10px;">
-          <button class="btn success" onclick="window.print()">Print / Save as PDF</button>
-          <button class="btn" onclick="exportForecastCSV()">Export CSV</button>
-        </div>
+        <div style="font-size:13px;color:var(--text2);">Forecast based on logged invoices · Simple avg monthly × 12</div>
+        <div style="display:flex;gap:10px;"><button class="btn sec" onclick="window.print()">Print / Save PDF</button><button class="btn sec" onclick="exportForecastCSV()">Export CSV</button></div>
       </div>
       <div class="card" style="border-left:4px solid var(--green);">
-        <div style="font-size:20px;font-weight:600;letter-spacing:-0.5px;">Year-end Forecast — FY 2026</div>
-        <div style="font-size:13px;color:var(--text2);margin-top:4px;">B&amp;C Group IT Budget · Generated <span id="fc-date"></span></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--navy);">Year-end Forecast — FY 2026</div>
+        <div style="font-size:13px;color:var(--text2);margin-top:4px;">B&amp;C International · Generated <span id="fc-date"></span></div>
       </div>
       <div class="grid4" id="fc-metrics"></div>
       <div class="card">
         <div class="card-hd"><span class="card-title">Vendor forecast vs annual budget</span><span class="card-sub">Red = projected overrun</span></div>
-        <table class="tbl"><thead><tr><th>Vendor</th><th>Entity</th><th>Annual budget</th><th>Invoiced YTD</th><th>Months with data</th><th>Avg/month</th><th>Full-year forecast</th><th>Variance</th><th>Status</th></tr></thead><tbody id="fc-table"></tbody></table>
+        <table class="tbl"><thead><tr><th>Vendor</th><th>Entity</th><th>Annual budget</th><th>Invoiced YTD</th><th>Months w/ data</th><th>Avg/month</th><th>Full-year forecast</th><th>Variance</th><th>Status</th></tr></thead><tbody id="fc-table"></tbody></table>
       </div>
       <div class="card">
-        <div class="card-hd"><span class="card-title">Forecast visualisation</span><span class="card-sub">Top vendors — budget vs projected spend</span></div>
-        <div id="fc-bars" style="display:flex;flex-direction:column;gap:12px;"></div>
+        <div class="card-hd"><span class="card-title">Top vendors — budget vs forecast</span></div>
+        <div id="fc-bars" style="display:flex;flex-direction:column;gap:14px;"></div>
       </div>
     </div>
 
-    <!-- ══════════════════════ CONTRACTS ══════════════════════ -->
+    <!-- ══════════════ CONTRACTS ══════════════ -->
     <div class="page" id="pg-contracts">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div class="grid2">
         <div style="display:flex;flex-direction:column;gap:16px;">
           <div class="card">
             <div class="card-hd"><span class="card-title">Upload vendor contract</span></div>
             <div class="upload-zone" onclick="document.getElementById('contract-input').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="handleContractDrop(event)">
-              <div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-              <div style="font-size:14px;font-weight:600;">Drop contract PDF or image</div>
-              <div style="font-size:12px;color:var(--text2);text-align:center;">AI extracts vendor name, agreed amount &amp; contract term</div>
+              <div class="upload-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+              <div style="font-size:14px;font-weight:600;color:var(--navy);">Drop contract PDF or image</div>
+              <div style="font-size:12px;color:var(--text2);text-align:center;">AI extracts vendor, agreed amount &amp; contract term</div>
             </div>
             <input type="file" id="contract-input" accept="image/*,.pdf" style="display:none" onchange="handleContract(this.files[0])">
           </div>
-          <div class="card" id="contract-result-card">
-            <div class="card-hd"><span class="card-title">Contract analysis</span><span class="card-sub" id="contract-ai-status"></span></div>
+          <div class="card">
+            <div class="card-hd"><span class="card-title">Contract analysis</span><span style="font-size:12px;color:var(--green);" id="contract-ai-status"></span></div>
             <div id="contract-ai-thinking" style="display:none;" class="ai-thinking"><div class="spinner"></div><span>AI is reading the contract…</span></div>
             <div id="contract-result-body" style="padding:30px 0;text-align:center;color:var(--text3);font-size:13px;">Upload a contract to see the analysis</div>
           </div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <div class="card">
-            <div class="card-hd"><span class="card-title">Saved contracts</span><span class="badge blue" id="contract-total-badge">0 contracts</span></div>
-            <div id="contracts-list"><div style="text-align:center;padding:30px;color:var(--text3);font-size:13px;">No contracts saved yet.</div></div>
+        <div class="card">
+          <div class="card-hd"><span class="card-title">Saved contracts</span><span class="badge navy" id="contract-total-badge">0 contracts</span></div>
+          <div id="contracts-list"><div style="text-align:center;padding:30px;color:var(--text3);font-size:13px;">No contracts saved yet.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ ASK YOUR BUDGET ══════════════ -->
+    <div class="page" id="pg-chat">
+      <div class="grid2">
+        <div class="card" style="flex:1;">
+          <div class="card-hd"><span class="card-title">Ask your budget</span><span class="card-sub">Powered by AI · Knows your real data</span></div>
+          <div class="chat-wrap" id="chat-wrap">
+            <div class="chat-msg">
+              <div class="chat-avatar ai">AI</div>
+              <div class="chat-bubble ai">Hello! I'm your budget assistant. I have access to your full 2026 budget data — 72 vendors, all monthly amounts, and your invoice log. Ask me anything.<br><br>
+                <strong>Try:</strong> "Which vendors have the highest monthly cost?" or "What's the total Trendiy budget?" or "Show me vendors over €5,000/month"</div>
+            </div>
           </div>
+          <div class="chat-input-row">
+            <input class="chat-input" id="chat-input" type="text" placeholder="Ask something about your budget…" onkeydown="if(event.key==='Enter')sendChat()">
+            <button class="btn pri" onclick="sendChat()">Send</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><span class="card-title">Quick questions</span></div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <button class="btn" style="text-align:left;justify-content:flex-start;" onclick="askQuestion('Which vendors are over €5,000 per month?')">Which vendors are over €5,000/month?</button>
+            <button class="btn" style="text-align:left;" onclick="askQuestion('What is the total annual budget for B&C Int?')">Total annual budget for B&amp;C Int?</button>
+            <button class="btn" style="text-align:left;" onclick="askQuestion('Which months have the highest budget spend?')">Which months have the highest spend?</button>
+            <button class="btn" style="text-align:left;" onclick="askQuestion('List all Trendiy vendors and their monthly budgets')">All Trendiy vendors and their budgets?</button>
+            <button class="btn" style="text-align:left;" onclick="askQuestion('What is my total invoiced amount so far?')">Total invoiced amount so far?</button>
+            <button class="btn" style="text-align:left;" onclick="askQuestion('Are there any budget breaches in my invoice log?')">Any budget breaches in my log?</button>
+            <button class="btn" style="text-align:left;" onclick="askQuestion('Which vendors have contracts saved and do they match the budget?')">Contract vs budget mismatches?</button>
+            <button class="btn" style="text-align:left;" onclick="askQuestion('Give me a full executive summary of my 2026 IT budget')">Full executive summary</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════ RENEWAL CALENDAR ══════════════ -->
+    <div class="page" id="pg-renewals">
+      <div class="grid3" id="renewal-metrics"></div>
+      <div class="grid2">
+        <div class="card">
+          <div class="card-hd"><span class="card-title">Upcoming renewals</span><span class="card-sub">From saved contracts</span></div>
+          <div id="renewals-list"><div style="text-align:center;padding:30px;color:var(--text3);font-size:13px;">No contracts with end dates saved yet.<br>Upload contracts in the <strong>Vendor contracts</strong> section.</div></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><span class="card-title">Renewal timeline</span></div>
+          <div id="renewal-timeline" style="display:flex;flex-direction:column;gap:10px;"></div>
         </div>
       </div>
     </div>
@@ -363,9 +473,8 @@
 <script>
 const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const FULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
-let currentMonth=0, currentView='monthly', reportMonth=0;
+let currentMonth=0,currentView='monthly',reportMonth=0;
 
-// ── BUDGET DATA ───────────────────────────────────────────────
 const BUDGET=[
   {name:"Other / Unforeseen",desc:"",entity:"B&C Int",ytd:[2885,2308,2308,2885,2308,2308,2885,2308,2308,2885,2308,2308]},
   {name:"Sieval Dedicated Sol",desc:"Woontotaal",entity:"B&C Int",ytd:[2885,2308,2308,2885,2308,2308,2885,2308,2308,2885,2308,2308]},
@@ -441,543 +550,278 @@ const BUDGET=[
   {name:"SmartSheet + Consultancy",desc:"",entity:"B&C Int",ytd:[962,769,769,962,769,769,962,769,769,962,769,769]},
 ];
 
-// ── STORAGE ───────────────────────────────────────────────────
-function getLog(){try{return JSON.parse(localStorage.getItem('invoiceLog')||'[]');}catch(e){return[];}}
-function saveLog(l){localStorage.setItem('invoiceLog',JSON.stringify(l));}
+// ── STORAGE ──
+function getLog(){try{return JSON.parse(localStorage.getItem('fic_log')||'[]');}catch(e){return[];}}
+function saveLog(l){localStorage.setItem('fic_log',JSON.stringify(l));}
 function addToLog(e){const l=getLog();l.unshift(e);saveLog(l);}
-function getContracts(){try{return JSON.parse(localStorage.getItem('contracts')||'[]');}catch(e){return[];}}
-function saveContracts(c){localStorage.setItem('contracts',JSON.stringify(c));}
+function getContracts(){try{return JSON.parse(localStorage.getItem('fic_contracts')||'[]');}catch(e){return[];}}
+function saveContracts(c){localStorage.setItem('fic_contracts',JSON.stringify(c));}
 
-// ── HELPERS ───────────────────────────────────────────────────
+// ── HELPERS ──
 function fmt(n){return '€'+Math.round(n).toLocaleString('nl-NL');}
 function today(){return new Date().toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});}
-function entityTag(e){
-  const s=e==='Trendiy'?'color:#1A7F5A;background:#E8F5EF;':e==='B&C Int'?'color:#2D27A0;background:#EEEDFC;':'color:#6B6860;background:#F0EEE9;';
-  return `<span style="font-size:10px;font-weight:500;padding:1px 6px;border-radius:4px;${s}">${e||'Other'}</span>`;
-}
-function barColor(u){return u>100?'var(--red)':u>=80?'var(--amber)':'var(--accent)';}
-function statusBadge(u){
-  if(u>100) return '<span class="badge red">Breach</span>';
-  if(u>=80) return '<span class="badge amber">Near limit</span>';
-  return '<span class="badge green">On track</span>';
-}
-function getItems(){
-  const d=document.getElementById('disc-select').value;
-  if(d==='bc') return BUDGET.filter(r=>r.entity==='B&C Int');
-  if(d==='trendiy') return BUDGET.filter(r=>r.entity==='Trendiy');
-  return BUDGET;
-}
-function getInvMap(){
-  const log=getLog(),map={};
-  log.forEach(inv=>{const mi=new Date(inv.date).getMonth(),k=inv.vendor+'|'+mi;map[k]=(map[k]||0)+inv.amount;});
-  return map;
-}
-function getInvByMonth(){
-  const log=getLog(),arr=Array(12).fill(0);
-  log.forEach(inv=>{arr[new Date(inv.date).getMonth()]+=inv.amount;});
-  return arr;
-}
-function matchVendor(name){
-  return BUDGET.find(b=>b.name.toLowerCase().includes(name.toLowerCase())||name.toLowerCase().includes(b.name.toLowerCase().split(' ')[0]));
-}
+function etag(e){const c=e==='Trendiy'?'etag-tr':e==='B&C Int'?'etag-bc':'etag-ot';return `<span class="${c}">${e||'Other'}</span>`;}
+function barColor(u){return u>100?'var(--red)':u>=80?'var(--amber)':'var(--navy)';}
+function statusBadge(u){return u>100?'<span class="badge red">Breach</span>':u>=80?'<span class="badge amber">Near limit</span>':'<span class="badge green">On track</span>';}
+function getItems(){const d=document.getElementById('disc-select').value;if(d==='bc')return BUDGET.filter(r=>r.entity==='B&C Int');if(d==='trendiy')return BUDGET.filter(r=>r.entity==='Trendiy');return BUDGET;}
+function getInvMap(){const log=getLog(),map={};log.forEach(i=>{const k=i.vendor+'|'+new Date(i.date).getMonth();map[k]=(map[k]||0)+i.amount;});return map;}
+function getInvByMonth(){const log=getLog(),a=Array(12).fill(0);log.forEach(i=>{a[new Date(i.date).getMonth()]+=i.amount;});return a;}
+function matchVendor(n){return BUDGET.find(b=>b.name.toLowerCase().includes(n.toLowerCase())||n.toLowerCase().includes(b.name.toLowerCase().split(' ')[0]));}
+function toB64(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=()=>rej();r.readAsDataURL(f);});}
+function dl(csv,fn){const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download=fn;a.click();}
 
-// ── PAGE NAV ──────────────────────────────────────────────────
+// ── PAGE NAV ──
 function showPage(p){
-  ['dashboard','upload','log','monthly-report','forecast','contracts'].forEach(id=>{
-    document.getElementById('pg-'+id).classList.toggle('active',id===p);
-  });
+  ['dashboard','upload','log','monthly-report','forecast','contracts','chat','renewals'].forEach(id=>{document.getElementById('pg-'+id).classList.toggle('active',id===p);});
   document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
-  const navItems=document.querySelectorAll('.nav-item');
-  const map={dashboard:0,upload:1,log:2,3:3,'monthly-report':3,forecast:4,contracts:5};
-  const idx={dashboard:0,upload:1,log:2,'monthly-report':3,forecast:4,contracts:5};
-  if(idx[p]!==undefined) navItems[idx[p]]?.classList.add('active');
-  document.getElementById('page-title').textContent={dashboard:'Dashboard',upload:'Upload invoice',log:'Invoice log','monthly-report':'Monthly report',forecast:'Year-end forecast',contracts:'Vendor contracts'}[p];
+  const map={dashboard:0,upload:1,log:2,'monthly-report':3,forecast:4,contracts:5,chat:6,renewals:7};
+  document.querySelectorAll('.nav-item')[map[p]]?.classList.add('active');
+  document.getElementById('page-title').textContent={dashboard:'Dashboard',upload:'Upload invoice',log:'Invoice log','monthly-report':'Monthly report',forecast:'Year-end forecast',contracts:'Vendor contracts',chat:'Ask your budget',renewals:'Renewal calendar'}[p];
   document.getElementById('export-btn').style.display=p==='dashboard'?'':'none';
   document.getElementById('print-btn').style.display=['monthly-report','forecast'].includes(p)?'':'none';
-  if(p==='log') renderLog();
-  if(p==='monthly-report') renderMonthlyReport();
-  if(p==='forecast') renderForecast();
-  if(p==='contracts') renderContracts();
-  if(p==='dashboard') renderMonthly();
+  if(p==='log')renderLog();
+  if(p==='monthly-report')renderMonthlyReport();
+  if(p==='forecast')renderForecast();
+  if(p==='contracts')renderContracts();
+  if(p==='renewals')renderRenewals();
+  if(p==='dashboard')renderMonthly();
 }
 
-// ══════════════════════════════════════════════════════════════
-// DASHBOARD
-// ══════════════════════════════════════════════════════════════
+// ══ DASHBOARD ══
 function renderMonthly(){
-  const m=currentMonth,items=getItems(),invMap=getInvMap();
+  const m=currentMonth,items=getItems(),inv=getInvMap();
   document.getElementById('m-table-title').textContent='Budget — '+FULL[m]+' 2026';
   document.getElementById('month-label').textContent=FULL[m]+' 2026';
-  const totBud=items.reduce((s,c)=>s+c.ytd[m],0);
-  const totInv=items.reduce((s,c)=>s+(invMap[c.name+'|'+m]||0),0);
-  const logCount=getLog().filter(i=>new Date(i.date).getMonth()===m).length;
+  const tB=items.reduce((s,c)=>s+c.ytd[m],0),tI=items.reduce((s,c)=>s+(inv[c.name+'|'+m]||0),0);
+  const lc=getLog().filter(i=>new Date(i.date).getMonth()===m).length;
   document.getElementById('m-metrics').innerHTML=`
-    <div class="metric"><div class="metric-lbl">Monthly budget</div><div class="metric-val">${fmt(totBud)}</div><div class="metric-sub muted">${FULL[m]} 2026</div></div>
-    <div class="metric"><div class="metric-lbl">Invoiced</div><div class="metric-val">${fmt(totInv)}</div><div class="metric-sub muted">${logCount} invoice${logCount!==1?'s':''}</div></div>
-    <div class="metric"><div class="metric-lbl">Remaining</div><div class="metric-val">${fmt(totBud-totInv)}</div><div class="metric-sub ${totInv>totBud?'dn':'up'}">${totInv>totBud?'Over budget':'Available'}</div></div>
+    <div class="metric"><div class="metric-lbl">Monthly budget</div><div class="metric-val">${fmt(tB)}</div><div class="metric-sub muted">${FULL[m]} 2026</div></div>
+    <div class="metric"><div class="metric-lbl">Invoiced</div><div class="metric-val">${fmt(tI)}</div><div class="metric-sub muted">${lc} invoice${lc!==1?'s':''}</div></div>
+    <div class="metric"><div class="metric-lbl">Remaining</div><div class="metric-val">${fmt(tB-tI)}</div><div class="metric-sub ${tI>tB?'dn':'up'}">${tI>tB?'Over budget':'Available'}</div></div>
     <div class="metric"><div class="metric-lbl">Active vendors</div><div class="metric-val">${items.filter(c=>c.ytd[m]>0).length}</div><div class="metric-sub muted">with budget</div></div>`;
   const sorted=[...items].sort((a,b)=>b.ytd[m]-a.ytd[m]);
-  let rows='';
-  sorted.forEach(c=>{
-    const bud=c.ytd[m];if(!bud)return;
-    const inv=invMap[c.name+'|'+m]||0,rem=bud-inv;
-    rows+=`<tr><td style="font-weight:500;">${c.name}</td><td class="dim" style="font-size:12px;">${c.desc||'—'}</td><td>${entityTag(c.entity)}</td><td class="mono">${fmt(bud)}</td><td class="mono">${inv?fmt(inv):'<span style="color:var(--text3);">—</span>'}</td><td class="${rem<0?'vneg':'vpos'}">${rem<0?'-':'+'}${fmt(Math.abs(rem))}</td></tr>`;
-  });
+  let rows='';sorted.forEach(c=>{const b=c.ytd[m];if(!b)return;const i=inv[c.name+'|'+m]||0,r=b-i;rows+=`<tr><td style="font-weight:500;">${c.name}</td><td class="dim" style="font-size:12px;">${c.desc||'—'}</td><td>${etag(c.entity)}</td><td class="mono">${fmt(b)}</td><td class="mono">${i?fmt(i):'<span style="color:var(--text3);">—</span>'}</td><td class="${r<0?'vneg':'vpos'}">${r<0?'-':'+'}${fmt(Math.abs(r))}</td></tr>`;});
   document.getElementById('m-table').innerHTML=rows;
-  let hl='';
-  sorted.slice(0,8).forEach(c=>{
-    const v=c.ytd[m],inv=invMap[c.name+'|'+m]||0;
-    const pct=Math.round(v/totBud*100);
-    const invPct=v>0?Math.min(Math.round(inv/v*100),100):0;
-    hl+=`<div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="font-weight:500;">${c.name}</span><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--text2);">${fmt(v)}</span></div><div style="height:6px;background:var(--surface2);border-radius:4px;overflow:hidden;"><div style="height:6px;width:${Math.min(pct*3,100)}%;background:var(--accent);border-radius:4px;opacity:0.3;"></div></div><div style="height:4px;background:transparent;border-radius:4px;margin-top:-5px;"><div style="height:4px;width:${Math.min(pct*3*(invPct/100||0),100)}%;background:var(--accent);border-radius:4px;"></div></div></div>`;
-  });
+  let hl='';sorted.slice(0,8).forEach(c=>{const v=c.ytd[m],i=inv[c.name+'|'+m]||0,p=Math.round(v/tB*100),ip=v>0?Math.min(Math.round(i/v*100),100):0;hl+=`<div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span style="font-weight:500;">${c.name}</span><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--text2);">${fmt(v)}</span></div><div style="height:5px;background:var(--cream2);border-radius:3px;overflow:hidden;"><div style="height:5px;width:${Math.min(p*3,100)}%;background:var(--cream3);border-radius:3px;"></div></div><div style="height:3px;margin-top:-4px;border-radius:3px;overflow:hidden;"><div style="height:3px;width:${Math.min(p*3*(ip/100||0),100)}%;background:var(--navy);border-radius:3px;"></div></div></div>`;});
   document.getElementById('health-list').innerHTML=hl;
-  const invByMonth=getInvByMonth();
-  const totByMonth=Array.from({length:12},(_,mi)=>items.reduce((s,c)=>s+c.ytd[mi],0));
-  const tIdx=[m-5,m-4,m-3,m-2,m-1,m].map(i=>i<0?i+12:i);
-  const vals=tIdx.map(i=>({m:MONTHS[i],bud:totByMonth[i],inv:invByMonth[i],idx:i}));
-  const maxV=Math.max(...vals.map(d=>Math.max(d.bud,d.inv)),1);
-  let bars='';
-  vals.forEach(d=>{
-    const bh=Math.round(d.bud/maxV*80),ih=Math.round(d.inv/maxV*80);
-    const isA=d.idx===m,ac=d.inv>d.bud?'var(--red)':'var(--accent)';
-    bars+=`<div class="tb-col"><div class="tb-bar-wrap"><div class="tb-b" style="height:${bh}px;background:#D5D3F5;opacity:${isA?1:0.6};"></div><div class="tb-b" style="height:${Math.max(ih,2)}px;background:${ac};opacity:${isA?1:0.6};"></div></div><div class="tb-lbl" style="font-weight:${isA?600:400};color:${isA?'var(--text)':'var(--text3)'};">${d.m}</div></div>`;
-  });
+  const ibm=getInvByMonth(),tbm=Array.from({length:12},(_,mi)=>items.reduce((s,c)=>s+c.ytd[mi],0));
+  const ti=[m-5,m-4,m-3,m-2,m-1,m].map(i=>i<0?i+12:i);
+  const vals=ti.map(i=>({m:MONTHS[i],b:tbm[i],i:ibm[i],idx:i}));
+  const mx=Math.max(...vals.map(d=>Math.max(d.b,d.i)),1);
+  let bars='';vals.forEach(d=>{const bh=Math.round(d.b/mx*80),ih=Math.round(d.i/mx*80),isA=d.idx===m,ac=d.i>d.b?'var(--red)':'var(--navy)';bars+=`<div class="tb-col"><div class="tb-bar-wrap"><div class="tb-b" style="height:${bh}px;background:var(--cream3);opacity:${isA?1:0.6};"></div><div class="tb-b" style="height:${Math.max(ih,2)}px;background:${ac};opacity:${isA?1:0.6};"></div></div><div class="tb-lbl" style="font-weight:${isA?600:400};color:${isA?'var(--navy)':'var(--text3)'};">${d.m}</div></div>`;});
   document.getElementById('trend-bars').innerHTML=bars;
 }
 
 function renderAnnual(){
-  const items=getItems(),invMap=getInvMap(),invByMonth=getInvByMonth();
-  const annTot=items.reduce((s,c)=>s+c.ytd.reduce((a,b)=>a+b,0),0);
-  const invTot=invByMonth.reduce((a,b)=>a+b,0);
+  const items=getItems(),inv=getInvMap(),ibm=getInvByMonth();
+  const aT=items.reduce((s,c)=>s+c.ytd.reduce((a,b)=>a+b,0),0),iT=ibm.reduce((a,b)=>a+b,0);
   document.getElementById('a-metrics').innerHTML=`
-    <div class="metric"><div class="metric-lbl">Annual budget</div><div class="metric-val">${fmt(annTot)}</div><div class="metric-sub muted">FY 2026</div></div>
-    <div class="metric"><div class="metric-lbl">Total invoiced</div><div class="metric-val">${fmt(invTot)}</div><div class="metric-sub muted">All months</div></div>
-    <div class="metric"><div class="metric-lbl">Remaining</div><div class="metric-val">${fmt(annTot-invTot)}</div><div class="metric-sub ${invTot>annTot?'dn':'up'}">${invTot>annTot?'Over budget':'Available'}</div></div>
-    <div class="metric"><div class="metric-lbl">Avg monthly budget</div><div class="metric-val">${fmt(annTot/12)}</div><div class="metric-sub muted">FY plan</div></div>`;
+    <div class="metric"><div class="metric-lbl">Annual budget</div><div class="metric-val">${fmt(aT)}</div><div class="metric-sub muted">FY 2026</div></div>
+    <div class="metric"><div class="metric-lbl">Total invoiced</div><div class="metric-val">${fmt(iT)}</div><div class="metric-sub muted">All months</div></div>
+    <div class="metric"><div class="metric-lbl">Remaining</div><div class="metric-val">${fmt(aT-iT)}</div><div class="metric-sub ${iT>aT?'dn':'up'}">${iT>aT?'Over budget':'Available'}</div></div>
+    <div class="metric"><div class="metric-lbl">Avg monthly</div><div class="metric-val">${fmt(aT/12)}</div><div class="metric-sub muted">FY plan</div></div>`;
   const sorted=[...items].sort((a,b)=>b.ytd.reduce((x,y)=>x+y,0)-a.ytd.reduce((x,y)=>x+y,0));
-  let rows='';
-  sorted.forEach(c=>{
-    const ann=c.ytd.reduce((a,b)=>a+b,0);if(!ann)return;
-    const inv=Array.from({length:12},(_,mi)=>invMap[c.name+'|'+mi]||0).reduce((a,b)=>a+b,0);
-    const nz=c.ytd.filter(v=>v>0);
-    const proj=Math.round((nz.reduce((a,b)=>a+b,0)/nz.length)*12);
-    const ytdBud=c.ytd.slice(0,3).reduce((a,b)=>a+b,0);
-    const vari=inv-ytdBud;
-    rows+=`<tr><td style="font-weight:500;">${c.name}</td><td>${entityTag(c.entity)}</td><td class="mono dim">${fmt(c.ytd[0])}</td><td class="mono">${inv?fmt(inv):'<span style="color:var(--text3);">—</span>'}</td><td class="${vari>0?'vneg':'vpos'}">${inv?(vari>0?'-':'+')+(fmt(Math.abs(vari))):'—'}</td><td class="mono">${fmt(proj)}</td><td class="mono dim">${fmt(ann)}</td></tr>`;
-  });
+  let rows='';sorted.forEach(c=>{const an=c.ytd.reduce((a,b)=>a+b,0);if(!an)return;const iv=Array.from({length:12},(_,mi)=>inv[c.name+'|'+mi]||0).reduce((a,b)=>a+b,0);const nz=c.ytd.filter(v=>v>0),pr=Math.round((nz.reduce((a,b)=>a+b,0)/nz.length)*12),vr=iv-(c.ytd.slice(0,3).reduce((a,b)=>a+b,0));rows+=`<tr><td style="font-weight:500;">${c.name}</td><td>${etag(c.entity)}</td><td class="mono dim">${fmt(c.ytd[0])}</td><td class="mono">${iv?fmt(iv):'<span style="color:var(--text3);">—</span>'}</td><td class="${vr>0?'vneg':'vpos'}">${iv?(vr>0?'-':'+')+(fmt(Math.abs(vr))):'—'}</td><td class="mono">${fmt(pr)}</td><td class="mono dim">${fmt(an)}</td></tr>`;});
   document.getElementById('a-table').innerHTML=rows;
-  const pals=[['#E6F1FB','#B5D4F4','#85B7EB','#378ADD','#185FA5'],['#EEEDFE','#CECBF6','#AFA9EC','#7F77DD','#534AB7'],['#EAF3DE','#C0DD97','#97C459','#639922','#3B6D11'],['#FAEEDA','#FAC775','#EF9F27','#BA7517','#854F0B']];
-  const txtP=['#185FA5','#3C3489','#3B6D11','#854F0B'];
+  const pals=[['#EBF0F4','#C0D0DC','#8AAFC4','#4A7FA0','#1B4F72'],['#EAF4EF','#AEDCC4','#6DC09A','#2D9E6B','#1B6B47'],['#FBF4E6','#F0D9A0','#E0BC58','#C09020','#8A6010'],['#FAF0EE','#F0C0B0','#E09080','#C05040','#8B2A1A']];
+  const tp=['#1B4F72','#1B6B47','#8A6010','#8B2A1A'];
   const top=sorted.slice(0,20);
   let hg=`<div class="heat-grid" style="grid-template-columns:160px repeat(12,1fr);"><div class="hg-header" style="text-align:left;font-size:10px;color:var(--text3);">Vendor</div>`;
   MONTHS.forEach(m=>{hg+=`<div class="hg-header">${m}</div>`;});
-  top.forEach((c,ci)=>{
-    const pal=pals[ci%4],tc=txtP[ci%4];
-    const sn=c.name.length>22?c.name.slice(0,21)+'…':c.name;
-    hg+=`<div class="hg-label" title="${c.name}">${sn}</div>`;
-    c.ytd.forEach((v,mi)=>{
-      const inv=invMap[c.name+'|'+mi]||0,r=v>0?(inv>0?inv/v:0):0;
-      let bg,fc,lbl;
-      if(!v){bg='var(--surface2)';fc='var(--text3)';lbl='';}
-      else if(!inv){bg=pal[0];fc=tc;lbl=fmt(v).replace('€','');}
-      else if(r>1){bg='var(--red)';fc='#fff';lbl=fmt(inv).replace('€','');}
-      else if(r>0.8){bg=pal[4];fc='#fff';lbl=fmt(inv).replace('€','');}
-      else if(r>0.5){bg=pal[3];fc='#fff';lbl=fmt(inv).replace('€','');}
-      else{bg=pal[2];fc=tc;lbl=fmt(inv).replace('€','');}
-      hg+=`<div class="hg-cell" style="background:${bg};color:${fc};font-size:9px;" title="${c.name} ${MONTHS[mi]}: budget ${fmt(v)}, invoiced ${fmt(inv)}">${lbl}</div>`;
-    });
-  });
-  hg+='</div>';
-  document.getElementById('heat-grid').innerHTML=hg;
+  top.forEach((c,ci)=>{const pal=pals[ci%4],tc=tp[ci%4],sn=c.name.length>22?c.name.slice(0,21)+'…':c.name;hg+=`<div class="hg-label" title="${c.name}">${sn}</div>`;c.ytd.forEach((v,mi)=>{const iv=inv[c.name+'|'+mi]||0,r=v>0?(iv>0?iv/v:0):0;let bg,fc,lb;if(!v){bg='var(--surface2)';fc='var(--text3)';lb='';}else if(!iv){bg=pal[0];fc=tc;lb=fmt(v).replace('€','');}else if(r>1){bg='var(--red)';fc='#fff';lb=fmt(iv).replace('€','');}else if(r>0.8){bg=pal[4];fc='#fff';lb=fmt(iv).replace('€','');}else if(r>0.5){bg=pal[3];fc='#fff';lb=fmt(iv).replace('€','');}else{bg=pal[2];fc=tc;lb=fmt(iv).replace('€','');}hg+=`<div class="hg-cell" style="background:${bg};color:${fc};font-size:9px;" title="${c.name} ${MONTHS[mi]}: budget ${fmt(v)}, invoiced ${fmt(iv)}">${lb}</div>`;});});
+  hg+='</div>';document.getElementById('heat-grid').innerHTML=hg;
 }
 
-function setView(v){
-  currentView=v;
-  ['monthly','annual'].forEach(x=>{document.getElementById('btn-'+x).classList.toggle('active',x===v);document.getElementById('sub-'+x).style.display=x===v?'flex':'none';});
-  document.getElementById('month-nav').style.display=v==='monthly'?'flex':'none';
-  document.getElementById('annual-label').style.display=v==='annual'?'block':'none';
-  if(v==='monthly')renderMonthly();else renderAnnual();
-}
+function setView(v){currentView=v;['monthly','annual'].forEach(x=>{document.getElementById('btn-'+x).classList.toggle('active',x===v);document.getElementById('sub-'+x).style.display=x===v?'flex':'none';});document.getElementById('month-nav').style.display=v==='monthly'?'flex':'none';document.getElementById('annual-label').style.display=v==='annual'?'block':'none';if(v==='monthly')renderMonthly();else renderAnnual();}
 function changeMonth(d){currentMonth=Math.max(0,Math.min(11,currentMonth+d));renderMonthly();}
 function onDiscChange(){if(currentView==='monthly')renderMonthly();else renderAnnual();}
 
-// ══════════════════════════════════════════════════════════════
-// UPLOAD INVOICE
-// ══════════════════════════════════════════════════════════════
+// ══ UPLOAD ══
 function handleDrop(e){e.preventDefault();document.getElementById('upload-zone').classList.remove('drag');const f=e.dataTransfer.files[0];if(f)handleFile(f);}
-function handleFile(file){
-  if(!file)return;
-  if(file.type.startsWith('image/')){
-    const r=new FileReader();
-    r.onload=e=>{document.getElementById('preview-img').src=e.target.result;document.getElementById('preview-wrap').style.display='block';};
-    r.readAsDataURL(file);
-  }
-  extractWithAI(file);
-}
-async function extractWithAI(file){
+function handleFile(f){if(!f)return;if(f.type.startsWith('image/')){const r=new FileReader();r.onload=e=>{document.getElementById('preview-img').src=e.target.result;document.getElementById('preview-wrap').style.display='block';};r.readAsDataURL(f);}extractWithAI(f);}
+async function extractWithAI(f){
   document.getElementById('ai-thinking-row').style.display='flex';
   document.getElementById('ai-status').textContent='';
   ['f-vendor','f-amount','f-date','f-desc','f-entity'].forEach(id=>{const el=document.getElementById(id);el.value='';el.classList.remove('ai-filled');});
   try{
-    const b64=await toB64(file);
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:[{type:file.type==='application/pdf'?'document':'image',source:{type:'base64',media_type:file.type,data:b64}},{type:'text',text:'Extract invoice details. Respond ONLY with JSON, no other text:\n{"vendor":"name","amount":1234.56,"date":"YYYY-MM-DD","description":"brief description","entity":"B&C Int or Trendiy or Other"}\nIf unsure about a field use null.'}]}]})});
+    const b64=await toB64(f);
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:[{type:f.type==='application/pdf'?'document':'image',source:{type:'base64',media_type:f.type,data:b64}},{type:'text',text:'Extract invoice details. Respond ONLY with JSON:\n{"vendor":"name","amount":1234.56,"date":"YYYY-MM-DD","description":"brief","entity":"B&C Int or Trendiy or Other"}\nIf unsure use null.'}]}]})});
     const data=await res.json();
-    const txt=data.content?.map(i=>i.text||'').join('');
-    const parsed=JSON.parse(txt.replace(/```json|```/g,'').trim());
+    const p=JSON.parse(data.content?.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim());
     document.getElementById('ai-thinking-row').style.display='none';
     document.getElementById('ai-status').textContent='✓ AI extracted — please verify';
-    if(parsed.vendor)setF('f-vendor',parsed.vendor);
-    if(parsed.amount)setF('f-amount',parsed.amount);
-    if(parsed.date)setF('f-date',parsed.date);
-    if(parsed.description)setF('f-desc',parsed.description);
-    if(parsed.entity){const s=document.getElementById('f-entity');const o=[...s.options].find(x=>x.value===parsed.entity);if(o){s.value=parsed.entity;s.classList.add('ai-filled');}}
-  }catch(e){
-    document.getElementById('ai-thinking-row').style.display='none';
-    document.getElementById('ai-status').textContent='Could not auto-read — please fill in manually';
-    document.getElementById('ai-status').style.color='var(--amber)';
-  }
+    if(p.vendor)sF('f-vendor',p.vendor);if(p.amount)sF('f-amount',p.amount);if(p.date)sF('f-date',p.date);if(p.description)sF('f-desc',p.description);
+    if(p.entity){const s=document.getElementById('f-entity');const o=[...s.options].find(x=>x.value===p.entity);if(o){s.value=p.entity;s.classList.add('ai-filled');}}
+  }catch(e){document.getElementById('ai-thinking-row').style.display='none';document.getElementById('ai-status').textContent='Fill in manually';document.getElementById('ai-status').style.color='var(--amber)';}
 }
-function setF(id,val){const el=document.getElementById(id);el.value=val;el.classList.add('ai-filled');}
-function toB64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=()=>rej(new Error('fail'));r.readAsDataURL(file);});}
+function sF(id,val){const el=document.getElementById(id);el.value=val;el.classList.add('ai-filled');}
 
 function checkBudget(){
-  const vendor=document.getElementById('f-vendor').value.trim();
-  const amount=parseFloat(document.getElementById('f-amount').value);
-  const date=document.getElementById('f-date').value;
-  const desc=document.getElementById('f-desc').value.trim();
-  const entity=document.getElementById('f-entity').value;
+  const vendor=document.getElementById('f-vendor').value.trim(),amount=parseFloat(document.getElementById('f-amount').value),date=document.getElementById('f-date').value,desc=document.getElementById('f-desc').value.trim(),entity=document.getElementById('f-entity').value;
   if(!vendor||!amount||!date){alert('Please fill in vendor, amount and date.');return;}
-  const mi=new Date(date).getMonth();
-  const match=matchVendor(vendor);
-  const budAmt=match?match.ytd[mi]:null;
-  const invMap=getInvMap();
-  const already=match?(invMap[match.name+'|'+mi]||0):0;
-  const totalAfter=already+amount;
+  const mi=new Date(date).getMonth(),match=matchVendor(vendor),inv=getInvMap(),already=match?(inv[match.name+'|'+mi]||0):0,bAmt=match?match.ytd[mi]:null,total=already+amount;
   let html='',status='ok';
-  if(!match){
-    status='warn';
-    html=`<div class="result-box warn"><div class="result-icon warn">⚠</div><div><div style="font-size:13px;font-weight:600;color:var(--amber);">Vendor not in budget</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;"><strong>${vendor}</strong> was not found in the 2026 budget. This may be an unplanned expense.<br>Invoice amount: <strong>${fmt(amount)}</strong></div></div></div>`;
-  }else if(totalAfter>budAmt){
-    status='breach';
-    const over=totalAfter-budAmt;
-    html=`<div class="result-box breach"><div class="result-icon breach">✕</div><div><div style="font-size:13px;font-weight:600;color:var(--red);">Budget breach — ${fmt(over)} over</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">Monthly budget: ${fmt(budAmt)} · Already invoiced: ${fmt(already)} · This invoice: ${fmt(amount)}</div></div></div>`;
-  }else if(totalAfter/budAmt>=0.8){
-    status='warn';
-    html=`<div class="result-box warn"><div class="result-icon warn">⚠</div><div><div style="font-size:13px;font-weight:600;color:var(--amber);">Near limit — ${Math.round(totalAfter/budAmt*100)}% used</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">${fmt(budAmt-totalAfter)} remaining after this invoice. Monthly budget: ${fmt(budAmt)}</div></div></div>`;
-  }else{
-    html=`<div class="result-box ok"><div class="result-icon ok">✓</div><div><div style="font-size:13px;font-weight:600;color:var(--green);">Within budget — ${Math.round(totalAfter/budAmt*100)}% used</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">${fmt(budAmt-totalAfter)} remaining after this invoice. Monthly budget: ${fmt(budAmt)}</div></div></div>`;
+  if(!match){status='warn';html=`<div class="result-box warn"><div class="result-icon warn">⚠</div><div><div style="font-size:13px;font-weight:600;color:var(--amber);">Vendor not in budget</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;"><strong>${vendor}</strong> not found in the 2026 budget. Unplanned expense?<br>Amount: <strong>${fmt(amount)}</strong></div></div></div>`;}
+  else if(total>bAmt){status='breach';html=`<div class="result-box breach"><div class="result-icon breach">✕</div><div><div style="font-size:13px;font-weight:600;color:var(--red);">Budget breach — ${fmt(total-bAmt)} over</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">Budget: ${fmt(bAmt)} · Already invoiced: ${fmt(already)} · This invoice: ${fmt(amount)}</div></div></div>`;
+    // Email alert for breach
+    const subject=`[FIC Alert] Budget breach — ${vendor}`;
+    const body=`Budget breach detected in Forecast & Invoice Control.\n\nVendor: ${vendor}\nAmount: ${fmt(amount)}\nDate: ${new Date(date).toLocaleDateString('nl-NL')}\nBudget (${FULL[mi]}): ${fmt(bAmt)}\nAlready invoiced: ${fmt(already)}\nOver budget by: ${fmt(total-bAmt)}\n\nPlease review in the FIC dashboard.`;
+    html+=`<div style="background:var(--red-bg);border:1px solid #E8A090;border-radius:var(--radius);padding:10px 14px;margin-top:6px;display:flex;align-items:center;justify-content:space-between;gap:10px;"><span style="font-size:12px;color:var(--red);">Send breach notification to manager</span><a href="mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}" class="btn danger" style="font-size:12px;padding:5px 12px;text-decoration:none;">📧 Send email</a></div>`;
   }
-  // Check contract compliance
-  const contracts=getContracts();
-  const contractMatch=contracts.find(c=>c.vendor.toLowerCase().includes(vendor.toLowerCase())||vendor.toLowerCase().includes(c.vendor.toLowerCase().split(' ')[0]));
-  if(contractMatch){
-    const diff=amount-contractMatch.agreedAmount;
-    if(Math.abs(diff)/contractMatch.agreedAmount>0.05){
-      html+=`<div class="result-box warn" style="margin-top:8px;"><div class="result-icon warn">📋</div><div><div style="font-size:13px;font-weight:600;color:var(--amber);">Contract mismatch</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">Contract with <strong>${contractMatch.vendor}</strong> states ${fmt(contractMatch.agreedAmount)}/month. This invoice is ${fmt(amount)} — a difference of ${fmt(Math.abs(diff))}.</div></div></div>`;
-    }else{
-      html+=`<div style="display:flex;align-items:center;gap:8px;background:var(--green-bg);border:1px solid #97C459;border-radius:var(--radius);padding:10px 14px;margin-top:8px;font-size:12px;color:var(--green);"><span>📋</span>Amount matches contract with <strong>${contractMatch.vendor}</strong> (${fmt(contractMatch.agreedAmount)}/mo)</div>`;
-    }
-  }
-  html+=`<div style="background:var(--surface2);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:7px;margin-top:4px;">
-    <div style="font-size:12px;font-weight:600;margin-bottom:2px;">Invoice details</div>
-    <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text2);">Vendor</span><span style="font-weight:500;">${vendor}</span></div>
-    <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text2);">Amount</span><span style="font-weight:600;">${fmt(amount)}</span></div>
-    <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text2);">Date</span><span>${new Date(date).toLocaleDateString('nl-NL')}</span></div>
-    <div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text2);">Entity</span><span>${entityTag(entity||'Other')}</span></div>
-    ${desc?`<div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text2);">Notes</span><span style="color:var(--text2);">${desc}</span></div>`:''}
-  </div>
-  <div style="display:flex;gap:10px;margin-top:4px;">
-    <button class="btn" style="flex:1;padding:9px;" onclick="flagInvoice()">Flag for review</button>
-    <button class="btn pri" style="flex:1;padding:9px;" onclick="approveInvoice('${vendor.replace(/'/g,"\\'")}',${amount},'${date}','${desc.replace(/'/g,"\\'")}','${entity}','${status}','${match?match.name.replace(/'/g,"\\'"):''}')">Approve &amp; save</button>
-  </div>`;
+  else if(total/bAmt>=0.8){status='warn';html=`<div class="result-box warn"><div class="result-icon warn">⚠</div><div><div style="font-size:13px;font-weight:600;color:var(--amber);">Near limit — ${Math.round(total/bAmt*100)}% used</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">${fmt(bAmt-total)} remaining after this invoice. Budget: ${fmt(bAmt)}</div></div></div>`;}
+  else{html=`<div class="result-box ok"><div class="result-icon ok">✓</div><div><div style="font-size:13px;font-weight:600;color:var(--green);">Within budget — ${Math.round(total/bAmt*100)}% used</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">${fmt(bAmt-total)} remaining. Budget: ${fmt(bAmt)}</div></div></div>`;}
+  // Contract check
+  const contracts=getContracts(),cm=contracts.find(c=>c.vendor&&(c.vendor.toLowerCase().includes(vendor.toLowerCase())||vendor.toLowerCase().includes(c.vendor.toLowerCase().split(' ')[0])));
+  if(cm){const amtMo=cm.period==='annual'&&cm.agreedAmount?cm.agreedAmount/12:cm.agreedAmount,diff=Math.abs(amount-amtMo)/amtMo;html+=diff>0.05?`<div style="background:var(--amber-bg);border:1px solid #DDB870;border-radius:var(--radius);padding:10px 14px;margin-top:6px;font-size:12px;color:var(--amber);">📋 Contract mismatch: agreement says ${fmt(amtMo)}/mo, this invoice is ${fmt(amount)}</div>`:`<div style="background:var(--green-bg);border:1px solid #90CDAF;border-radius:var(--radius);padding:10px 14px;margin-top:6px;font-size:12px;color:var(--green);">📋 ✓ Amount matches contract (${fmt(amtMo)}/mo)</div>`;}
+  html+=`<div style="background:var(--surface2);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;gap:7px;margin-top:6px;"><div style="font-size:12px;font-weight:600;margin-bottom:2px;">Invoice details</div><div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text2);">Vendor</span><span style="font-weight:500;">${vendor}</span></div><div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text2);">Amount</span><span style="font-weight:600;">${fmt(amount)}</span></div><div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text2);">Date</span><span>${new Date(date).toLocaleDateString('nl-NL')}</span></div><div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text2);">Entity</span><span>${etag(entity||'Other')}</span></div>${desc?`<div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text2);">Notes</span><span style="color:var(--text2);">${desc}</span></div>`:''}</div><div style="display:flex;gap:10px;margin-top:4px;"><button class="btn" style="flex:1;padding:9px;" onclick="flagInvoice()">Flag for review</button><button class="btn pri" style="flex:1;padding:9px;" onclick="approveInvoice('${vendor.replace(/'/g,"\\'")}',${amount},'${date}','${desc.replace(/'/g,"\\'")}','${entity}','${status}','${match?match.name.replace(/'/g,"\\'"):''}')">Approve &amp; save</button></div>`;
   document.getElementById('result-card').innerHTML=`<div class="card-hd"><span class="card-title">Budget check result</span></div><div style="display:flex;flex-direction:column;gap:10px;">${html}</div>`;
 }
 
-function flagInvoice(){alert('Flagged for review. In v3 this will notify your manager by email.');}
-
+function flagInvoice(){alert('Flagged for manager review.');}
 function approveInvoice(vendor,amount,date,desc,entity,status,matched){
   addToLog({id:'INV-'+Date.now(),vendor,amount,date,desc,entity,status,matchedVendor:matched,approvedAt:new Date().toISOString()});
   updateLogBadge();
   ['f-vendor','f-amount','f-date','f-desc'].forEach(id=>{document.getElementById(id).value='';document.getElementById(id).classList.remove('ai-filled');});
-  document.getElementById('f-entity').value='';
-  document.getElementById('preview-wrap').style.display='none';
+  document.getElementById('f-entity').value='';document.getElementById('preview-wrap').style.display='none';
   document.getElementById('result-card').innerHTML=`<div class="card-hd"><span class="card-title">Budget check result</span></div><div style="padding:30px 0;text-align:center;"><div style="font-size:32px;margin-bottom:10px;">✓</div><div style="font-size:14px;font-weight:600;color:var(--green);">Invoice saved!</div><div style="margin-top:16px;"><button class="btn pri" onclick="showPage('log')">View invoice log</button></div></div>`;
   renderMonthly();
 }
 
-// ══════════════════════════════════════════════════════════════
-// INVOICE LOG
-// ══════════════════════════════════════════════════════════════
+// ══ LOG ══
 function renderLog(){
   const log=getLog();updateLogBadge();
-  const tot=log.reduce((s,i)=>s+i.amount,0);
-  const br=log.filter(i=>i.status==='breach').length;
-  const wn=log.filter(i=>i.status==='warn').length;
-  document.getElementById('log-metrics').innerHTML=`
-    <div class="metric"><div class="metric-lbl">Total invoices</div><div class="metric-val">${log.length}</div><div class="metric-sub muted">All time</div></div>
-    <div class="metric"><div class="metric-lbl">Total invoiced</div><div class="metric-val">${fmt(tot)}</div><div class="metric-sub muted">Across all months</div></div>
-    <div class="metric"><div class="metric-lbl">Breaches</div><div class="metric-val">${br}</div><div class="metric-sub ${br>0?'dn':'muted'}">${br>0?'Need review':'All clear'}</div></div>
-    <div class="metric"><div class="metric-lbl">Near-limit alerts</div><div class="metric-val">${wn}</div><div class="metric-sub ${wn>0?'warn':'muted'}">${wn>0?'Monitor':'All clear'}</div></div>`;
+  const tot=log.reduce((s,i)=>s+i.amount,0),br=log.filter(i=>i.status==='breach').length,wn=log.filter(i=>i.status==='warn').length;
+  document.getElementById('log-metrics').innerHTML=`<div class="metric"><div class="metric-lbl">Total invoices</div><div class="metric-val">${log.length}</div><div class="metric-sub muted">All time</div></div><div class="metric"><div class="metric-lbl">Total invoiced</div><div class="metric-val">${fmt(tot)}</div><div class="metric-sub muted">All months</div></div><div class="metric"><div class="metric-lbl">Breaches</div><div class="metric-val">${br}</div><div class="metric-sub ${br>0?'dn':'muted'}">${br>0?'Need review':'All clear'}</div></div><div class="metric"><div class="metric-lbl">Near-limit</div><div class="metric-val">${wn}</div><div class="metric-sub ${wn>0?'warn':'muted'}">${wn>0?'Monitor':'All clear'}</div></div>`;
   if(!log.length){document.getElementById('log-table-wrap').innerHTML='<div style="text-align:center;padding:40px;color:var(--text3);font-size:13px;">No invoices yet.</div>';return;}
-  let rows='';
-  log.forEach(inv=>{
-    const sb=inv.status==='breach'?'<span class="badge red">Breach</span>':inv.status==='warn'?'<span class="badge amber">Near limit</span>':'<span class="badge green">Approved</span>';
-    rows+=`<tr><td class="dim" style="font-family:'DM Mono',monospace;font-size:11px;">${inv.id}</td><td style="font-weight:500;">${inv.vendor}</td><td>${entityTag(inv.entity)}</td><td class="mono" style="font-weight:600;">${fmt(inv.amount)}</td><td class="dim">${new Date(inv.date).toLocaleDateString('nl-NL')}</td><td>${sb}</td><td class="dim" style="font-size:12px;">${inv.desc||'—'}</td><td><button class="btn danger" style="font-size:11px;padding:3px 8px;" onclick="deleteInvoice('${inv.id}')">Delete</button></td></tr>`;
-  });
+  let rows='';log.forEach(i=>{const sb=i.status==='breach'?'<span class="badge red">Breach</span>':i.status==='warn'?'<span class="badge amber">Near limit</span>':'<span class="badge green">Approved</span>';rows+=`<tr><td class="dim" style="font-family:'DM Mono',monospace;font-size:11px;">${i.id}</td><td style="font-weight:500;">${i.vendor}</td><td>${etag(i.entity)}</td><td class="mono" style="font-weight:600;">${fmt(i.amount)}</td><td class="dim">${new Date(i.date).toLocaleDateString('nl-NL')}</td><td>${sb}</td><td class="dim" style="font-size:12px;">${i.desc||'—'}</td><td><button class="btn danger" style="font-size:11px;padding:3px 8px;" onclick="delInv('${i.id}')">Delete</button></td></tr>`;});
   document.getElementById('log-table-wrap').innerHTML=`<table class="tbl"><thead><tr><th>ID</th><th>Vendor</th><th>Entity</th><th>Amount</th><th>Date</th><th>Status</th><th>Notes</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
 }
-function deleteInvoice(id){if(!confirm('Delete this invoice?'))return;saveLog(getLog().filter(i=>i.id!==id));renderLog();renderMonthly();}
+function delInv(id){if(!confirm('Delete?'))return;saveLog(getLog().filter(i=>i.id!==id));renderLog();renderMonthly();}
 function clearLog(){if(!confirm('Clear entire log?'))return;saveLog([]);renderLog();renderMonthly();}
 function updateLogBadge(){const n=getLog().length,b=document.getElementById('log-count-badge');n>0?(b.textContent=n,b.style.display=''):(b.style.display='none');}
-function exportLog(){
-  const log=getLog();if(!log.length){alert('No invoices.');return;}
-  let csv='ID,Vendor,Entity,Amount,Date,Status,Notes\n';
-  log.forEach(i=>{csv+=`"${i.id}","${i.vendor}","${i.entity||''}",${i.amount},"${i.date}","${i.status}","${i.desc||''}"\n`;});
-  dl(csv,'invoice-log.csv');
-}
+function exportLog(){const log=getLog();if(!log.length){alert('No invoices.');return;}let c='ID,Vendor,Entity,Amount,Date,Status,Notes\n';log.forEach(i=>{c+=`"${i.id}","${i.vendor}","${i.entity||''}",${i.amount},"${i.date}","${i.status}","${i.desc||''}"\n`;});dl(c,'invoice-log.csv');}
 
-// ══════════════════════════════════════════════════════════════
-// MONTHLY REPORT
-// ══════════════════════════════════════════════════════════════
+// ══ MONTHLY REPORT ══
+let reportMonth=0;
 function changeReportMonth(d){reportMonth=Math.max(0,Math.min(11,reportMonth+d));renderMonthlyReport();}
 function renderMonthlyReport(){
-  const m=reportMonth,items=getItems(),invMap=getInvMap();
+  const m=reportMonth,items=getItems(),inv=getInvMap();
   document.getElementById('report-month-label').textContent=FULL[m]+' 2026';
   document.getElementById('rpt-title').textContent='Budget vs Actual — '+FULL[m]+' 2026';
   document.getElementById('rpt-date').textContent=today();
-  const disc=document.getElementById('disc-select').value;
-  document.getElementById('rpt-entity').textContent=disc==='bc'?'B&C Int':disc==='trendiy'?'Trendiy':'All entities';
-  const totBud=items.reduce((s,c)=>s+c.ytd[m],0);
-  const totInv=items.reduce((s,c)=>s+(invMap[c.name+'|'+m]||0),0);
-  const variance=totInv-totBud;
-  const pct=totBud>0?Math.round(totInv/totBud*100):0;
-  const breaches=items.filter(c=>{const b=c.ytd[m],i=invMap[c.name+'|'+m]||0;return i>b&&b>0;}).length;
-  document.getElementById('rpt-metrics').innerHTML=`
-    <div class="metric"><div class="metric-lbl">Total budget</div><div class="metric-val">${fmt(totBud)}</div><div class="metric-sub muted">${FULL[m]} 2026</div></div>
-    <div class="metric"><div class="metric-lbl">Total invoiced</div><div class="metric-val">${fmt(totInv)}</div><div class="metric-sub muted">${pct}% of budget</div></div>
-    <div class="metric"><div class="metric-lbl">Variance</div><div class="metric-val">${variance>0?'-':'+'}${fmt(Math.abs(variance))}</div><div class="metric-sub ${variance>0?'dn':'up'}">${variance>0?'Over budget':'Under budget'}</div></div>
-    <div class="metric"><div class="metric-lbl">Breaches</div><div class="metric-val">${breaches}</div><div class="metric-sub ${breaches>0?'dn':'muted'}">${breaches>0?'Require attention':'All within budget'}</div></div>`;
+  const tB=items.reduce((s,c)=>s+c.ytd[m],0),tI=items.reduce((s,c)=>s+(inv[c.name+'|'+m]||0),0),vr=tI-tB,pc=tB>0?Math.round(tI/tB*100):0,br=items.filter(c=>{const b=c.ytd[m],i=inv[c.name+'|'+m]||0;return i>b&&b>0;}).length;
+  document.getElementById('rpt-metrics').innerHTML=`<div class="metric"><div class="metric-lbl">Total budget</div><div class="metric-val">${fmt(tB)}</div><div class="metric-sub muted">${FULL[m]} 2026</div></div><div class="metric"><div class="metric-lbl">Total invoiced</div><div class="metric-val">${fmt(tI)}</div><div class="metric-sub muted">${pc}% of budget</div></div><div class="metric"><div class="metric-lbl">Variance</div><div class="metric-val">${vr>0?'-':'+'}${fmt(Math.abs(vr))}</div><div class="metric-sub ${vr>0?'dn':'up'}">${vr>0?'Over':'Under'} budget</div></div><div class="metric"><div class="metric-lbl">Breaches</div><div class="metric-val">${br}</div><div class="metric-sub ${br>0?'dn':'muted'}">${br>0?'Require attention':'All within budget'}</div></div>`;
   const sorted=[...items].sort((a,b)=>b.ytd[m]-a.ytd[m]);
-  let rows='';
-  sorted.forEach(c=>{
-    const bud=c.ytd[m];if(!bud)return;
-    const inv=invMap[c.name+'|'+m]||0,rem=bud-inv,u=inv>0?Math.round(inv/bud*100):0;
-    const bc=barColor(u);
-    rows+=`<tr>
-      <td style="font-weight:500;">${c.name}</td>
-      <td>${entityTag(c.entity)}</td>
-      <td class="dim" style="font-size:12px;">${c.desc||'—'}</td>
-      <td class="mono">${fmt(bud)}</td>
-      <td class="mono">${inv?fmt(inv):'<span style="color:var(--text3);">—</span>'}</td>
-      <td class="${rem<0?'vneg':'vpos'}">${rem<0?'-':'+'}${fmt(Math.abs(rem))}</td>
-      <td><div style="display:flex;align-items:center;gap:8px;"><div class="prog-wrap"><div class="prog-bar" style="width:${Math.min(u,100)}%;background:${bc};"></div></div><span style="font-size:12px;font-family:'DM Mono',monospace;color:var(--text2);">${u}%</span></div></td>
-      <td>${statusBadge(u)}</td>
-    </tr>`;
-  });
+  let rows='';sorted.forEach(c=>{const b=c.ytd[m];if(!b)return;const i=inv[c.name+'|'+m]||0,r=b-i,u=i>0?Math.round(i/b*100):0;rows+=`<tr><td style="font-weight:500;">${c.name}</td><td>${etag(c.entity)}</td><td class="dim" style="font-size:12px;">${c.desc||'—'}</td><td class="mono">${fmt(b)}</td><td class="mono">${i?fmt(i):'<span style="color:var(--text3);">—</span>'}</td><td class="${r<0?'vneg':'vpos'}">${r<0?'-':'+'}${fmt(Math.abs(r))}</td><td><div style="display:flex;align-items:center;gap:8px;"><div class="prog-wrap"><div class="prog-bar" style="width:${Math.min(u,100)}%;background:${barColor(u)};"></div></div><span style="font-size:12px;font-family:'DM Mono',monospace;color:var(--text2);">${u}%</span></div></td><td>${statusBadge(u)}</td></tr>`;});
   document.getElementById('rpt-table').innerHTML=rows;
-  const overVendors=sorted.filter(c=>{const b=c.ytd[m],i=invMap[c.name+'|'+m]||0;return i>b&&b>0;});
-  const nearVendors=sorted.filter(c=>{const b=c.ytd[m],i=invMap[c.name+'|'+m]||0;return i>0&&i<=b&&i/b>=0.8;});
-  let summary=`<strong>${FULL[m]} 2026 Summary</strong><br><br>`;
-  summary+=`Total budget for this period: <strong>${fmt(totBud)}</strong>. `;
-  summary+=totInv>0?`Total invoiced: <strong>${fmt(totInv)}</strong> (${pct}% utilisation). `:`No invoices have been logged for this month yet. `;
-  if(overVendors.length){summary+=`<br><br><span style="color:var(--red);font-weight:600;">⚠ Budget breaches (${overVendors.length}):</span> ${overVendors.map(c=>`${c.name} (${fmt(invMap[c.name+'|'+m]||0)} vs ${fmt(c.ytd[m])} budget)`).join(', ')}.`;}
-  if(nearVendors.length){summary+=`<br><br><span style="color:var(--amber);font-weight:600;">Near limit (${nearVendors.length}):</span> ${nearVendors.map(c=>c.name).join(', ')}.`;}
-  if(!overVendors.length&&!nearVendors.length&&totInv>0){summary+=`<br><br><span style="color:var(--green);">✓ All vendors are within budget this month.</span>`;}
-  document.getElementById('rpt-summary').innerHTML=summary;
+  const ov=sorted.filter(c=>{const b=c.ytd[m],i=inv[c.name+'|'+m]||0;return i>b&&b>0;}),nr=sorted.filter(c=>{const b=c.ytd[m],i=inv[c.name+'|'+m]||0;return i>0&&i<=b&&i/b>=0.8;});
+  let s=`<strong>${FULL[m]} 2026 Budget Summary</strong><br><br>Total budget: <strong>${fmt(tB)}</strong>. `;
+  s+=tI>0?`Total invoiced: <strong>${fmt(tI)}</strong> (${pc}% utilisation). `:`No invoices logged for this month yet. `;
+  if(ov.length)s+=`<br><br><span style="color:var(--red);font-weight:600;">⚠ Breaches (${ov.length}):</span> ${ov.map(c=>`${c.name} (${fmt(inv[c.name+'|'+m]||0)} vs ${fmt(c.ytd[m])} budget)`).join(', ')}.`;
+  if(nr.length)s+=`<br><br><span style="color:var(--amber);font-weight:600;">Near limit (${nr.length}):</span> ${nr.map(c=>c.name).join(', ')}.`;
+  if(!ov.length&&!nr.length&&tI>0)s+=`<br><br><span style="color:var(--green);">✓ All vendors are within budget this month.</span>`;
+  document.getElementById('rpt-summary').innerHTML=s;
 }
-function exportReportCSV(){
-  const m=reportMonth,items=getItems(),invMap=getInvMap();
-  let csv='Vendor,Entity,Description,Budget,Invoiced,Remaining,% Used,Status\n';
-  [...items].sort((a,b)=>b.ytd[m]-a.ytd[m]).forEach(c=>{
-    const bud=c.ytd[m];if(!bud)return;
-    const inv=invMap[c.name+'|'+m]||0,u=inv>0?Math.round(inv/bud*100):0;
-    const st=u>100?'Breach':u>=80?'Near limit':'On track';
-    csv+=`"${c.name}","${c.entity}","${c.desc||''}",${bud},${inv},${bud-inv},${u}%,${st}\n`;
-  });
-  dl(csv,'report-'+FULL[m]+'-2026.csv');
-}
+function exportReportCSV(){const m=reportMonth,items=getItems(),inv=getInvMap();let c='Vendor,Entity,Description,Budget,Invoiced,Remaining,% Used,Status\n';[...items].sort((a,b)=>b.ytd[m]-a.ytd[m]).forEach(c2=>{const b=c2.ytd[m];if(!b)return;const i=inv[c2.name+'|'+m]||0,u=i>0?Math.round(i/b*100):0;c+=`"${c2.name}","${c2.entity}","${c2.desc||''}",${b},${i},${b-i},${u}%,${u>100?'Breach':u>=80?'Near limit':'On track'}\n`;});dl(c,'report-'+FULL[m]+'-2026.csv');}
 
-// ══════════════════════════════════════════════════════════════
-// YEAR-END FORECAST
-// ══════════════════════════════════════════════════════════════
+// ══ FORECAST ══
 function renderForecast(){
-  const items=getItems(),invMap=getInvMap();
+  const items=getItems(),inv=getInvMap();
   document.getElementById('fc-date').textContent=today();
-  const annTot=items.reduce((s,c)=>s+c.ytd.reduce((a,b)=>a+b,0),0);
-  let totInvYTD=0,totForecast=0,atRisk=0;
-  const rows_data=[];
-  items.forEach(c=>{
-    const ann=c.ytd.reduce((a,b)=>a+b,0);if(!ann)return;
-    const monthsWithInv=Array.from({length:12},(_,mi)=>invMap[c.name+'|'+mi]||0).filter(v=>v>0);
-    const invYTD=monthsWithInv.reduce((a,b)=>a+b,0);
-    const nMo=monthsWithInv.length;
-    const avg=nMo>0?invYTD/nMo:0;
-    const proj=Math.round(avg*12);
-    const variance=proj-ann;
-    totInvYTD+=invYTD; totForecast+=proj;
-    if(proj>ann)atRisk++;
-    rows_data.push({c,ann,invYTD,nMo,avg,proj,variance});
-  });
-  document.getElementById('fc-metrics').innerHTML=`
-    <div class="metric"><div class="metric-lbl">Annual budget</div><div class="metric-val">${fmt(annTot)}</div><div class="metric-sub muted">FY 2026</div></div>
-    <div class="metric"><div class="metric-lbl">Invoiced YTD</div><div class="metric-val">${fmt(totInvYTD)}</div><div class="metric-sub muted">All logged invoices</div></div>
-    <div class="metric"><div class="metric-lbl">Full-year forecast</div><div class="metric-val">${fmt(totForecast)}</div><div class="metric-sub ${totForecast>annTot?'dn':'up'}">${totForecast>annTot?'Projected overrun':'Projected on track'}</div></div>
-    <div class="metric"><div class="metric-lbl">Vendors at risk</div><div class="metric-val">${atRisk}</div><div class="metric-sub ${atRisk>0?'dn':'muted'}">${atRisk>0?'Projected to exceed budget':'All on track'}</div></div>`;
-  rows_data.sort((a,b)=>b.ann-a.ann);
-  let rows='';
-  rows_data.forEach(({c,ann,invYTD,nMo,avg,proj,variance})=>{
-    rows+=`<tr>
-      <td style="font-weight:500;">${c.name}</td>
-      <td>${entityTag(c.entity)}</td>
-      <td class="mono dim">${fmt(ann)}</td>
-      <td class="mono">${invYTD?fmt(invYTD):'<span style="color:var(--text3);">—</span>'}</td>
-      <td class="dim" style="text-align:center;">${nMo||'—'}</td>
-      <td class="mono dim">${avg?fmt(avg):'—'}</td>
-      <td class="mono" style="font-weight:600;color:${proj>ann?'var(--red)':'var(--text)'};">${avg?fmt(proj):'<span style="color:var(--text3);">No data</span>'}</td>
-      <td class="${variance>0?'vneg':'vpos'}">${avg?(variance>0?'-':'+')+(fmt(Math.abs(variance))):'—'}</td>
-      <td>${avg?(proj<=ann?'<span class="badge green">On track</span>':'<span class="badge red">At risk</span>'):'<span class="badge blue">No data</span>'}</td>
-    </tr>`;
-  });
+  const aT=items.reduce((s,c)=>s+c.ytd.reduce((a,b)=>a+b,0),0);
+  let tI=0,tF=0,ar=0;const rd=[];
+  items.forEach(c=>{const an=c.ytd.reduce((a,b)=>a+b,0);if(!an)return;const mi=Array.from({length:12},(_,i)=>inv[c.name+'|'+i]||0),iv=mi.reduce((a,b)=>a+b,0),nm=mi.filter(v=>v>0).length,avg=nm>0?iv/nm:0,pr=Math.round(avg*12),vr=pr-an;tI+=iv;tF+=pr;if(pr>an)ar++;rd.push({c,an,iv,nm,avg,pr,vr});});
+  document.getElementById('fc-metrics').innerHTML=`<div class="metric"><div class="metric-lbl">Annual budget</div><div class="metric-val">${fmt(aT)}</div><div class="metric-sub muted">FY 2026</div></div><div class="metric"><div class="metric-lbl">Invoiced YTD</div><div class="metric-val">${fmt(tI)}</div><div class="metric-sub muted">All logged invoices</div></div><div class="metric"><div class="metric-lbl">Full-year forecast</div><div class="metric-val">${fmt(tF)}</div><div class="metric-sub ${tF>aT?'dn':'up'}">${tF>aT?'Projected overrun':'On track'}</div></div><div class="metric"><div class="metric-lbl">Vendors at risk</div><div class="metric-val">${ar}</div><div class="metric-sub ${ar>0?'dn':'muted'}">${ar>0?'Projected overrun':'All on track'}</div></div>`;
+  rd.sort((a,b)=>b.an-a.an);
+  let rows='';rd.forEach(({c,an,iv,nm,avg,pr,vr})=>{rows+=`<tr><td style="font-weight:500;">${c.name}</td><td>${etag(c.entity)}</td><td class="mono dim">${fmt(an)}</td><td class="mono">${iv?fmt(iv):'<span style="color:var(--text3);">—</span>'}</td><td class="dim" style="text-align:center;">${nm||'—'}</td><td class="mono dim">${avg?fmt(avg):'—'}</td><td class="mono" style="font-weight:600;color:${pr>an?'var(--red)':'var(--text)'};">${avg?fmt(pr):'<span style="color:var(--text3);">No data</span>'}</td><td class="${vr>0?'vneg':'vpos'}">${avg?(vr>0?'-':'+')+(fmt(Math.abs(vr))):'—'}</td><td>${avg?(pr<=an?'<span class="badge green">On track</span>':'<span class="badge red">At risk</span>'):'<span class="badge navy">No data</span>'}</td></tr>`;});
   document.getElementById('fc-table').innerHTML=rows;
-  // Visual bars — top 10 by annual budget
-  const top10=rows_data.slice(0,10);
-  const maxVal=Math.max(...top10.map(r=>Math.max(r.ann,r.proj)),1);
-  let barsHTML='';
-  top10.forEach(({c,ann,proj,invYTD})=>{
-    const bW=Math.round(ann/maxVal*100);
-    const pW=proj?Math.round(proj/maxVal*100):0;
-    const over=proj>ann;
-    barsHTML+=`<div>
-      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;">
-        <span style="font-weight:500;">${c.name}</span>
-        <span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--text2);">${proj?fmt(proj)+' forecast':invYTD?fmt(invYTD)+' invoiced':'no data'} <span style="color:var(--text3);">/ ${fmt(ann)} budget</span></span>
-      </div>
-      <div style="position:relative;height:8px;background:var(--surface2);border-radius:4px;margin-bottom:2px;">
-        <div style="position:absolute;top:0;left:0;height:8px;width:${bW}%;background:#D5D3F5;border-radius:4px;"></div>
-        ${proj?`<div style="position:absolute;top:0;left:0;height:8px;width:${pW}%;background:${over?'var(--red)':'var(--accent)'};border-radius:4px;opacity:0.85;"></div>`:''}
-      </div>
-    </div>`;
-  });
-  document.getElementById('fc-bars').innerHTML=barsHTML;
+  const top=rd.slice(0,10),mx=Math.max(...top.map(r=>Math.max(r.an,r.pr)),1);
+  let bh='';top.forEach(({c,an,pr,iv})=>{const bW=Math.round(an/mx*100),pW=pr?Math.round(pr/mx*100):0,ov=pr>an;bh+=`<div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px;"><span style="font-weight:500;">${c.name}</span><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:var(--text2);">${pr?fmt(pr)+' forecast':iv?fmt(iv)+' invoiced':'no data'} <span style="color:var(--text3);">/ ${fmt(an)} budget</span></span></div><div style="position:relative;height:8px;background:var(--cream2);border-radius:4px;margin-bottom:3px;"><div style="position:absolute;top:0;left:0;height:8px;width:${bW}%;background:var(--cream3);border-radius:4px;"></div>${pr?`<div style="position:absolute;top:0;left:0;height:8px;width:${pW}%;background:${ov?'var(--red)':'var(--navy)'};border-radius:4px;opacity:0.8;"></div>`:''}</div></div>`;});
+  document.getElementById('fc-bars').innerHTML=bh;
 }
-function exportForecastCSV(){
-  const items=getItems(),invMap=getInvMap();
-  let csv='Vendor,Entity,Annual Budget,Invoiced YTD,Months with Data,Avg/Month,Full-Year Forecast,Variance,Status\n';
-  items.forEach(c=>{
-    const ann=c.ytd.reduce((a,b)=>a+b,0);if(!ann)return;
-    const monthInv=Array.from({length:12},(_,mi)=>invMap[c.name+'|'+mi]||0);
-    const invYTD=monthInv.reduce((a,b)=>a+b,0);
-    const mo=monthInv.filter(v=>v>0).length;
-    const avg=mo>0?invYTD/mo:0;
-    const proj=Math.round(avg*12);
-    const st=!avg?'No data':proj<=ann?'On track':'At risk';
-    csv+=`"${c.name}","${c.entity}",${ann},${invYTD},${mo},${Math.round(avg)},${proj},${proj-ann},"${st}"\n`;
-  });
-  dl(csv,'forecast-fy2026.csv');
-}
+function exportForecastCSV(){const items=getItems(),inv=getInvMap();let c='Vendor,Entity,Annual Budget,Invoiced YTD,Months,Avg/Month,Forecast,Variance,Status\n';items.forEach(c2=>{const an=c2.ytd.reduce((a,b)=>a+b,0);if(!an)return;const mi=Array.from({length:12},(_,i)=>inv[c2.name+'|'+i]||0),iv=mi.reduce((a,b)=>a+b,0),nm=mi.filter(v=>v>0).length,avg=nm>0?iv/nm:0,pr=Math.round(avg*12);c+=`"${c2.name}","${c2.entity}",${an},${iv},${nm},${Math.round(avg)},${pr},${pr-an},"${!avg?'No data':pr<=an?'On track':'At risk'}"\n`;});dl(c,'forecast-fy2026.csv');}
 
-// ══════════════════════════════════════════════════════════════
-// CONTRACTS
-// ══════════════════════════════════════════════════════════════
+// ══ CONTRACTS ══
 function handleContractDrop(e){e.preventDefault();this.classList.remove('drag');const f=e.dataTransfer.files[0];if(f)handleContract(f);}
-async function handleContract(file){
-  if(!file)return;
+async function handleContract(f){
+  if(!f)return;
   document.getElementById('contract-ai-thinking').style.display='flex';
   document.getElementById('contract-ai-status').textContent='';
   document.getElementById('contract-result-body').innerHTML='';
   try{
-    const b64=await toB64(file);
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:[{type:file.type==='application/pdf'?'document':'image',source:{type:'base64',media_type:file.type,data:b64}},{type:'text',text:'Extract contract details. Respond ONLY with JSON:\n{"vendor":"name","agreedAmount":1234.56,"currency":"EUR","period":"monthly or annual or one-time","startDate":"YYYY-MM-DD or null","endDate":"YYYY-MM-DD or null","description":"what this contract covers","keyTerms":"any important clauses or conditions"}\nIf unsure use null.'}]}]})});
+    const b64=await toB64(f);
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,messages:[{role:'user',content:[{type:f.type==='application/pdf'?'document':'image',source:{type:'base64',media_type:f.type,data:b64}},{type:'text',text:'Extract contract details. Respond ONLY with JSON:\n{"vendor":"name","agreedAmount":1234.56,"currency":"EUR","period":"monthly or annual or one-time","startDate":"YYYY-MM-DD or null","endDate":"YYYY-MM-DD or null","description":"what this covers","keyTerms":"important clauses"}\nIf unsure use null.'}]}]})});
     const data=await res.json();
-    const txt=data.content?.map(i=>i.text||'').join('');
-    const p=JSON.parse(txt.replace(/```json|```/g,'').trim());
+    const p=JSON.parse(data.content?.map(i=>i.text||'').join('').replace(/```json|```/g,'').trim());
     document.getElementById('contract-ai-thinking').style.display='none';
     document.getElementById('contract-ai-status').textContent='✓ Contract read';
-    document.getElementById('contract-ai-status').style.color='var(--green)';
-    // Match to budget
-    const match=p.vendor?matchVendor(p.vendor):null;
-    const budMo=match?match.ytd[0]:null;
-    const amtMo=p.period==='annual'&&p.agreedAmount?p.agreedAmount/12:p.agreedAmount;
-    let matchHTML='';
-    if(match&&budMo&&amtMo){
-      const diff=Math.abs(amtMo-budMo)/budMo;
-      matchHTML=diff>0.05
-        ?`<div style="background:var(--red-bg);border:1px solid #F09595;border-radius:var(--radius);padding:12px;margin-top:12px;font-size:12px;color:var(--red);"><strong>Budget mismatch:</strong> Contract amount ${fmt(amtMo)}/mo vs budgeted ${fmt(budMo)}/mo (${Math.round(diff*100)}% difference)</div>`
-        :`<div style="background:var(--green-bg);border:1px solid #97C459;border-radius:var(--radius);padding:12px;margin-top:12px;font-size:12px;color:var(--green);">✓ Contract amount matches budget (${fmt(budMo)}/mo)</div>`;
-    }
-    document.getElementById('contract-result-body').innerHTML=`
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <div style="background:var(--surface2);border-radius:var(--radius);padding:14px;font-size:12px;">
-          <div style="font-weight:600;font-size:13px;margin-bottom:10px;">${p.vendor||'Unknown vendor'}</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-            <div><span style="color:var(--text3);">Agreed amount</span><br><span style="font-weight:600;font-family:'DM Mono',monospace;">${p.agreedAmount?fmt(p.agreedAmount):'-'}</span> <span style="color:var(--text3);">${p.period||''}</span></div>
-            <div><span style="color:var(--text3);">Currency</span><br><span style="font-weight:500;">${p.currency||'EUR'}</span></div>
-            <div><span style="color:var(--text3);">Start date</span><br><span style="font-weight:500;">${p.startDate?new Date(p.startDate).toLocaleDateString('nl-NL'):'-'}</span></div>
-            <div><span style="color:var(--text3);">End date</span><br><span style="font-weight:500;">${p.endDate?new Date(p.endDate).toLocaleDateString('nl-NL'):'—'}</span></div>
-          </div>
-          ${p.description?`<div style="margin-top:10px;color:var(--text2);">${p.description}</div>`:''}
-          ${p.keyTerms?`<div style="margin-top:8px;font-size:11.5px;color:var(--text3);border-top:1px solid var(--border);padding-top:8px;">${p.keyTerms}</div>`:''}
-        </div>
-        ${matchHTML}
-        <button class="btn pri" style="padding:9px;" onclick='saveContract(${JSON.stringify(p).replace(/'/g,"&#39;")})'>Save contract</button>
-      </div>`;
-  }catch(e){
-    document.getElementById('contract-ai-thinking').style.display='none';
-    document.getElementById('contract-result-body').innerHTML='<div style="color:var(--amber);font-size:13px;">Could not read contract — please check the file and try again.</div>';
-  }
+    const match=p.vendor?matchVendor(p.vendor):null,bMo=match?match.ytd[0]:null,aMo=p.period==='annual'&&p.agreedAmount?p.agreedAmount/12:p.agreedAmount;
+    let mH='';if(match&&bMo&&aMo){const diff=Math.abs(aMo-bMo)/bMo;mH=diff>0.05?`<div style="background:var(--red-bg);border:1px solid #E8A090;border-radius:var(--radius);padding:12px;margin-top:10px;font-size:12px;color:var(--red);"><strong>Budget mismatch:</strong> Contract ${fmt(aMo)}/mo vs budgeted ${fmt(bMo)}/mo (${Math.round(diff*100)}% diff)</div>`:`<div style="background:var(--green-bg);border:1px solid #90CDAF;border-radius:var(--radius);padding:12px;margin-top:10px;font-size:12px;color:var(--green);">✓ Contract amount matches budget (${fmt(bMo)}/mo)</div>`;}
+    const pData=JSON.stringify(p).replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+    document.getElementById('contract-result-body').innerHTML=`<div style="display:flex;flex-direction:column;gap:10px;"><div style="background:var(--surface2);border-radius:var(--radius);padding:14px;font-size:12px;"><div style="font-weight:600;font-size:13px;margin-bottom:10px;">${p.vendor||'Unknown vendor'}</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;"><div><span style="color:var(--text3);">Agreed amount</span><br><span style="font-weight:600;font-family:'DM Mono',monospace;">${p.agreedAmount?fmt(p.agreedAmount):'-'}</span> <span style="color:var(--text3);">${p.period||''}</span></div><div><span style="color:var(--text3);">Currency</span><br><span style="font-weight:500;">${p.currency||'EUR'}</span></div><div><span style="color:var(--text3);">Start</span><br><span style="font-weight:500;">${p.startDate?new Date(p.startDate).toLocaleDateString('nl-NL'):'-'}</span></div><div><span style="color:var(--text3);">End date</span><br><span style="font-weight:500;${p.endDate&&(new Date(p.endDate)-new Date())<90*86400000?'color:var(--red);':''}">${p.endDate?new Date(p.endDate).toLocaleDateString('nl-NL'):'—'}</span></div></div>${p.description?`<div style="margin-top:10px;color:var(--text2);">${p.description}</div>`:''}${p.keyTerms?`<div style="margin-top:8px;font-size:11.5px;color:var(--text3);border-top:1px solid var(--border);padding-top:8px;">${p.keyTerms}</div>`:''}</div>${mH}<button class="btn pri" style="padding:9px;" onclick='saveContract(${pData})'>Save contract</button></div>`;
+  }catch(e){document.getElementById('contract-ai-thinking').style.display='none';document.getElementById('contract-result-body').innerHTML='<div style="color:var(--amber);font-size:13px;">Could not read — try again.</div>';}
 }
-
-function saveContract(p){
-  const contracts=getContracts();
-  contracts.unshift({...p,savedAt:new Date().toISOString(),id:'CON-'+Date.now()});
-  saveContracts(contracts);
-  updateContractBadge();
-  renderContracts();
-  document.getElementById('contract-result-body').innerHTML='<div style="text-align:center;padding:20px;"><div style="font-size:28px;margin-bottom:8px;">✓</div><div style="font-size:14px;font-weight:600;color:var(--green);">Contract saved!</div></div>';
-}
-
+function saveContract(p){const c=getContracts();c.unshift({...p,savedAt:new Date().toISOString(),id:'CON-'+Date.now()});saveContracts(c);updateContractBadge();updateRenewalBadge();renderContracts();}
 function renderContracts(){
   updateContractBadge();
-  const contracts=getContracts();
-  if(!contracts.length){document.getElementById('contracts-list').innerHTML='<div style="text-align:center;padding:30px;color:var(--text3);font-size:13px;">No contracts saved yet.</div>';return;}
-  let html='';
-  contracts.forEach(c=>{
-    const match=c.vendor?matchVendor(c.vendor):null;
-    const budMo=match?match.ytd[0]:null;
-    const amtMo=c.period==='annual'&&c.agreedAmount?c.agreedAmount/12:c.agreedAmount;
-    let matchTag='';
-    if(budMo&&amtMo){const diff=Math.abs(amtMo-budMo)/budMo;matchTag=diff>0.05?`<span style="font-size:11px;color:var(--red);font-weight:500;">⚠ Budget mismatch (${Math.round(diff*100)}%)</span>`:`<span style="font-size:11px;color:var(--green);font-weight:500;">✓ Matches budget</span>`;}
-    html+=`<div class="contract-item">
-      <div class="contract-icon">📋</div>
-      <div style="flex:1;min-width:0;">
-        <div style="font-size:13px;font-weight:600;">${c.vendor||'Unknown'}</div>
-        <div style="font-size:12px;color:var(--text2);margin-top:2px;">${c.description||''}</div>
-        <div style="display:flex;gap:12px;margin-top:6px;flex-wrap:wrap;">
-          <span style="font-size:12px;font-family:'DM Mono',monospace;font-weight:600;">${c.agreedAmount?fmt(c.agreedAmount):'-'} <span style="font-weight:400;color:var(--text3);">${c.period||''}</span></span>
-          ${c.endDate?`<span style="font-size:12px;color:var(--text2);">Ends ${new Date(c.endDate).toLocaleDateString('nl-NL')}</span>`:''}
-          ${matchTag}
-        </div>
-      </div>
-      <button class="btn danger" style="font-size:11px;padding:3px 8px;flex-shrink:0;" onclick="deleteContract('${c.id}')">Remove</button>
-    </div>`;
-  });
+  const c=getContracts();
+  if(!c.length){document.getElementById('contracts-list').innerHTML='<div style="text-align:center;padding:30px;color:var(--text3);font-size:13px;">No contracts saved yet.</div>';return;}
+  let html='';c.forEach(ct=>{const match=ct.vendor?matchVendor(ct.vendor):null,bMo=match?match.ytd[0]:null,aMo=ct.period==='annual'&&ct.agreedAmount?ct.agreedAmount/12:ct.agreedAmount;let mt='';if(bMo&&aMo){const d=Math.abs(aMo-bMo)/bMo;mt=d>0.05?`<span style="font-size:11px;color:var(--red);font-weight:500;">⚠ ${Math.round(d*100)}% budget mismatch</span>`:`<span style="font-size:11px;color:var(--green);font-weight:500;">✓ Matches budget</span>`;}const daysLeft=ct.endDate?Math.round((new Date(ct.endDate)-new Date())/86400000):null;const expTag=daysLeft!==null?(daysLeft<30?`<span style="font-size:11px;color:var(--red);font-weight:600;">Expires in ${daysLeft}d</span>`:daysLeft<90?`<span style="font-size:11px;color:var(--amber);font-weight:500;">Expires in ${daysLeft}d</span>`:`<span style="font-size:11px;color:var(--text3);">Expires ${new Date(ct.endDate).toLocaleDateString('nl-NL')}</span>`):'';html+=`<div class="contract-item"><div class="contract-icon">📋</div><div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;">${ct.vendor||'Unknown'}</div><div style="font-size:12px;color:var(--text2);margin-top:2px;">${ct.description||''}</div><div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap;align-items:center;"><span style="font-size:12px;font-family:'DM Mono',monospace;font-weight:600;">${ct.agreedAmount?fmt(ct.agreedAmount):'-'} <span style="font-weight:400;color:var(--text3);">${ct.period||''}</span></span>${expTag}${mt}</div></div><button class="btn danger" style="font-size:11px;padding:3px 8px;flex-shrink:0;" onclick="delContract('${ct.id}')">Remove</button></div>`;});
   document.getElementById('contracts-list').innerHTML=html;
 }
-function deleteContract(id){if(!confirm('Remove this contract?'))return;saveContracts(getContracts().filter(c=>c.id!==id));updateContractBadge();renderContracts();}
-function updateContractBadge(){const n=getContracts().length,b=document.getElementById('contract-count-badge');b.textContent=n;b.style.display=n>0?'':'none';document.getElementById('contract-total-badge').textContent=n+' contract'+(n!==1?'s':'');}
+function delContract(id){if(!confirm('Remove?'))return;saveContracts(getContracts().filter(c=>c.id!==id));updateContractBadge();updateRenewalBadge();renderContracts();}
+function updateContractBadge(){const n=getContracts().length,b=document.getElementById('contract-count-badge');b.textContent=n+' contract'+(n!==1?'s':'');b.style.display=n>0?'':'none';document.getElementById('contract-total-badge').textContent=n+' contract'+(n!==1?'s':'');}
 
-// ── UTILS ─────────────────────────────────────────────────────
-function dl(csv,filename){const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download=filename;a.click();}
-function exportCSV(){
-  const m=currentMonth,items=getItems();
-  let csv='Vendor,Description,Entity,Budget ('+FULL[m]+')\n';
-  [...items].sort((a,b)=>b.ytd[m]-a.ytd[m]).forEach(c=>{csv+=`"${c.name}","${c.desc}","${c.entity}",${c.ytd[m]}\n`;});
-  dl(csv,'budget-'+FULL[m]+'-2026.csv');
+// ══ CHAT — Ask your budget ══
+async function sendChat(){
+  const input=document.getElementById('chat-input'),q=input.value.trim();
+  if(!q)return;
+  input.value='';
+  appendChat(q,'user');
+  appendChat('…','ai','thinking');
+  try{
+    const inv=getInvMap(),ibm=getInvByMonth(),log=getLog(),contracts=getContracts();
+    const budgetSummary=BUDGET.map(b=>`${b.name} (${b.entity}): Jan=${b.ytd[0]}, Feb=${b.ytd[1]}, Mar=${b.ytd[2]}, Apr=${b.ytd[3]}, May=${b.ytd[4]}, Jun=${b.ytd[5]}, Jul=${b.ytd[6]}, Aug=${b.ytd[7]}, Sep=${b.ytd[8]}, Oct=${b.ytd[9]}, Nov=${b.ytd[10]}, Dec=${b.ytd[11]} (all in €)`).join('\n');
+    const invoiceSummary=log.length>0?log.map(i=>`${i.vendor}: €${i.amount} on ${i.date} [${i.status}]`).join('\n'):'No invoices logged yet.';
+    const contractSummary=contracts.length>0?contracts.map(c=>`${c.vendor}: ${c.agreedAmount?'€'+c.agreedAmount:'-'} ${c.period||''} ends ${c.endDate||'unknown'}`).join('\n'):'No contracts saved.';
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,messages:[{role:'user',content:`You are a budget assistant for B&C International. You have access to their 2026 IT budget data. Answer questions clearly and concisely. Use € for amounts.\n\n=== BUDGET DATA (€/month per vendor) ===\n${budgetSummary}\n\n=== INVOICE LOG ===\n${invoiceSummary}\n\n=== CONTRACTS ===\n${contractSummary}\n\n=== USER QUESTION ===\n${q}`}]})});
+    const data=await res.json();
+    const answer=data.content?.map(i=>i.text||'').join('')||'Sorry, I could not answer that.';
+    removeThinking();appendChat(answer,'ai');
+  }catch(e){removeThinking();appendChat('Sorry, I encountered an error. Please try again.','ai');}
 }
+function appendChat(text,role,id=''){const wrap=document.getElementById('chat-wrap');const d=document.createElement('div');d.className='chat-msg '+role;if(id)d.id='chat-'+id;d.innerHTML=`<div class="chat-avatar ${role}">${role==='user'?'You':'AI'}</div><div class="chat-bubble ${role}">${text.replace(/\n/g,'<br>')}</div>`;wrap.appendChild(d);wrap.scrollTop=wrap.scrollHeight;}
+function removeThinking(){const t=document.getElementById('chat-thinking');if(t)t.remove();}
+function askQuestion(q){document.getElementById('chat-input').value=q;sendChat();}
 
-// ── INIT ──────────────────────────────────────────────────────
-updateLogBadge();updateContractBadge();
+// ══ RENEWALS ══
+function updateRenewalBadge(){const c=getContracts().filter(ct=>ct.endDate);const soon=c.filter(ct=>Math.round((new Date(ct.endDate)-new Date())/86400000)<90).length;const b=document.getElementById('renewal-badge');b.textContent=soon;b.style.display=soon>0?'':'none';}
+function renderRenewals(){
+  updateRenewalBadge();
+  const c=getContracts().filter(ct=>ct.endDate).sort((a,b)=>new Date(a.endDate)-new Date(b.endDate));
+  const now=new Date();
+  const expired=c.filter(ct=>new Date(ct.endDate)<now);
+  const in30=c.filter(ct=>{const d=Math.round((new Date(ct.endDate)-now)/86400000);return d>=0&&d<30;});
+  const in90=c.filter(ct=>{const d=Math.round((new Date(ct.endDate)-now)/86400000);return d>=30&&d<90;});
+  const beyond=c.filter(ct=>Math.round((new Date(ct.endDate)-now)/86400000)>=90);
+  document.getElementById('renewal-metrics').innerHTML=`<div class="metric"><div class="metric-lbl">Contracts with dates</div><div class="metric-val">${c.length}</div><div class="metric-sub muted">of ${getContracts().length} total</div></div><div class="metric"><div class="metric-lbl">Expiring within 30 days</div><div class="metric-val" style="color:${in30.length>0?'var(--red)':'var(--green)'};">${in30.length}</div><div class="metric-sub ${in30.length>0?'dn':'muted'}">${in30.length>0?'Action needed':'All clear'}</div></div><div class="metric"><div class="metric-lbl">Expiring within 90 days</div><div class="metric-val" style="color:${in90.length>0?'var(--amber)':'var(--green)'};">${in90.length}</div><div class="metric-sub ${in90.length>0?'warn':'muted'}">${in90.length>0?'Monitor closely':'All clear'}</div></div>`;
+  if(!c.length){document.getElementById('renewals-list').innerHTML='<div style="text-align:center;padding:30px;color:var(--text3);font-size:13px;">No contracts with end dates saved.<br>Upload contracts in <strong>Vendor contracts</strong>.</div>';document.getElementById('renewal-timeline').innerHTML='';return;}
+  function renewalItem(ct){const d=Math.round((new Date(ct.endDate)-now)/86400000);const isExp=d<0;const bg=isExp?'var(--red-bg)':d<30?'var(--red-bg)':d<90?'var(--amber-bg)':'var(--green-bg)';const fc=isExp?'var(--red)':d<30?'var(--red)':d<90?'var(--amber)':'var(--green)';const label=isExp?'Expired':'days left';return `<div class="renewal-item"><div class="renewal-days" style="background:${bg};color:${fc};"><div class="num">${isExp?'!':d}</div><div class="lbl">${label}</div></div><div style="flex:1;"><div style="font-size:13px;font-weight:600;">${ct.vendor||'Unknown'}</div><div style="font-size:12px;color:var(--text2);margin-top:2px;">${ct.description||''}</div><div style="font-size:12px;color:var(--text3);margin-top:3px;">Ends ${new Date(ct.endDate).toLocaleDateString('nl-NL')} · ${ct.agreedAmount?fmt(ct.agreedAmount):'-'} ${ct.period||''}</div></div></div>`;}
+  let list='';
+  if(expired.length){list+=`<div style="font-size:11px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;">Expired</div>`;expired.forEach(ct=>{list+=renewalItem(ct);});}
+  if(in30.length){list+=`<div style="font-size:11px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:0.05em;margin:10px 0 6px;">Expiring within 30 days</div>`;in30.forEach(ct=>{list+=renewalItem(ct);});}
+  if(in90.length){list+=`<div style="font-size:11px;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:0.05em;margin:10px 0 6px;">Expiring within 90 days</div>`;in90.forEach(ct=>{list+=renewalItem(ct);});}
+  if(beyond.length){list+=`<div style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;margin:10px 0 6px;">Future renewals</div>`;beyond.forEach(ct=>{list+=renewalItem(ct);});}
+  document.getElementById('renewals-list').innerHTML=list||'<div style="text-align:center;padding:30px;color:var(--text3);font-size:13px;">No upcoming renewals.</div>';
+  // Timeline
+  const months12=[...Array(12)].map((_,i)=>{const d=new Date(now);d.setMonth(d.getMonth()+i);return{label:MONTHS[d.getMonth()]+' '+d.getFullYear(),key:`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`};});
+  let tl='';months12.forEach(mo=>{const items=c.filter(ct=>ct.endDate&&ct.endDate.startsWith(mo.key));if(items.length){tl+=`<div style="display:flex;gap:12px;align-items:flex-start;"><div style="width:80px;font-size:12px;font-weight:600;color:var(--text2);padding-top:2px;flex-shrink:0;">${mo.label}</div><div style="flex:1;display:flex;flex-direction:column;gap:6px;">${items.map(ct=>`<div style="background:var(--surface2);border-radius:var(--radius);padding:8px 12px;font-size:12px;border-left:3px solid var(--navy);"><strong>${ct.vendor}</strong> · ${ct.agreedAmount?fmt(ct.agreedAmount):'-'} ${ct.period||''}</div>`).join('')}</div></div>`;}`});
+  document.getElementById('renewal-timeline').innerHTML=tl||'<div style="color:var(--text3);font-size:13px;">No renewals in the next 12 months.</div>';
+}
+function exportCSV(){const m=currentMonth,items=getItems();let c='Vendor,Description,Entity,Budget ('+FULL[m]+')\n';[...items].sort((a,b)=>b.ytd[m]-a.ytd[m]).forEach(c2=>{c+=`"${c2.name}","${c2.desc}","${c2.entity}",${c2.ytd[m]}\n`;});dl(c,'budget-'+FULL[m]+'-2026.csv');}
+
+// ── INIT ──
+updateLogBadge();updateContractBadge();updateRenewalBadge();
 document.getElementById('f-date').value=new Date().toISOString().split('T')[0];
 document.getElementById('rpt-date').textContent=today();
 document.getElementById('fc-date').textContent=today();

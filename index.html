@@ -6,58 +6,111 @@
 <title>Forecast &amp; Invoice Control — B&amp;C International</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#1B2E3C;--navy2:#243d50;
+  --navy:#1B2E3C;--navy2:#243d50;--navy3:#0f1e28;
   --cream:#F5F0E8;--cream2:#EDE7D9;--cream3:#DDD5C5;
   --surface:#fff;--surface2:#F8F6F2;
   --border:rgba(27,46,60,0.1);--border2:rgba(27,46,60,0.2);
   --text:#1B2E3C;--text2:#4A6070;--text3:#8A9EAD;
-  --green:#2D7A5F;--green-bg:#EAF4EF;
-  --red:#B83C2B;--red-bg:#FAF0EE;
-  --amber:#9A6B1A;--amber-bg:#FBF4E6;
-  --radius:8px;--radius-lg:12px;
+  --green:#2D7A5F;--green-bg:#EAF4EF;--green-border:#90CDAF;
+  --red:#B83C2B;--red-bg:#FAF0EE;--red-border:#E8A090;
+  --amber:#9A6B1A;--amber-bg:#FBF4E6;--amber-border:#DDB870;
+  --radius:8px;--radius-lg:12px;--radius-xl:18px;
   --shadow:0 1px 4px rgba(27,46,60,0.08);
   --shadow-md:0 4px 16px rgba(27,46,60,0.12);
+  --shadow-lg:0 12px 40px rgba(27,46,60,0.18);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:14px;min-height:100vh;display:flex;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);font-size:14px;min-height:100vh;}
+
+/* ── LANDING ── */
+#landing{display:flex;min-height:100vh;background:var(--navy3);}
+.landing-left{flex:1;background:var(--navy);display:flex;flex-direction:column;justify-content:space-between;padding:48px 56px;position:relative;overflow:hidden;}
+.landing-left::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;border:1px solid rgba(255,255,255,0.04);}
+.landing-left::after{content:'';position:absolute;bottom:-60px;left:-60px;width:300px;height:300px;border-radius:50%;border:1px solid rgba(255,255,255,0.04);}
+.ll-logo{display:flex;align-items:center;gap:12px;position:relative;z-index:1;}
+.ll-logo-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:#fff;letter-spacing:0.02em;}
+.ll-logo-sub{font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:0.15em;text-transform:uppercase;margin-top:2px;}
+.ll-hero{position:relative;z-index:1;}
+.ll-eyebrow{font-size:10px;font-weight:600;color:rgba(255,255,255,0.4);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:16px;}
+.ll-title{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:#fff;line-height:1.1;letter-spacing:-0.5px;margin-bottom:20px;}
+.ll-title em{font-style:italic;color:var(--cream2);}
+.ll-desc{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.8;max-width:380px;}
+.ll-stats{display:flex;gap:32px;position:relative;z-index:1;}
+.ll-stat-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:#fff;}
+.ll-stat-lbl{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px;}
+.landing-right{width:480px;flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:40px;}
+.role-card{background:var(--surface);border-radius:var(--radius-xl);padding:44px 40px;width:100%;box-shadow:var(--shadow-lg);}
+.rc-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:var(--navy);margin-bottom:6px;}
+.rc-sub{font-size:13px;color:var(--text3);margin-bottom:32px;line-height:1.5;}
+.role-options{display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.role-opt{border:1.5px solid var(--border2);border-radius:var(--radius-lg);padding:18px 20px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:14px;position:relative;}
+.role-opt:hover{border-color:var(--navy);background:var(--surface2);}
+.role-opt.selected{border-color:var(--navy);background:#EBF0F4;}
+.role-opt.selected::after{content:'✓';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:14px;font-weight:600;color:var(--navy);}
+.role-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.role-name{font-size:14px;font-weight:600;color:var(--text);}
+.role-desc{font-size:12px;color:var(--text2);margin-top:2px;}
+.dept-select-wrap{margin-bottom:24px;}
+.dept-lbl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:7px;}
+.dept-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.dept-btn{border:1px solid var(--border2);border-radius:var(--radius);padding:8px 4px;text-align:center;font-size:12px;font-weight:500;color:var(--text2);cursor:pointer;transition:all 0.15s;background:var(--surface);}
+.dept-btn:hover{border-color:var(--navy);color:var(--navy);}
+.dept-btn.sel{background:var(--navy);border-color:var(--navy);color:#fff;}
+.enter-btn{width:100%;padding:14px;background:var(--navy);color:#fff;border:none;border-radius:var(--radius-lg);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:0.02em;transition:background 0.15s;}
+.enter-btn:hover{background:var(--navy2);}
+.enter-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.rc-footer{text-align:center;margin-top:16px;font-size:12px;color:var(--text3);}
+
+/* ── APP SHELL ── */
+#app{display:none;min-height:100vh;flex-direction:row;}
 .sidebar{width:240px;flex-shrink:0;background:var(--navy);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;overflow-y:auto;}
-.logo{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:10px;}
-.logo-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:#fff;line-height:1.2;}
-.logo-sub{font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:.12em;text-transform:uppercase;margin-top:2px;}
-.nav-sec{padding:14px 20px 5px;font-size:9px;font-weight:600;color:rgba(255,255,255,0.3);letter-spacing:.1em;text-transform:uppercase;}
-.nav-item{padding:9px 16px;margin:1px 10px;border-radius:6px;font-size:13px;color:rgba(255,255,255,0.6);cursor:pointer;display:flex;align-items:center;gap:10px;transition:all .15s;user-select:none;}
+.logo{padding:18px 20px 14px;border-bottom:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;gap:10px;}
+.logo-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:500;color:#fff;line-height:1.2;}
+.logo-sub{font-size:9px;color:rgba(255,255,255,0.4);letter-spacing:.1em;text-transform:uppercase;margin-top:1px;}
+.role-tag{margin:10px 16px 0;padding:5px 10px;border-radius:6px;font-size:10px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;}
+.role-tag.admin{background:rgba(255,255,255,0.12);color:var(--cream2);}
+.role-tag.user{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.5);}
+.nav-sec{padding:12px 20px 4px;font-size:9px;font-weight:600;color:rgba(255,255,255,0.3);letter-spacing:.1em;text-transform:uppercase;}
+.nav-item{padding:8px 14px;margin:1px 10px;border-radius:6px;font-size:13px;color:rgba(255,255,255,0.6);cursor:pointer;display:flex;align-items:center;gap:9px;transition:all .15s;user-select:none;}
 .nav-item:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.9);}
 .nav-item.active{background:rgba(255,255,255,0.14);color:#fff;font-weight:500;}
 .pip{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.2);flex-shrink:0;}
 .nav-item.active .pip{background:var(--cream2);}
-.nbadge{margin-left:auto;font-size:10px;font-weight:600;background:var(--cream2);color:var(--navy);padding:1px 6px;border-radius:10px;}
-.sfooter{margin-top:auto;border-top:1px solid rgba(255,255,255,0.1);padding:10px 10px 6px;}
-.sver{padding:4px 16px;font-size:10px;color:rgba(255,255,255,0.2);}
+.nbadge{margin-left:auto;font-size:10px;font-weight:600;padding:1px 6px;border-radius:10px;}
+.nbadge.default{background:var(--cream2);color:var(--navy);}
+.nbadge.warn{background:#F2D8A0;color:#7A4E0A;}
+.nbadge.invest{background:#E6F2FA;color:#1A5F9A;}
+.sfooter{margin-top:auto;border-top:1px solid rgba(255,255,255,0.1);padding:8px 10px 4px;}
+.sver{padding:4px 14px 8px;font-size:10px;color:rgba(255,255,255,0.2);}
+.logout-btn{width:100%;text-align:left;padding:8px 14px;background:none;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,0.4);display:flex;align-items:center;gap:8px;border-radius:6px;margin:0 0 4px;}
+.logout-btn:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);}
 .main{flex:1;display:flex;flex-direction:column;min-width:0;}
-.topbar{height:56px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:10px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow);}
+.topbar{height:54px;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:10px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow);}
 .tbl-left{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-.tb-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:var(--navy);}
+.tb-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--navy);}
 .vdiv{width:1px;height:20px;background:var(--border2);}
 select.sel{font-family:'DM Sans',sans-serif;font-size:12px;padding:5px 26px 5px 9px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--surface);color:var(--text);cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%234A6070' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;}
 select.sel:focus{outline:none;border-color:var(--navy);}
 .tb-right{display:flex;align-items:center;gap:8px;}
-button.btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:7px 14px;border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);background:var(--surface);cursor:pointer;white-space:nowrap;transition:background .15s;}
+button.btn{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;padding:6px 13px;border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);background:var(--surface);cursor:pointer;white-space:nowrap;transition:background .15s;}
 button.btn:hover{background:var(--surface2);}
 button.btn.pri{background:var(--navy);border-color:var(--navy);color:#fff;}
 button.btn.pri:hover{background:var(--navy2);}
 button.btn.sec{background:var(--cream2);border-color:var(--cream3);color:var(--navy);}
 button.btn.sec:hover{background:var(--cream3);}
 button.btn.danger{background:var(--red-bg);border-color:var(--red);color:var(--red);}
-.ava{width:32px;height:32px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;}
-.content{flex:1;padding:22px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}
+button.btn.amber-btn{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber);}
+button.btn.green-btn{background:var(--green-bg);border-color:var(--green-border);color:var(--green);}
+.ava{width:30px;height:30px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:#fff;cursor:pointer;flex-shrink:0;}
+.content{flex:1;padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}
 .page{display:none;flex-direction:column;gap:16px;}
 .page.active{display:flex;}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow);}
 .card-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.card-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--navy);}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;color:var(--navy);}
 .card-sub{font-size:12px;color:var(--text3);}
 .g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;}
 .g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
@@ -66,11 +119,10 @@ button.btn.danger{background:var(--red-bg);border-color:var(--red);color:var(--r
 .mlbl{font-size:10px;color:var(--text3);margin-bottom:6px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;}
 .mval{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--navy);}
 .msub{font-size:12px;margin-top:3px;}
-.up{color:var(--green);}.dn{color:var(--red);}.warn{color:var(--amber);}.muted{color:var(--text3);}
+.up{color:var(--green);}.dn{color:var(--red);}.warn-c{color:var(--amber);}.muted{color:var(--text3);}
 table.tbl{width:100%;border-collapse:collapse;font-size:13px;}
 table.tbl th{padding:8px 11px;text-align:left;font-size:10px;font-weight:600;color:var(--text3);background:var(--surface2);text-transform:uppercase;letter-spacing:.05em;}
-table.tbl th:first-child{border-radius:5px 0 0 5px;}
-table.tbl th:last-child{border-radius:0 5px 5px 0;}
+table.tbl th:first-child{border-radius:5px 0 0 5px;}table.tbl th:last-child{border-radius:0 5px 5px 0;}
 table.tbl td{padding:9px 11px;border-bottom:1px solid var(--border);vertical-align:middle;}
 table.tbl tbody tr:last-child td{border-bottom:none;}
 table.tbl tbody tr:hover td{background:var(--surface2);}
@@ -84,6 +136,8 @@ span.badge.green{background:var(--green-bg);color:var(--green);}span.badge.green
 span.badge.amber{background:var(--amber-bg);color:var(--amber);}span.badge.amber::before{background:var(--amber);}
 span.badge.red{background:var(--red-bg);color:var(--red);}span.badge.red::before{background:var(--red);}
 span.badge.navy{background:#EBF0F4;color:var(--navy);}span.badge.navy::before{background:var(--navy);}
+span.badge.blue{background:#E6F2FA;color:#1A5F9A;}span.badge.blue::before{background:#1A5F9A;}
+span.badge.override{background:#F5EFF8;color:#6B2D9A;}span.badge.override::before{background:#6B2D9A;}
 .pw{width:80px;height:4px;background:var(--cream2);border-radius:3px;overflow:hidden;}
 .pb{height:4px;border-radius:3px;}
 .ctrl-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
@@ -91,8 +145,8 @@ span.badge.navy{background:#EBF0F4;color:var(--navy);}span.badge.navy::before{ba
 button.vt{padding:5px 15px;font-family:'DM Sans',sans-serif;font-size:13px;border-radius:6px;cursor:pointer;color:var(--text2);border:none;background:transparent;}
 button.vt.active{background:var(--navy);color:#fff;font-weight:500;}
 .mnav{display:flex;align-items:center;gap:8px;}
-.mnav span{font-size:13px;font-weight:500;min-width:110px;text-align:center;}
-.arrow{width:28px;height:28px;border:1px solid var(--border2);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--text2);background:var(--surface);user-select:none;}
+.mnav span{font-size:13px;font-weight:500;min-width:108px;text-align:center;}
+.arrow{width:27px;height:27px;border:1px solid var(--border2);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:var(--text2);background:var(--surface);user-select:none;}
 .arrow:hover{background:var(--surface2);}
 .uzone{border:2px dashed var(--border2);border-radius:var(--radius-lg);padding:28px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;background:var(--surface2);cursor:pointer;transition:all .2s;text-align:center;}
 .uzone:hover{border-color:var(--navy);background:var(--cream2);}
@@ -100,27 +154,27 @@ button.vt.active{background:var(--navy);color:#fff;font-weight:500;}
 .uico svg{width:18px;height:18px;stroke:var(--navy);fill:none;stroke-width:1.8;stroke-linecap:round;}
 .frow{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;}
 .flbl{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.04em;}
-.finp{font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--surface);color:var(--text);width:100%;}
+.finp{font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 10px;border:1px solid var(--border2);border-radius:var(--radius);background:var(--surface);color:var(--text);width:100%;}
 .finp:focus{outline:none;border-color:var(--navy);}
 .finp.aif{background:#EBF0F4;border-color:rgba(27,46,60,0.3);}
-.rbox{border-radius:var(--radius-lg);padding:12px 14px;display:flex;gap:10px;align-items:flex-start;}
-.rbox.ok{background:var(--green-bg);border:1px solid #90CDAF;}
-.rbox.breach{background:var(--red-bg);border:1px solid #E8A090;}
-.rbox.warn{background:var(--amber-bg);border:1px solid #DDB870;}
-.rico{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.rbox{border-radius:var(--radius-lg);padding:11px 13px;display:flex;gap:10px;align-items:flex-start;}
+.rbox.ok{background:var(--green-bg);border:1px solid var(--green-border);}
+.rbox.breach{background:var(--red-bg);border:1px solid var(--red-border);}
+.rbox.warn{background:var(--amber-bg);border:1px solid var(--amber-border);}
+.rico{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
 .rico.ok{background:#B8E4CC;}.rico.breach{background:#F2C0B0;}.rico.warn{background:#F2D8A0;}
 .airow{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);padding:8px 0;}
-.spin{width:15px;height:15px;border:2px solid var(--border2);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;}
+.spin{width:14px;height:14px;border:2px solid var(--border2);border-top-color:var(--navy);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .tbars{display:flex;align-items:flex-end;gap:5px;height:75px;}
 .tcol{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
 .tbwrap{flex:1;display:flex;align-items:flex-end;gap:2px;width:100%;}
 .tbar{flex:1;border-radius:2px 2px 0 0;min-height:2px;}
 .tlbl{font-size:9px;color:var(--text3);}
-.leg{display:flex;gap:12px;}
+.leg{display:flex;gap:12px;flex-wrap:wrap;}
 .legi{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text2);}
 .legd{width:8px;height:8px;border-radius:2px;}
-.cwrap{display:flex;flex-direction:column;gap:10px;max-height:380px;overflow-y:auto;}
+.cwrap{display:flex;flex-direction:column;gap:10px;max-height:360px;overflow-y:auto;}
 .cmsg{display:flex;gap:8px;align-items:flex-start;}
 .cmsg.user{flex-direction:row-reverse;}
 .cbub{max-width:82%;padding:9px 12px;border-radius:10px;font-size:13px;line-height:1.6;}
@@ -136,347 +190,509 @@ button.vt.active{background:var(--navy);color:#fff;font-weight:500;}
 .rendays .rnum{font-family:'Cormorant Garamond',serif;font-size:18px;line-height:1;}
 .rendays .rlbl{font-size:8px;text-transform:uppercase;margin-top:1px;}
 .conitem{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:13px;display:flex;gap:10px;align-items:flex-start;margin-bottom:7px;}
-@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr);}.g2{grid-template-columns:1fr;}}
+/* Budget upload status */
+.budget-src{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:500;padding:3px 10px;border-radius:20px;background:var(--green-bg);color:var(--green);}
+/* Vendor report */
+.vr-row{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--radius-lg);border:1px solid var(--border);background:var(--surface);margin-bottom:7px;}
+.vr-status{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+/* Override modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:100;display:flex;align-items:center;justify-content:center;}
+.modal{background:var(--surface);border-radius:var(--radius-xl);padding:28px;width:440px;max-width:90vw;box-shadow:var(--shadow-lg);}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--navy);margin-bottom:6px;}
+.modal-sub{font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.6;}
+@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr);}.g2{grid-template-columns:1fr;}.landing-left{display:none;}.landing-right{width:100%;padding:24px;}}
 @media print{.sidebar,.topbar{display:none!important;}.main{display:block;}.content{padding:0;}.page{display:flex!important;}body{background:#fff;}.card{box-shadow:none;}}
 </style>
 </head>
 <body>
-<aside class="sidebar">
-  <div class="logo">
-    <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="rgba(255,255,255,0.35)" stroke-width="1.2"/><path d="M16 25V7M16 7L10 13M16 7L22 13" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <div><div class="logo-name">B&amp;C International</div><div class="logo-sub">Forecast &amp; Invoice Control</div></div>
-  </div>
-  <div class="nav-sec">Manage</div>
-  <div class="nav-item active" id="nav-dashboard" onclick="showPage('dashboard')"><div class="pip"></div>Dashboard</div>
-  <div class="nav-item" id="nav-upload" onclick="showPage('upload')"><div class="pip"></div>Upload invoice</div>
-  <div class="nav-item" id="nav-log" onclick="showPage('log')"><div class="pip"></div>Invoice log <span class="nbadge" id="log-badge" style="display:none"></span></div>
-  <div class="nav-sec">Reports</div>
-  <div class="nav-item" id="nav-monthly-report" onclick="showPage('monthly-report')"><div class="pip"></div>Monthly report</div>
-  <div class="nav-item" id="nav-forecast" onclick="showPage('forecast')"><div class="pip"></div>Year-end forecast</div>
-  <div class="nav-item" id="nav-contracts" onclick="showPage('contracts')"><div class="pip"></div>Vendor contracts <span class="nbadge" id="contract-badge" style="display:none"></span></div>
-  <div class="nav-sec">Intelligence</div>
-  <div class="nav-item" id="nav-chat" onclick="showPage('chat')"><div class="pip"></div>Ask your budget</div>
-  <div class="nav-item" id="nav-renewals" onclick="showPage('renewals')"><div class="pip"></div>Renewal calendar <span class="nbadge" id="renewal-badge" style="display:none;background:#F2D8A0;color:#7A4E0A;"></span></div>
-  <div class="sfooter">
-    <div class="nav-item"><div class="pip"></div>Settings</div>
-    <div class="sver">FIC v3.0 &middot; B&amp;C International</div>
-  </div>
-</aside>
 
-<div class="main">
-  <header class="topbar">
-    <div class="tbl-left">
-      <span class="tb-title" id="page-title">Dashboard</span>
-      <div class="vdiv"></div>
-      <select class="sel" id="dept-sel" onchange="onFilter()">
-        <option value="all">All departments</option>
-        <option value="IT">IT</option>
-        <option value="Sales">Sales</option>
-        <option value="Finance">Finance</option>
-        <option value="OPS">OPS</option>
-        <option value="Logistics">Logistics</option>
-        <option value="HR">HR</option>
-        <option value="Manufacturing">Manufacturing</option>
-        <option value="NE">NE</option>
-      </select>
-      <div class="vdiv"></div>
-      <select class="sel" id="ent-sel" onchange="onFilter()">
-        <option value="all">All entities</option>
-        <option value="B&C Int">B&amp;C Int</option>
-        <option value="Trendiy">Trendiy</option>
-      </select>
+<!-- ══════════════════════ LANDING PAGE ══════════════════════ -->
+<div id="landing">
+  <div class="landing-left">
+    <div class="ll-logo">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/><path d="M18 28V8M18 8L11 15M18 8L25 15" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div><div class="ll-logo-name">B&amp;C International</div><div class="ll-logo-sub">Forecast &amp; Invoice Control</div></div>
     </div>
-    <div class="tb-right">
-      <button class="btn pri" onclick="showPage('upload')">+ Upload invoice</button>
-      <button class="btn sec" id="export-btn" onclick="exportCSV()" style="display:none">Export CSV</button>
-      <button class="btn sec" id="print-btn" onclick="window.print()" style="display:none">Print / PDF</button>
-      <div class="ava">BC</div>
+    <div class="ll-hero">
+      <div class="ll-eyebrow">FIC Platform · FY 2026</div>
+      <div class="ll-title">Budget clarity.<br><em>Invoice control.</em><br>At a glance.</div>
+      <div class="ll-desc">Track vendor spend against budgets, upload invoices for instant AI-powered checking, manage contracts, and generate management reports — all in one place.</div>
     </div>
-  </header>
-
-  <main class="content">
-
-    <!-- DASHBOARD -->
-    <div class="page active" id="pg-dashboard">
-      <div class="ctrl-row">
-        <div class="vtog">
-          <button class="vt active" id="btn-monthly" onclick="setView('monthly')">Monthly</button>
-          <button class="vt" id="btn-annual" onclick="setView('annual')">Annual</button>
+    <div class="ll-stats">
+      <div><div class="ll-stat-val">72</div><div class="ll-stat-lbl">IT vendors tracked</div></div>
+      <div><div class="ll-stat-val">€1.44M</div><div class="ll-stat-lbl">Annual IT budget</div></div>
+      <div><div class="ll-stat-val">8</div><div class="ll-stat-lbl">Departments</div></div>
+    </div>
+  </div>
+  <div class="landing-right">
+    <div class="role-card">
+      <div class="rc-title">Welcome back</div>
+      <div class="rc-sub">Select your role to continue. Admins can upload budgets and manage settings.</div>
+      <div class="role-options">
+        <div class="role-opt" id="role-user" onclick="selectRole('user')">
+          <div class="role-icon" style="background:var(--surface2);">👤</div>
+          <div><div class="role-name">User</div><div class="role-desc">View dashboards, upload invoices, check against budget</div></div>
         </div>
-        <div class="mnav" id="month-nav">
-          <div class="arrow" onclick="changeMonth(-1)">&#8592;</div>
-          <span id="month-lbl">January 2026</span>
-          <div class="arrow" onclick="changeMonth(1)">&#8594;</div>
+        <div class="role-opt" id="role-admin" onclick="selectRole('admin')">
+          <div class="role-icon" style="background:#EBF0F4;">⚙️</div>
+          <div><div class="role-name">Admin</div><div class="role-desc">Full access — upload budgets, manage contracts &amp; settings</div></div>
         </div>
-        <div id="ann-lbl" style="display:none;font-size:13px;font-weight:500;color:var(--text2);background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:5px 12px;">FY 2026 — Full year</div>
       </div>
-      <div id="sub-m">
-        <div class="g4" id="m-metrics" style="margin-bottom:16px;"></div>
-        <div class="g2" style="margin-bottom:16px;">
+      <div class="dept-select-wrap" id="dept-wrap" style="display:none;">
+        <div class="dept-lbl">Your department</div>
+        <div class="dept-grid">
+          <div class="dept-btn" onclick="selectDept(this,'IT')">IT</div>
+          <div class="dept-btn" onclick="selectDept(this,'Sales')">Sales</div>
+          <div class="dept-btn" onclick="selectDept(this,'Finance')">Finance</div>
+          <div class="dept-btn" onclick="selectDept(this,'OPS')">OPS</div>
+          <div class="dept-btn" onclick="selectDept(this,'Logistics')">Logistics</div>
+          <div class="dept-btn" onclick="selectDept(this,'HR')">HR</div>
+          <div class="dept-btn" onclick="selectDept(this,'Manufacturing')">Mfg</div>
+          <div class="dept-btn" onclick="selectDept(this,'NE')">NE</div>
+        </div>
+      </div>
+      <button class="enter-btn" id="enter-btn" disabled onclick="enterApp()">Enter →</button>
+      <div class="rc-footer">B&amp;C International · FIC v4.0</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ APP ══════════════════════ -->
+<div id="app">
+  <aside class="sidebar">
+    <div class="logo">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="14" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/><path d="M15 23V7M15 7L9 13M15 7L21 13" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div><div class="logo-name">B&amp;C International</div><div class="logo-sub">Forecast &amp; Invoice Control</div></div>
+    </div>
+    <div class="role-tag" id="role-tag">User</div>
+    <div class="nav-sec">Manage</div>
+    <div class="nav-item active" id="nav-dashboard" onclick="showPage('dashboard')"><div class="pip"></div>Dashboard</div>
+    <div class="nav-item" id="nav-upload" onclick="showPage('upload')"><div class="pip"></div>Upload invoice</div>
+    <div class="nav-item" id="nav-log" onclick="showPage('log')"><div class="pip"></div>Invoice log <span class="nbadge default" id="log-badge" style="display:none"></span></div>
+    <div class="nav-sec">Reports</div>
+    <div class="nav-item" id="nav-monthly-report" onclick="showPage('monthly-report')"><div class="pip"></div>Monthly report</div>
+    <div class="nav-item" id="nav-forecast" onclick="showPage('forecast')"><div class="pip"></div>Year-end forecast</div>
+    <div class="nav-item" id="nav-vendor-report" onclick="showPage('vendor-report')"><div class="pip"></div>Vendor vs contract</div>
+    <div class="nav-item" id="nav-contracts" onclick="showPage('contracts')"><div class="pip"></div>Vendor contracts <span class="nbadge default" id="contract-badge" style="display:none"></span></div>
+    <div class="nav-sec">Intelligence</div>
+    <div class="nav-item" id="nav-chat" onclick="showPage('chat')"><div class="pip"></div>Ask your budget</div>
+    <div class="nav-item" id="nav-renewals" onclick="showPage('renewals')"><div class="pip"></div>Renewal calendar <span class="nbadge warn" id="renewal-badge" style="display:none"></span></div>
+    <div id="admin-nav-section" style="display:none;">
+      <div class="nav-sec">Admin</div>
+      <div class="nav-item" id="nav-budget-upload" onclick="showPage('budget-upload')"><div class="pip"></div>Upload budget</div>
+    </div>
+    <div class="sfooter">
+      <button class="logout-btn" onclick="logout()">← Switch role</button>
+      <div class="sver" id="sver">FIC v4.0</div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="tbl-left">
+        <span class="tb-title" id="page-title">Dashboard</span>
+        <div class="vdiv"></div>
+        <select class="sel" id="dept-sel" onchange="onFilter()">
+          <option value="all">All departments</option>
+          <option value="IT">IT</option>
+          <option value="Sales">Sales</option>
+          <option value="Finance">Finance</option>
+          <option value="OPS">OPS</option>
+          <option value="Logistics">Logistics</option>
+          <option value="HR">HR</option>
+          <option value="Manufacturing">Manufacturing</option>
+          <option value="NE">NE</option>
+        </select>
+        <div class="vdiv"></div>
+        <select class="sel" id="ent-sel" onchange="onFilter()">
+          <option value="all">All entities</option>
+          <option value="B&C Int">B&amp;C Int</option>
+          <option value="Trendiy">Trendiy</option>
+        </select>
+      </div>
+      <div class="tb-right">
+        <button class="btn pri" onclick="showPage('upload')">+ Upload invoice</button>
+        <button class="btn sec" id="export-btn" onclick="exportCSV()" style="display:none">Export CSV</button>
+        <button class="btn sec" id="print-btn" onclick="window.print()" style="display:none">Print / PDF</button>
+        <div class="ava" id="top-ava">BC</div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="pg-dashboard">
+        <div class="ctrl-row">
+          <div class="vtog">
+            <button class="vt active" id="btn-monthly" onclick="setView('monthly')">Monthly</button>
+            <button class="vt" id="btn-annual" onclick="setView('annual')">Annual</button>
+          </div>
+          <div class="mnav" id="month-nav">
+            <div class="arrow" onclick="changeMonth(-1)">&#8592;</div>
+            <span id="month-lbl">January 2026</span>
+            <div class="arrow" onclick="changeMonth(1)">&#8594;</div>
+          </div>
+          <div id="ann-lbl" style="display:none;font-size:13px;font-weight:500;color:var(--text2);background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:5px 11px;">FY 2026 — Full year</div>
+        </div>
+        <div id="sub-m">
+          <div class="g4" id="m-metrics" style="margin-bottom:16px;"></div>
+          <div class="g2" style="margin-bottom:16px;">
+            <div class="card"><div class="card-hd"><span class="card-title" id="m-tbl-title">Budget</span></div>
+              <div style="max-height:360px;overflow-y:auto;">
+                <table class="tbl"><thead><tr><th>Vendor</th><th>Dept</th><th>Entity</th><th>Budget</th><th>Invoiced</th><th>Remaining</th></tr></thead><tbody id="m-tbody"></tbody></table>
+              </div>
+            </div>
+            <div class="card"><div class="card-hd"><span class="card-title">Top spends</span></div><div id="healthlist" style="display:flex;flex-direction:column;gap:11px;"></div></div>
+          </div>
           <div class="card">
-            <div class="card-hd"><span class="card-title" id="m-tbl-title">Budget</span></div>
-            <div style="max-height:380px;overflow-y:auto;">
-              <table class="tbl"><thead><tr><th>Vendor</th><th>Dept</th><th>Entity</th><th>Budget</th><th>Invoiced</th><th>Remaining</th></tr></thead><tbody id="m-tbody"></tbody></table>
+            <div class="card-hd"><span class="card-title">6-month trend</span><div class="leg"><div class="legi"><div class="legd" style="background:var(--cream3);"></div>Budget</div><div class="legi"><div class="legd" style="background:var(--navy);"></div>Invoiced</div></div></div>
+            <div class="tbars" id="trendbars"></div>
+          </div>
+        </div>
+        <div id="sub-a" style="display:none;">
+          <div class="g4" id="a-metrics" style="margin-bottom:16px;"></div>
+          <div class="card" style="margin-bottom:16px;"><div class="card-hd"><span class="card-title">Year-to-date by vendor</span><span class="card-sub">Forecast = avg monthly × 12</span></div>
+            <div style="max-height:460px;overflow-y:auto;"><table class="tbl"><thead><tr><th>Vendor</th><th>Dept</th><th>Entity</th><th>Budget/mo</th><th>Invoiced YTD</th><th>Variance</th><th>Forecast</th><th>Annual budget</th></tr></thead><tbody id="a-tbody"></tbody></table></div>
+          </div>
+          <div class="card"><div class="card-hd"><span class="card-title">Monthly heatmap</span><span class="card-sub">Budget utilisation per vendor</span></div><div id="heatgrid"></div></div>
+        </div>
+      </div>
+
+      <!-- UPLOAD -->
+      <div class="page" id="pg-upload">
+        <div class="g2">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="card"><div class="card-hd"><span class="card-title">Upload invoice</span></div>
+              <div class="uzone" id="uzone" onclick="document.getElementById('filein').click()" ondragover="event.preventDefault();this.style.borderColor='var(--navy)'" ondragleave="this.style.borderColor=''" ondrop="handleDrop(event)">
+                <div class="uico"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+                <div style="font-size:14px;font-weight:600;color:var(--navy);">Drop invoice or click to browse</div>
+                <div style="font-size:12px;color:var(--text2);">PNG, JPG screenshot or PDF · AI reads all details</div>
+              </div>
+              <input type="file" id="filein" accept="image/*,.pdf" style="display:none" onchange="handleFile(this.files[0])">
+              <div id="prevwrap" style="display:none;margin-top:10px;text-align:center;"><img id="previmg" style="max-width:100%;max-height:200px;border-radius:var(--radius);border:1px solid var(--border);object-fit:contain;" src="" alt=""></div>
+            </div>
+            <div class="card"><div class="card-hd"><span class="card-title">Invoice details</span><span id="ai-status" style="font-size:12px;color:var(--green);"></span></div>
+              <div id="ai-row" class="airow" style="display:none;"><div class="spin"></div><span>AI is reading your invoice...</span></div>
+              <div class="frow"><div class="flbl">Vendor name</div><input class="finp" id="f-vendor" type="text" placeholder="Auto-detected..."></div>
+              <div class="frow"><div class="flbl">Invoice amount (€)</div><input class="finp" id="f-amount" type="number" placeholder="Auto-detected..."></div>
+              <div class="frow"><div class="flbl">Invoice date</div><input class="finp" id="f-date" type="date"></div>
+              <div class="frow"><div class="flbl">Description</div><input class="finp" id="f-desc" type="text" placeholder="Optional..."></div>
+              <div class="frow"><div class="flbl">Department</div>
+                <select class="finp" id="f-dept"><option value="">Select...</option><option>IT</option><option>Sales</option><option>Finance</option><option>OPS</option><option>Logistics</option><option>HR</option><option>Manufacturing</option><option>NE</option></select>
+              </div>
+              <div class="frow" style="margin-bottom:0;"><div class="flbl">Entity</div>
+                <select class="finp" id="f-entity"><option value="">Select...</option><option value="B&C Int">B&amp;C Int</option><option value="Trendiy">Trendiy</option><option value="Other">Other</option></select>
+              </div>
+              <button class="btn pri" style="width:100%;padding:9px;margin-top:12px;" onclick="checkBudget()">Check against budget</button>
             </div>
           </div>
-          <div class="card"><div class="card-hd"><span class="card-title">Top spends</span></div><div id="healthlist" style="display:flex;flex-direction:column;gap:11px;"></div></div>
+          <div id="result-card" class="card"><div class="card-hd"><span class="card-title">Budget check result</span></div>
+            <div id="result-body" style="padding:40px 0;text-align:center;color:var(--text3);font-size:13px;">Upload an invoice to see the result</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOG -->
+      <div class="page" id="pg-log">
+        <div class="g4" id="log-metrics"></div>
+        <div class="card"><div class="card-hd"><span class="card-title">Invoice log</span>
+          <div style="display:flex;gap:8px;">
+            <select class="sel" id="log-filter" onchange="renderLog()">
+              <option value="all">All statuses</option>
+              <option value="ok">Approved</option>
+              <option value="override">Approved (override)</option>
+              <option value="breach">Breach</option>
+              <option value="warn">Near limit</option>
+              <option value="investigate">Under investigation</option>
+              <option value="flagged">Flagged</option>
+            </select>
+            <button class="btn sec" onclick="exportLog()">Export CSV</button>
+            <button class="btn danger" onclick="clearLog()">Clear log</button>
+          </div>
+        </div><div id="log-wrap"><div style="text-align:center;padding:40px;color:var(--text3);">No invoices yet.</div></div></div>
+      </div>
+
+      <!-- MONTHLY REPORT -->
+      <div class="page" id="pg-monthly-report">
+        <div class="ctrl-row">
+          <div class="mnav"><div class="arrow" onclick="changeRptMonth(-1)">&#8592;</div><span id="rpt-mlbl">January 2026</span><div class="arrow" onclick="changeRptMonth(1)">&#8594;</div></div>
+          <div style="display:flex;gap:8px;"><button class="btn sec" onclick="window.print()">Print / Save PDF</button><button class="btn sec" onclick="exportRptCSV()">Export CSV</button></div>
+        </div>
+        <div class="card" style="border-left:4px solid var(--navy);">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div><div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--navy);" id="rpt-title">Budget vs Actual — January 2026</div>
+            <div style="font-size:13px;color:var(--text2);margin-top:3px;">B&amp;C International · <span id="rpt-date"></span></div></div>
+            <svg width="76" height="26" viewBox="0 0 116 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#1B2E3C" stroke-width="2"/><path d="M20 29V11M20 11L13 18M20 11L27 18" stroke="#1B2E3C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="44" y="16" font-family="sans-serif" font-size="11" font-weight="700" fill="#1B2E3C">B&amp;C</text><text x="44" y="27" font-family="sans-serif" font-size="7" letter-spacing="2" fill="#4A6070">INTL</text></svg>
+          </div>
+        </div>
+        <div class="g4" id="rpt-metrics"></div>
+        <div class="card"><div class="card-hd"><span class="card-title">Budget vs actual by vendor</span></div>
+          <table class="tbl"><thead><tr><th>Vendor</th><th>Dept</th><th>Entity</th><th>Budget</th><th>Invoiced</th><th>Remaining</th><th>% used</th><th>Status</th></tr></thead><tbody id="rpt-tbody"></tbody></table>
+        </div>
+        <div class="card"><div class="card-hd"><span class="card-title">Summary</span></div><div id="rpt-summary" style="font-size:13px;color:var(--text2);line-height:1.9;"></div></div>
+      </div>
+
+      <!-- FORECAST -->
+      <div class="page" id="pg-forecast">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <div style="font-size:13px;color:var(--text2);">Forecast = avg monthly invoiced × 12</div>
+          <div style="display:flex;gap:8px;"><button class="btn sec" onclick="window.print()">Print / Save PDF</button><button class="btn sec" onclick="exportFcCSV()">Export CSV</button></div>
+        </div>
+        <div class="card" style="border-left:4px solid var(--green);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--navy);">Year-end Forecast — FY 2026</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:3px;">B&amp;C International · <span id="fc-date"></span></div>
+        </div>
+        <div class="g4" id="fc-metrics"></div>
+        <div class="card"><div class="card-hd"><span class="card-title">Vendor forecast vs annual budget</span></div>
+          <div style="max-height:460px;overflow-y:auto;">
+            <table class="tbl"><thead><tr><th>Vendor</th><th>Dept</th><th>Entity</th><th>Annual budget</th><th>Invoiced YTD</th><th>Months</th><th>Avg/mo</th><th>Forecast</th><th>Variance</th><th>Status</th></tr></thead><tbody id="fc-tbody"></tbody></table>
+          </div>
+        </div>
+        <div class="card"><div class="card-hd"><span class="card-title">Top vendors — budget vs forecast</span></div><div id="fc-bars" style="display:flex;flex-direction:column;gap:11px;"></div></div>
+      </div>
+
+      <!-- VENDOR vs CONTRACT REPORT -->
+      <div class="page" id="pg-vendor-report">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+          <div style="font-size:13px;color:var(--text2);">Actual invoiced spend vs signed contract amount per vendor</div>
+          <div style="display:flex;gap:8px;"><button class="btn sec" onclick="window.print()">Print / Save PDF</button><button class="btn sec" onclick="exportVendorRpt()">Export CSV</button></div>
+        </div>
+        <div class="card" style="border-left:4px solid var(--amber);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--navy);">Vendor vs Contract Report</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:3px;">B&amp;C International · <span id="vr-date"></span></div>
+        </div>
+        <div class="g3" id="vr-metrics"></div>
+        <div class="card" id="vr-expired-card" style="display:none;">
+          <div class="card-hd"><span class="card-title" style="color:var(--red);">⚠ Outdated / expired contracts</span></div>
+          <div id="vr-expired-list"></div>
         </div>
         <div class="card">
-          <div class="card-hd"><span class="card-title">6-month trend</span><div class="leg"><div class="legi"><div class="legd" style="background:var(--cream3);"></div>Budget</div><div class="legi"><div class="legd" style="background:var(--navy);"></div>Invoiced</div></div></div>
-          <div class="tbars" id="trendbars"></div>
+          <div class="card-hd"><span class="card-title">Vendor spend vs contract</span><span class="card-sub">Green = within contract · Red = exceeding contract</span></div>
+          <div id="vr-list"><div style="text-align:center;padding:40px;color:var(--text3);font-size:13px;">Save vendor contracts to see this report.</div></div>
+        </div>
+        <div class="card">
+          <div class="card-hd"><span class="card-title">Vendors without contracts</span><span class="card-sub">Invoiced but no contract on file</span></div>
+          <div id="vr-no-contract"></div>
         </div>
       </div>
-      <div id="sub-a" style="display:none;">
-        <div class="g4" id="a-metrics" style="margin-bottom:16px;"></div>
-        <div class="card" style="margin-bottom:16px;"><div class="card-hd"><span class="card-title">Year-to-date by vendor</span><span class="card-sub">Forecast = avg monthly x 12</span></div>
-          <div style="max-height:480px;overflow-y:auto;"><table class="tbl"><thead><tr><th>Vendor</th><th>Dept</th><th>Entity</th><th>Budget/mo</th><th>Invoiced YTD</th><th>Variance</th><th>Forecast</th><th>Annual budget</th></tr></thead><tbody id="a-tbody"></tbody></table></div>
-        </div>
-        <div class="card"><div class="card-hd"><span class="card-title">Monthly heatmap</span><span class="card-sub">Budget utilisation per vendor</span></div><div id="heatgrid"></div></div>
-      </div>
-    </div>
 
-    <!-- UPLOAD -->
-    <div class="page" id="pg-upload">
-      <div class="g2">
-        <div style="display:flex;flex-direction:column;gap:14px;">
-          <div class="card"><div class="card-hd"><span class="card-title">Upload invoice</span></div>
-            <div class="uzone" id="uzone" onclick="document.getElementById('filein').click()" ondragover="event.preventDefault();this.style.borderColor='var(--navy)'" ondragleave="this.style.borderColor=''" ondrop="handleDrop(event)">
-              <div class="uico"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-              <div style="font-size:14px;font-weight:600;color:var(--navy);">Drop invoice or click to browse</div>
-              <div style="font-size:12px;color:var(--text2);">PNG, JPG screenshot or PDF &middot; AI reads all details</div>
+      <!-- CONTRACTS -->
+      <div class="page" id="pg-contracts">
+        <div class="g2">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="card"><div class="card-hd"><span class="card-title">Upload vendor contract</span></div>
+              <div class="uzone" onclick="document.getElementById('conin').click()" ondragover="event.preventDefault();this.style.borderColor='var(--navy)'" ondragleave="this.style.borderColor=''" ondrop="handleConDrop(event)">
+                <div class="uico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+                <div style="font-size:14px;font-weight:600;color:var(--navy);">Drop contract PDF or image</div>
+                <div style="font-size:12px;color:var(--text2);">AI extracts vendor, amount &amp; term</div>
+              </div>
+              <input type="file" id="conin" accept="image/*,.pdf" style="display:none" onchange="handleContract(this.files[0])">
             </div>
-            <input type="file" id="filein" accept="image/*,.pdf" style="display:none" onchange="handleFile(this.files[0])">
-            <div id="prevwrap" style="display:none;margin-top:10px;text-align:center;"><img id="previmg" style="max-width:100%;max-height:200px;border-radius:var(--radius);border:1px solid var(--border);object-fit:contain;" src="" alt=""></div>
-          </div>
-          <div class="card"><div class="card-hd"><span class="card-title">Invoice details</span><span id="ai-status" style="font-size:12px;color:var(--green);"></span></div>
-            <div id="ai-row" class="airow" style="display:none;"><div class="spin"></div><span>AI is reading your invoice...</span></div>
-            <div class="frow"><div class="flbl">Vendor name</div><input class="finp" id="f-vendor" type="text" placeholder="Auto-detected..."></div>
-            <div class="frow"><div class="flbl">Invoice amount (€)</div><input class="finp" id="f-amount" type="number" placeholder="Auto-detected..."></div>
-            <div class="frow"><div class="flbl">Invoice date</div><input class="finp" id="f-date" type="date"></div>
-            <div class="frow"><div class="flbl">Description</div><input class="finp" id="f-desc" type="text" placeholder="Optional..."></div>
-            <div class="frow"><div class="flbl">Department</div>
-              <select class="finp" id="f-dept"><option value="">Select department...</option><option>IT</option><option>Sales</option><option>Finance</option><option>OPS</option><option>Logistics</option><option>HR</option><option>Manufacturing</option><option>NE</option></select>
+            <div class="card"><div class="card-hd"><span class="card-title">Contract analysis</span><span id="con-ai-status" style="font-size:12px;color:var(--green);"></span></div>
+              <div id="con-ai-row" class="airow" style="display:none;"><div class="spin"></div><span>Reading contract...</span></div>
+              <div id="con-result" style="padding:28px 0;text-align:center;color:var(--text3);font-size:13px;">Upload a contract to see the analysis</div>
             </div>
-            <div class="frow"><div class="flbl">Entity</div>
-              <select class="finp" id="f-entity"><option value="">Select entity...</option><option value="B&C Int">B&amp;C Int</option><option value="Trendiy">Trendiy</option><option value="Other">Other</option></select>
+          </div>
+          <div class="card"><div class="card-hd"><span class="card-title">Saved contracts</span><span class="badge navy" id="con-total">0 contracts</span></div>
+            <div id="con-list"><div style="text-align:center;padding:28px;color:var(--text3);font-size:13px;">No contracts saved yet.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHAT -->
+      <div class="page" id="pg-chat">
+        <div class="g2">
+          <div class="card"><div class="card-hd"><span class="card-title">Ask your budget</span><span class="card-sub">AI knows your real data</span></div>
+            <div class="cwrap" id="chat-wrap">
+              <div class="cmsg"><div class="cav ai">AI</div><div class="cbub ai">Hello! I have full access to your 2026 budget, invoice log and contracts. Ask me anything about your budget data.</div></div>
             </div>
-            <button class="btn pri" style="width:100%;padding:9px;margin-top:12px;" onclick="checkBudget()">Check against budget</button>
-          </div>
-        </div>
-        <div id="result-card" class="card"><div class="card-hd"><span class="card-title">Budget check result</span></div>
-          <div id="result-body" style="padding:40px 0;text-align:center;color:var(--text3);font-size:13px;">Upload an invoice to see the result</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LOG -->
-    <div class="page" id="pg-log">
-      <div class="g4" id="log-metrics"></div>
-      <div class="card"><div class="card-hd"><span class="card-title">Invoice log</span>
-        <div style="display:flex;gap:8px;">
-          <button class="btn sec" onclick="exportLog()">Export CSV</button>
-          <button class="btn danger" onclick="clearLog()">Clear log</button>
-        </div>
-      </div><div id="log-wrap"><div style="text-align:center;padding:40px;color:var(--text3);">No invoices yet.</div></div></div>
-    </div>
-
-    <!-- MONTHLY REPORT -->
-    <div class="page" id="pg-monthly-report">
-      <div class="ctrl-row">
-        <div class="mnav"><div class="arrow" onclick="changeRptMonth(-1)">&#8592;</div><span id="rpt-mlbl">January 2026</span><div class="arrow" onclick="changeRptMonth(1)">&#8594;</div></div>
-        <div style="display:flex;gap:8px;"><button class="btn sec" onclick="window.print()">Print / Save PDF</button><button class="btn sec" onclick="exportRptCSV()">Export CSV</button></div>
-      </div>
-      <div class="card" style="border-left:4px solid var(--navy);">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-          <div><div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;color:var(--navy);" id="rpt-title">Budget vs Actual — January 2026</div>
-          <div style="font-size:13px;color:var(--text2);margin-top:3px;">B&amp;C International &middot; <span id="rpt-date"></span></div></div>
-          <svg width="80" height="28" viewBox="0 0 120 42" fill="none"><circle cx="21" cy="21" r="19" stroke="#1B2E3C" stroke-width="2"/><path d="M21 31V11M21 11L14 18M21 11L28 18" stroke="#1B2E3C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><text x="46" y="17" font-family="sans-serif" font-size="11" font-weight="700" fill="#1B2E3C">B&amp;C</text><text x="46" y="29" font-family="sans-serif" font-size="7" letter-spacing="2" fill="#4A6070">INTL</text></svg>
-        </div>
-      </div>
-      <div class="g4" id="rpt-metrics"></div>
-      <div class="card"><div class="card-hd"><span class="card-title">Budget vs actual by vendor</span></div>
-        <table class="tbl"><thead><tr><th>Vendor</th><th>Dept</th><th>Entity</th><th>Budget</th><th>Invoiced</th><th>Remaining</th><th>% used</th><th>Status</th></tr></thead><tbody id="rpt-tbody"></tbody></table>
-      </div>
-      <div class="card"><div class="card-hd"><span class="card-title">Summary</span></div><div id="rpt-summary" style="font-size:13px;color:var(--text2);line-height:1.9;"></div></div>
-    </div>
-
-    <!-- FORECAST -->
-    <div class="page" id="pg-forecast">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-        <div style="font-size:13px;color:var(--text2);">Forecast = avg monthly invoiced x 12</div>
-        <div style="display:flex;gap:8px;"><button class="btn sec" onclick="window.print()">Print / Save PDF</button><button class="btn sec" onclick="exportFcCSV()">Export CSV</button></div>
-      </div>
-      <div class="card" style="border-left:4px solid var(--green);">
-        <div style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;color:var(--navy);">Year-end Forecast — FY 2026</div>
-        <div style="font-size:13px;color:var(--text2);margin-top:3px;">B&amp;C International &middot; <span id="fc-date"></span></div>
-      </div>
-      <div class="g4" id="fc-metrics"></div>
-      <div class="card"><div class="card-hd"><span class="card-title">Vendor forecast vs annual budget</span><span class="card-sub">Red = projected overrun</span></div>
-        <div style="max-height:480px;overflow-y:auto;">
-          <table class="tbl"><thead><tr><th>Vendor</th><th>Dept</th><th>Entity</th><th>Annual budget</th><th>Invoiced YTD</th><th>Months</th><th>Avg/mo</th><th>Forecast</th><th>Variance</th><th>Status</th></tr></thead><tbody id="fc-tbody"></tbody></table>
-        </div>
-      </div>
-      <div class="card"><div class="card-hd"><span class="card-title">Top vendors — budget vs forecast</span></div><div id="fc-bars" style="display:flex;flex-direction:column;gap:11px;"></div></div>
-    </div>
-
-    <!-- CONTRACTS -->
-    <div class="page" id="pg-contracts">
-      <div class="g2">
-        <div style="display:flex;flex-direction:column;gap:14px;">
-          <div class="card"><div class="card-hd"><span class="card-title">Upload vendor contract</span></div>
-            <div class="uzone" onclick="document.getElementById('conin').click()" ondragover="event.preventDefault();this.style.borderColor='var(--navy)'" ondragleave="this.style.borderColor=''" ondrop="handleConDrop(event)">
-              <div class="uico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-              <div style="font-size:14px;font-weight:600;color:var(--navy);">Drop contract PDF or image</div>
-              <div style="font-size:12px;color:var(--text2);">AI extracts vendor, amount &amp; term</div>
+            <div class="cinrow">
+              <input class="cinp" id="chat-inp" type="text" placeholder="Ask about your budget..." onkeydown="if(event.key==='Enter')sendChat()">
+              <button class="btn pri" onclick="sendChat()">Send</button>
             </div>
-            <input type="file" id="conin" accept="image/*,.pdf" style="display:none" onchange="handleContract(this.files[0])">
           </div>
-          <div class="card"><div class="card-hd"><span class="card-title">Contract analysis</span><span id="con-ai-status" style="font-size:12px;color:var(--green);"></span></div>
-            <div id="con-ai-row" class="airow" style="display:none;"><div class="spin"></div><span>Reading contract...</span></div>
-            <div id="con-result" style="padding:30px 0;text-align:center;color:var(--text3);font-size:13px;">Upload a contract to see the analysis</div>
-          </div>
-        </div>
-        <div class="card"><div class="card-hd"><span class="card-title">Saved contracts</span><span class="badge navy" id="con-total">0 contracts</span></div>
-          <div id="con-list"><div style="text-align:center;padding:28px;color:var(--text3);font-size:13px;">No contracts saved yet.</div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CHAT -->
-    <div class="page" id="pg-chat">
-      <div class="g2">
-        <div class="card"><div class="card-hd"><span class="card-title">Ask your budget</span><span class="card-sub">AI knows your real data</span></div>
-          <div class="cwrap" id="chat-wrap">
-            <div class="cmsg"><div class="cav ai">AI</div><div class="cbub ai">Hello! I have full access to your 2026 budget — 72 IT vendors plus all other departments, your invoice log and contracts. Ask me anything.</div></div>
-          </div>
-          <div class="cinrow">
-            <input class="cinp" id="chat-inp" type="text" placeholder="Ask about your budget..." onkeydown="if(event.key==='Enter')sendChat()">
-            <button class="btn pri" onclick="sendChat()">Send</button>
-          </div>
-        </div>
-        <div class="card"><div class="card-hd"><span class="card-title">Quick questions</span></div>
-          <div style="display:flex;flex-direction:column;gap:7px;">
-            <button class="btn" style="text-align:left;" onclick="askQ('Which vendors are over 5000 per month?')">Which vendors are over €5,000/month?</button>
-            <button class="btn" style="text-align:left;" onclick="askQ('What is the total annual IT budget?')">Total annual IT budget?</button>
-            <button class="btn" style="text-align:left;" onclick="askQ('List all Trendiy vendors and their monthly budgets')">All Trendiy vendors and budgets?</button>
-            <button class="btn" style="text-align:left;" onclick="askQ('What is my total invoiced amount so far?')">Total invoiced amount so far?</button>
-            <button class="btn" style="text-align:left;" onclick="askQ('Are there any budget breaches in my invoice log?')">Any budget breaches in my log?</button>
-            <button class="btn" style="text-align:left;" onclick="askQ('Give me a full executive summary of my 2026 IT budget')">Full executive summary</button>
-            <button class="btn" style="text-align:left;" onclick="askQ('Which months have the highest total budget spend?')">Which months have highest spend?</button>
+          <div class="card"><div class="card-hd"><span class="card-title">Quick questions</span></div>
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <button class="btn" style="text-align:left;" onclick="askQ('Which vendors are over 5000 per month?')">Which vendors are over €5,000/month?</button>
+              <button class="btn" style="text-align:left;" onclick="askQ('What is the total annual IT budget?')">Total annual IT budget?</button>
+              <button class="btn" style="text-align:left;" onclick="askQ('List all Trendiy vendors and their monthly budgets')">All Trendiy vendors and budgets?</button>
+              <button class="btn" style="text-align:left;" onclick="askQ('What is my total invoiced amount so far?')">Total invoiced amount so far?</button>
+              <button class="btn" style="text-align:left;" onclick="askQ('Are there any budget breaches in my invoice log?')">Any budget breaches in my log?</button>
+              <button class="btn" style="text-align:left;" onclick="askQ('Which invoices are under investigation?')">Invoices under investigation?</button>
+              <button class="btn" style="text-align:left;" onclick="askQ('Give me a full executive summary of my 2026 IT budget')">Full executive summary</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- RENEWALS -->
-    <div class="page" id="pg-renewals">
-      <div class="g3" id="ren-metrics"></div>
-      <div class="g2">
-        <div class="card"><div class="card-hd"><span class="card-title">Upcoming renewals</span></div><div id="ren-list"><div style="text-align:center;padding:28px;color:var(--text3);font-size:13px;">Upload contracts with end dates to see renewals.</div></div></div>
-        <div class="card"><div class="card-hd"><span class="card-title">Renewal timeline</span></div><div id="ren-timeline" style="display:flex;flex-direction:column;gap:8px;"></div></div>
+      <!-- RENEWALS -->
+      <div class="page" id="pg-renewals">
+        <div class="g3" id="ren-metrics"></div>
+        <div class="g2">
+          <div class="card"><div class="card-hd"><span class="card-title">Upcoming renewals</span></div><div id="ren-list"><div style="text-align:center;padding:28px;color:var(--text3);font-size:13px;">Upload contracts with end dates to see renewals.</div></div></div>
+          <div class="card"><div class="card-hd"><span class="card-title">Renewal timeline</span></div><div id="ren-timeline" style="display:flex;flex-direction:column;gap:8px;"></div></div>
+        </div>
       </div>
-    </div>
 
-  </main>
+      <!-- BUDGET UPLOAD (Admin only) -->
+      <div class="page" id="pg-budget-upload">
+        <div class="card" style="border-left:4px solid var(--navy);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--navy);margin-bottom:4px;">Upload Budget File</div>
+          <div style="font-size:13px;color:var(--text2);">Admin only · Upload an Excel file to replace the default budget data</div>
+        </div>
+        <div class="g2">
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div class="card"><div class="card-hd"><span class="card-title">Upload Excel budget</span></div>
+              <div class="uzone" onclick="document.getElementById('budget-file').click()" ondragover="event.preventDefault();this.style.borderColor='var(--navy)'" ondragleave="this.style.borderColor=''" ondrop="handleBudgetDrop(event)">
+                <div class="uico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+                <div style="font-size:14px;font-weight:600;color:var(--navy);">Drop Excel file or click to browse</div>
+                <div style="font-size:12px;color:var(--text2);">Expected columns: Vendor, Department, Entity, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec</div>
+              </div>
+              <input type="file" id="budget-file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleBudgetFile(this.files[0])">
+              <div id="budget-upload-status" style="margin-top:12px;"></div>
+            </div>
+            <div class="card"><div class="card-hd"><span class="card-title">Expected format</span></div>
+              <div style="font-size:13px;color:var(--text2);line-height:1.8;">
+                <div style="font-weight:600;color:var(--navy);margin-bottom:8px;">Column headers (row 1):</div>
+                <div class="mono" style="background:var(--surface2);padding:10px;border-radius:var(--radius);font-size:12px;line-height:1.9;">Vendor | Department | Entity | Jan | Feb | Mar | Apr | May | Jun | Jul | Aug | Sep | Oct | Nov | Dec</div>
+                <div style="margin-top:10px;font-size:12px;">One row per vendor. Amounts in € without symbols. Department must be one of: IT, Sales, Finance, OPS, Logistics, HR, Manufacturing, NE.</div>
+              </div>
+            </div>
+          </div>
+          <div class="card"><div class="card-hd"><span class="card-title">Current budget source</span><span id="budget-source-badge" class="budget-src">Default data</span></div>
+            <div id="budget-preview"><div style="text-align:center;padding:20px;color:var(--text3);font-size:13px;">Upload a file to preview the new budget</div></div>
+            <div id="budget-apply-wrap" style="display:none;margin-top:14px;display:flex;gap:8px;">
+              <button class="btn danger" onclick="resetBudget()">Reset to default</button>
+              <button class="btn pri" id="apply-budget-btn" onclick="applyBudget()" style="flex:1;">Apply this budget</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
 </div>
+
+<!-- OVERRIDE MODAL -->
+<div id="override-modal" class="modal-bg" style="display:none;">
+  <div class="modal">
+    <div class="modal-title">Approve despite breach</div>
+    <div class="modal-sub">This invoice exceeds the monthly budget. Please provide a reason for the override — this will be recorded in the invoice log.</div>
+    <div class="frow" style="margin-bottom:16px;">
+      <div class="flbl">Reason for override</div>
+      <textarea class="finp" id="override-reason" rows="3" placeholder="e.g. Emergency purchase approved by CFO..."></textarea>
+    </div>
+    <div style="display:flex;gap:10px;">
+      <button class="btn" style="flex:1;" onclick="closeModal()">Cancel</button>
+      <button class="btn pri" style="flex:1;" onclick="confirmOverride()">Confirm override</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script>
-var MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-var FULL=["January","February","March","April","May","June","July","August","September","October","November","December"];
-var curMonth=0,curView="monthly",rptMonth=0;
-var BUDGET=[
-  {name:"Other / Unforeseen",desc:"",dept:"IT",entity:"B&C Int",ytd:[2885,2308,2308,2885,2308,2308,2885,2308,2308,2885,2308,2308]},
-  {name:"Sieval Dedicated Sol",desc:"Woontotaal",dept:"IT",entity:"B&C Int",ytd:[2885,2308,2308,2885,2308,2308,2885,2308,2308,2885,2308,2308]},
-  {name:"Lucrasoft Digital BV",desc:"Configurator Karwei",dept:"IT",entity:"B&C Int",ytd:[7308,5846,5846,7308,5846,5846,7308,5846,5846,7308,5846,5846]},
-  {name:"Centric Netherlands",desc:"Locus",dept:"IT",entity:"Trendiy",ytd:[8919,7135,7135,8919,7135,7135,8919,7135,7135,8919,7135,7135]},
-  {name:"Axians Business Solu",desc:"i-Make",dept:"IT",entity:"B&C Int",ytd:[3011,2409,2409,3011,2409,2409,3011,2409,2409,3011,2409,2409]},
-  {name:"InRiver AB",desc:"PIM platform",dept:"IT",entity:"B&C Int",ytd:[4381,3505,3505,4381,3505,3505,4381,3505,3505,4381,3505,3505]},
-  {name:"Boomi (CTAC/GEN25)",desc:"SF integrations + Support",dept:"IT",entity:"B&C Int",ytd:[962,769,769,962,769,769,962,769,769,962,769,769]},
-  {name:"GS1",desc:"Barcodes & EAN numbers",dept:"IT",entity:"Trendiy",ytd:[444,355,355,444,355,355,444,355,355,444,355,355]},
-  {name:"Ctac BV",desc:"WT License + Boomi + Support",dept:"IT",entity:"B&C Int",ytd:[10577,8462,8462,10577,8462,8462,10577,8462,8462,10577,8462,8462]},
-  {name:"Caseware Nederland",desc:"",dept:"IT",entity:"B&C Int",ytd:[415,332,332,415,332,332,415,332,332,415,332,332]},
-  {name:"AFAS Software BV",desc:"HR system license",dept:"IT",entity:"B&C Int",ytd:[3916,3133,3133,3916,3133,3133,3916,3133,3133,3916,3133,3133]},
-  {name:"XICT",desc:"UPS Airco PIM+ Maintenance",dept:"IT",entity:"B&C Int",ytd:[2404,1923,1923,2404,1923,1923,2404,1923,1923,2404,1923,1923]},
-  {name:"JWS mfp decure printing",desc:"PrintX Go",dept:"IT",entity:"B&C Int",ytd:[2115,1692,1692,2115,1692,1692,2115,1692,1692,2115,1692,1692]},
-  {name:"ACA IT solutions",desc:"Support Core switches",dept:"IT",entity:"B&C Int",ytd:[481,385,385,481,385,385,481,385,385,481,385,385]},
-  {name:"ECI Software",desc:"Mailing software on I5",dept:"IT",entity:"B&C Int",ytd:[159,128,128,159,128,128,159,128,128,159,128,128]},
-  {name:"ExtraVar bv / Yielder",desc:"IBMi Licensing and Support",dept:"IT",entity:"B&C Int",ytd:[7243,5794,5794,7243,5794,5794,7243,5794,5794,7243,5794,5794]},
-  {name:"Atlassian Pty Ltd",desc:"Jira software license",dept:"IT",entity:"B&C Int",ytd:[207,165,165,207,165,165,207,165,165,207,165,165]},
-  {name:"UNIT4 Emisplz",desc:"",dept:"IT",entity:"B&C Int",ytd:[473,378,378,473,378,378,473,378,378,473,378,378]},
-  {name:"D-Basics b.v.",desc:"FIS and Onguard connection",dept:"IT",entity:"B&C Int",ytd:[96,77,77,96,77,77,96,77,77,96,77,77]},
-  {name:"Pantheon Automatiser",desc:"Datawarehouse finance",dept:"IT",entity:"B&C Int",ytd:[4712,3769,3769,4712,3769,3769,4712,3769,3769,4712,3769,3769]},
-  {name:"Vodafone Libertel BV",desc:"PSTN abonnement analoog",dept:"IT",entity:"B&C Int",ytd:[456,365,365,456,365,365,456,365,365,456,365,365]},
-  {name:"Realhosting",desc:"Domain name registration",dept:"IT",entity:"B&C Int",ytd:[621,497,497,621,497,497,621,497,497,621,497,497]},
-  {name:"Adobe Systems",desc:"Adobe License",dept:"IT",entity:"B&C Int",ytd:[795,636,636,795,636,636,795,636,636,795,636,636]},
-  {name:"Xolphin",desc:"Certificates",dept:"IT",entity:"B&C Int",ytd:[75,60,60,75,60,60,75,60,60,75,60,60]},
-  {name:"GTT International",desc:"Network support France",dept:"IT",entity:"B&C Int",ytd:[981,785,785,981,785,785,981,785,785,981,785,785]},
-  {name:"Visionplanner BV",desc:"Annual reporting",dept:"IT",entity:"B&C Int",ytd:[158,126,126,158,126,126,158,126,126,158,126,126]},
-  {name:"SRC Systems",desc:"DIY solution GS1",dept:"IT",entity:"Trendiy",ytd:[2205,1764,1764,2205,1764,1764,2205,1764,1764,2205,1764,1764]},
-  {name:"Basys",desc:"AIP",dept:"IT",entity:"B&C Int",ytd:[481,385,385,481,385,385,481,385,385,481,385,385]},
-  {name:"CAI Breednet",desc:"Internet line Fiber",dept:"IT",entity:"B&C Int",ytd:[230,184,184,230,184,184,230,184,184,230,184,184]},
-  {name:"Access42 BV",desc:"Nessus Pro",dept:"IT",entity:"B&C Int",ytd:[343,274,274,343,274,274,343,274,274,343,274,274]},
-  {name:"Proven Web Concepts",desc:"Giraffes4zebras",dept:"IT",entity:"B&C Int",ytd:[29,23,23,29,23,23,29,23,23,29,23,23]},
-  {name:"Bol.com bv",desc:"",dept:"IT",entity:"B&C Int",ytd:[29,23,23,29,23,23,29,23,23,29,23,23]},
-  {name:"OnGuard BV",desc:"Collect unpaid bills",dept:"IT",entity:"B&C Int",ytd:[1250,1000,1000,1250,1000,1000,1250,1000,1000,1250,1000,1000]},
-  {name:"Capture Tech",desc:"",dept:"IT",entity:"B&C Int",ytd:[1375,1100,1100,1375,1100,1100,1375,1100,1100,1375,1100,1100]},
-  {name:"Webstores internet",desc:"Friday Webhosting",dept:"IT",entity:"B&C Int",ytd:[0,0,0,0,0,0,0,0,0,0,0,0]},
-  {name:"Whiz-Tec Northern Eu",desc:"I5 Printing emailing",dept:"IT",entity:"B&C Int",ytd:[321,257,257,321,257,257,321,257,257,321,257,257]},
-  {name:"TeamViewer GmbH",desc:"Remote desktop",dept:"IT",entity:"B&C Int",ytd:[484,387,387,484,387,387,484,387,387,484,387,387]},
-  {name:"Remain software",desc:"OMS RPG software",dept:"IT",entity:"B&C Int",ytd:[1075,860,860,1075,860,860,1075,860,860,1075,860,860]},
-  {name:"Slimstock BV",desc:"Forecasting Supply chain",dept:"IT",entity:"Trendiy",ytd:[2151,1721,1721,2151,1721,1721,2151,1721,1721,2151,1721,1721]},
-  {name:"Previder BV",desc:"Internet lines",dept:"IT",entity:"B&C Int",ytd:[1731,1385,1385,1731,1385,1385,1731,1385,1385,1731,1385,1385]},
-  {name:"Allekabels BV",desc:"Hardware Cables",dept:"IT",entity:"B&C Int",ytd:[96,77,77,96,77,77,96,77,77,96,77,77]},
-  {name:"Overhoff Telecommuni",desc:"Alcatel Maintenance SLA",dept:"IT",entity:"B&C Int",ytd:[1397,1118,1118,1397,1118,1118,1397,1118,1118,1397,1118,1118]},
-  {name:"Koningh Coding",desc:"Bartender Ent License",dept:"IT",entity:"B&C Int",ytd:[60,48,48,60,48,48,60,48,48,60,48,48]},
-  {name:"PCextreme BV",desc:"Linkbuilder Versio",dept:"IT",entity:"B&C Int",ytd:[331,265,265,331,265,265,331,265,265,331,265,265]},
-  {name:"PCI IT",desc:"M-files document management",dept:"IT",entity:"B&C Int",ytd:[866,693,693,866,693,693,866,693,693,866,693,693]},
-  {name:"Keizer Karel webdesign",desc:"beceprojects.nl",dept:"IT",entity:"B&C Int",ytd:[239,191,191,239,191,191,239,191,191,239,191,191]},
-  {name:"Spotler BV",desc:"Email newsletters to dealers",dept:"IT",entity:"B&C Int",ytd:[512,409,409,512,409,409,512,409,409,512,409,409]},
-  {name:"Think Cell Software",desc:"",dept:"IT",entity:"B&C Int",ytd:[25,20,20,25,20,20,25,20,20,25,20,20]},
-  {name:"Fashion Cloud BV",desc:"",dept:"IT",entity:"B&C Int",ytd:[279,223,223,279,223,223,279,223,223,279,223,223]},
-  {name:"Microsoft BV",desc:"TBD",dept:"IT",entity:"B&C Int",ytd:[1078,862,862,1078,862,862,1078,862,862,1078,862,862]},
-  {name:"PowerOffice AS",desc:"",dept:"IT",entity:"B&C Int",ytd:[224,179,179,224,179,179,224,179,179,224,179,179]},
-  {name:"Topdesk",desc:"ITSM ticketing system",dept:"IT",entity:"B&C Int",ytd:[1730,1384,1384,1730,1384,1384,1730,1384,1384,1730,1384,1384]},
-  {name:"nShift A/S",desc:"Transport label printing",dept:"IT",entity:"B&C Int",ytd:[1507,1205,1205,1507,1205,1205,1507,1205,1205,1507,1205,1205]},
-  {name:"Estunt BV",desc:"",dept:"IT",entity:"B&C Int",ytd:[463,370,370,463,370,370,463,370,370,463,370,370]},
-  {name:"CloudCrossing BVBA",desc:"PDF Butler for Boomi SF",dept:"IT",entity:"B&C Int",ytd:[440,352,352,440,352,352,440,352,352,440,352,352]},
-  {name:"CAD2M BV",desc:"Drawing program",dept:"IT",entity:"B&C Int",ytd:[673,538,538,673,538,538,673,538,538,673,538,538]},
-  {name:"SynergyIT",desc:"VMware Poland license",dept:"IT",entity:"B&C Int",ytd:[0,0,0,0,0,0,0,0,0,0,0,0]},
-  {name:"SFDC Ireland",desc:"Salesforce",dept:"IT",entity:"B&C Int",ytd:[9808,7846,7846,9808,7846,7846,9808,7846,7846,9808,7846,7846]},
-  {name:"ISProjects BV",desc:"Automatic invoicing",dept:"IT",entity:"B&C Int",ytd:[4231,3385,3385,4231,3385,3385,4231,3385,3385,4231,3385,3385]},
-  {name:"Victa BV",desc:"BI tool",dept:"IT",entity:"B&C Int",ytd:[3846,3077,3077,3846,3077,3077,3846,3077,3077,3846,3077,3077]},
-  {name:"SphereMall BV",desc:"Configurator HEMA",dept:"IT",entity:"B&C Int",ytd:[16346,13077,13077,16346,13077,13077,16346,13077,13077,16346,13077,13077]},
-  {name:"Descartes Systems",desc:"EDI for Trendiy",dept:"IT",entity:"Trendiy",ytd:[1599,1279,1279,1599,1279,1279,1599,1279,1279,1599,1279,1279]},
-  {name:"Koningduller",desc:"FSC Portal Adeo QMS",dept:"IT",entity:"B&C Int",ytd:[986,789,789,986,789,789,986,789,789,986,789,789]},
-  {name:"ARP Nederland BV",desc:"Clearpass + Fortigate",dept:"IT",entity:"B&C Int",ytd:[4808,3846,3846,4808,3846,3846,4808,3846,3846,4808,3846,3846]},
-  {name:"Axians Performance",desc:"i5 Development platform",dept:"IT",entity:"B&C Int",ytd:[101,81,81,101,81,81,101,81,81,101,81,81]},
-  {name:"LucaNet Benelux BV",desc:"Financial reporting license",dept:"IT",entity:"B&C Int",ytd:[4808,3846,3846,4808,3846,3846,4808,3846,3846,4808,3846,3846]},
-  {name:"Giraffes4Zebras",desc:"",dept:"IT",entity:"B&C Int",ytd:[36,29,29,36,29,29,36,29,29,36,29,29]},
-  {name:"Trigono AS",desc:"",dept:"IT",entity:"B&C Int",ytd:[158,127,127,158,127,127,158,127,127,158,127,127]},
-  {name:"Stila a/s",desc:"",dept:"IT",entity:"B&C Int",ytd:[107,85,85,107,85,85,107,85,85,107,85,85]},
-  {name:"Mayker NV",desc:"",dept:"IT",entity:"B&C Int",ytd:[1442,1154,1154,1442,1154,1154,1442,1154,1154,1442,1154,1154]},
-  {name:"TNG",desc:"",dept:"IT",entity:"B&C Int",ytd:[962,769,769,962,769,769,962,769,769,962,769,769]},
-  {name:"SmartSheet + Consultancy",desc:"",dept:"IT",entity:"B&C Int",ytd:[962,769,769,962,769,769,962,769,769,962,769,769]},
-  {name:"Sales CRM platform",desc:"CRM licensing",dept:"Sales",entity:"B&C Int",ytd:[3500,3500,3500,3500,3500,3500,3500,3500,3500,3500,3500,3500]},
-  {name:"Sales training tools",desc:"E-learning platform",dept:"Sales",entity:"B&C Int",ytd:[1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200,1200]},
-  {name:"Finance ERP",desc:"Core finance system",dept:"Finance",entity:"B&C Int",ytd:[5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000]},
-  {name:"Finance reporting tool",desc:"Management reporting",dept:"Finance",entity:"B&C Int",ytd:[1500,1500,1500,1500,1500,1500,1500,1500,1500,1500,1500,1500]},
-  {name:"OPS workflow software",desc:"Operations platform",dept:"OPS",entity:"B&C Int",ytd:[2800,2800,2800,2800,2800,2800,2800,2800,2800,2800,2800,2800]},
-  {name:"Logistics TMS",desc:"Transport management",dept:"Logistics",entity:"B&C Int",ytd:[4200,4200,4200,4200,4200,4200,4200,4200,4200,4200,4200,4200]},
-  {name:"HR HRIS system",desc:"HR information system",dept:"HR",entity:"B&C Int",ytd:[2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500]},
-  {name:"Manufacturing MES",desc:"Manufacturing execution",dept:"Manufacturing",entity:"B&C Int",ytd:[6000,6000,6000,6000,6000,6000,6000,6000,6000,6000,6000,6000]},
-  {name:"NE platform",desc:"NE core system",dept:"NE",entity:"B&C Int",ytd:[3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000]}
+var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var FULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+var curMonth=0,curView='monthly',rptMonth=0;
+var currentRole='user',currentDept='all',selectedRoleVal='',selectedDeptVal='';
+
+// DEFAULT BUDGET
+var DEFAULT_BUDGET=[
+  {name:'Other / Unforeseen',desc:'',dept:'IT',entity:'B&C Int',ytd:[2885,2308,2308,2885,2308,2308,2885,2308,2308,2885,2308,2308]},
+  {name:'Sieval Dedicated Sol',desc:'Woontotaal',dept:'IT',entity:'B&C Int',ytd:[2885,2308,2308,2885,2308,2308,2885,2308,2308,2885,2308,2308]},
+  {name:'Lucrasoft Digital BV',desc:'Configurator Karwei',dept:'IT',entity:'B&C Int',ytd:[7308,5846,5846,7308,5846,5846,7308,5846,5846,7308,5846,5846]},
+  {name:'Centric Netherlands',desc:'Locus',dept:'IT',entity:'Trendiy',ytd:[8919,7135,7135,8919,7135,7135,8919,7135,7135,8919,7135,7135]},
+  {name:'Axians Business Solu',desc:'i-Make',dept:'IT',entity:'B&C Int',ytd:[3011,2409,2409,3011,2409,2409,3011,2409,2409,3011,2409,2409]},
+  {name:'InRiver AB',desc:'PIM platform',dept:'IT',entity:'B&C Int',ytd:[4381,3505,3505,4381,3505,3505,4381,3505,3505,4381,3505,3505]},
+  {name:'Boomi (CTAC/GEN25)',desc:'SF integrations + Support',dept:'IT',entity:'B&C Int',ytd:[962,769,769,962,769,769,962,769,769,962,769,769]},
+  {name:'GS1',desc:'Barcodes & EAN numbers',dept:'IT',entity:'Trendiy',ytd:[444,355,355,444,355,355,444,355,355,444,355,355]},
+  {name:'Ctac BV',desc:'WT License + Boomi + Support',dept:'IT',entity:'B&C Int',ytd:[10577,8462,8462,10577,8462,8462,10577,8462,8462,10577,8462,8462]},
+  {name:'Caseware Nederland',desc:'',dept:'IT',entity:'B&C Int',ytd:[415,332,332,415,332,332,415,332,332,415,332,332]},
+  {name:'AFAS Software BV',desc:'HR system license',dept:'IT',entity:'B&C Int',ytd:[3916,3133,3133,3916,3133,3133,3916,3133,3133,3916,3133,3133]},
+  {name:'XICT',desc:'UPS Airco PIM+ Maintenance',dept:'IT',entity:'B&C Int',ytd:[2404,1923,1923,2404,1923,1923,2404,1923,1923,2404,1923,1923]},
+  {name:'JWS mfp decure printing',desc:'PrintX Go',dept:'IT',entity:'B&C Int',ytd:[2115,1692,1692,2115,1692,1692,2115,1692,1692,2115,1692,1692]},
+  {name:'ACA IT solutions',desc:'Support Core switches',dept:'IT',entity:'B&C Int',ytd:[481,385,385,481,385,385,481,385,385,481,385,385]},
+  {name:'ECI Software',desc:'Mailing software on I5',dept:'IT',entity:'B&C Int',ytd:[159,128,128,159,128,128,159,128,128,159,128,128]},
+  {name:'ExtraVar bv / Yielder',desc:'IBMi Licensing and Support',dept:'IT',entity:'B&C Int',ytd:[7243,5794,5794,7243,5794,5794,7243,5794,5794,7243,5794,5794]},
+  {name:'Atlassian Pty Ltd',desc:'Jira software license',dept:'IT',entity:'B&C Int',ytd:[207,165,165,207,165,165,207,165,165,207,165,165]},
+  {name:'UNIT4 Emisplz',desc:'',dept:'IT',entity:'B&C Int',ytd:[473,378,378,473,378,378,473,378,378,473,378,378]},
+  {name:'D-Basics b.v.',desc:'FIS and Onguard connection',dept:'IT',entity:'B&C Int',ytd:[96,77,77,96,77,77,96,77,77,96,77,77]},
+  {name:'Pantheon Automatiser',desc:'Datawarehouse finance',dept:'IT',entity:'B&C Int',ytd:[4712,3769,3769,4712,3769,3769,4712,3769,3769,4712,3769,3769]},
+  {name:'Vodafone Libertel BV',desc:'PSTN abonnement analoog',dept:'IT',entity:'B&C Int',ytd:[456,365,365,456,365,365,456,365,365,456,365,365]},
+  {name:'Realhosting',desc:'Domain name registration',dept:'IT',entity:'B&C Int',ytd:[621,497,497,621,497,497,621,497,497,621,497,497]},
+  {name:'Adobe Systems',desc:'Adobe License',dept:'IT',entity:'B&C Int',ytd:[795,636,636,795,636,636,795,636,636,795,636,636]},
+  {name:'Xolphin',desc:'Certificates',dept:'IT',entity:'B&C Int',ytd:[75,60,60,75,60,60,75,60,60,75,60,60]},
+  {name:'GTT International',desc:'Network support France',dept:'IT',entity:'B&C Int',ytd:[981,785,785,981,785,785,981,785,785,981,785,785]},
+  {name:'Visionplanner BV',desc:'Annual reporting',dept:'IT',entity:'B&C Int',ytd:[158,126,126,158,126,126,158,126,126,158,126,126]},
+  {name:'SRC Systems',desc:'DIY solution GS1',dept:'IT',entity:'Trendiy',ytd:[2205,1764,1764,2205,1764,1764,2205,1764,1764,2205,1764,1764]},
+  {name:'Basys',desc:'AIP',dept:'IT',entity:'B&C Int',ytd:[481,385,385,481,385,385,481,385,385,481,385,385]},
+  {name:'CAI Breednet',desc:'Internet line Fiber',dept:'IT',entity:'B&C Int',ytd:[230,184,184,230,184,184,230,184,184,230,184,184]},
+  {name:'Access42 BV',desc:'Nessus Pro',dept:'IT',entity:'B&C Int',ytd:[343,274,274,343,274,274,343,274,274,343,274,274]},
+  {name:'Proven Web Concepts',desc:'Giraffes4zebras',dept:'IT',entity:'B&C Int',ytd:[29,23,23,29,23,23,29,23,23,29,23,23]},
+  {name:'Bol.com bv',desc:'',dept:'IT',entity:'B&C Int',ytd:[29,23,23,29,23,23,29,23,23,29,23,23]},
+  {name:'OnGuard BV',desc:'Collect unpaid bills',dept:'IT',entity:'B&C Int',ytd:[1250,1000,1000,1250,1000,1000,1250,1000,1000,1250,1000,1000]},
+  {name:'Capture Tech',desc:'',dept:'IT',entity:'B&C Int',ytd:[1375,1100,1100,1375,1100,1100,1375,1100,1100,1375,1100,1100]},
+  {name:'Webstores internet',desc:'Friday Webhosting',dept:'IT',entity:'B&C Int',ytd:[0,0,0,0,0,0,0,0,0,0,0,0]},
+  {name:'Whiz-Tec Northern Eu',desc:'I5 Printing emailing',dept:'IT',entity:'B&C Int',ytd:[321,257,257,321,257,257,321,257,257,321,257,257]},
+  {name:'TeamViewer GmbH',desc:'Remote desktop',dept:'IT',entity:'B&C Int',ytd:[484,387,387,484,387,387,484,387,387,484,387,387]},
+  {name:'Remain software',desc:'OMS RPG software',dept:'IT',entity:'B&C Int',ytd:[1075,860,860,1075,860,860,1075,860,860,1075,860,860]},
+  {name:'Slimstock BV',desc:'Forecasting Supply chain',dept:'IT',entity:'Trendiy',ytd:[2151,1721,1721,2151,1721,1721,2151,1721,1721,2151,1721,1721]},
+  {name:'Previder BV',desc:'Internet lines',dept:'IT',entity:'B&C Int',ytd:[1731,1385,1385,1731,1385,1385,1731,1385,1385,1731,1385,1385]},
+  {name:'Allekabels BV',desc:'Hardware Cables',dept:'IT',entity:'B&C Int',ytd:[96,77,77,96,77,77,96,77,77,96,77,77]},
+  {name:'Overhoff Telecommuni',desc:'Alcatel Maintenance SLA',dept:'IT',entity:'B&C Int',ytd:[1397,1118,1118,1397,1118,1118,1397,1118,1118,1397,1118,1118]},
+  {name:'Koningh Coding',desc:'Bartender Ent License',dept:'IT',entity:'B&C Int',ytd:[60,48,48,60,48,48,60,48,48,60,48,48]},
+  {name:'PCextreme BV',desc:'Linkbuilder Versio',dept:'IT',entity:'B&C Int',ytd:[331,265,265,331,265,265,331,265,265,331,265,265]},
+  {name:'PCI IT',desc:'M-files document management',dept:'IT',entity:'B&C Int',ytd:[866,693,693,866,693,693,866,693,693,866,693,693]},
+  {name:'Keizer Karel webdesign',desc:'beceprojects.nl',dept:'IT',entity:'B&C Int',ytd:[239,191,191,239,191,191,239,191,191,239,191,191]},
+  {name:'Spotler BV',desc:'Email newsletters to dealers',dept:'IT',entity:'B&C Int',ytd:[512,409,409,512,409,409,512,409,409,512,409,409]},
+  {name:'Think Cell Software',desc:'',dept:'IT',entity:'B&C Int',ytd:[25,20,20,25,20,20,25,20,20,25,20,20]},
+  {name:'Fashion Cloud BV',desc:'',dept:'IT',entity:'B&C Int',ytd:[279,223,223,279,223,223,279,223,223,279,223,223]},
+  {name:'Microsoft BV',desc:'TBD',dept:'IT',entity:'B&C Int',ytd:[1078,862,862,1078,862,862,1078,862,862,1078,862,862]},
+  {name:'PowerOffice AS',desc:'',dept:'IT',entity:'B&C Int',ytd:[224,179,179,224,179,179,224,179,179,224,179,179]},
+  {name:'Topdesk',desc:'ITSM ticketing system',dept:'IT',entity:'B&C Int',ytd:[1730,1384,1384,1730,1384,1384,1730,1384,1384,1730,1384,1384]},
+  {name:'nShift A/S',desc:'Transport label printing',dept:'IT',entity:'B&C Int',ytd:[1507,1205,1205,1507,1205,1205,1507,1205,1205,1507,1205,1205]},
+  {name:'Estunt BV',desc:'',dept:'IT',entity:'B&C Int',ytd:[463,370,370,463,370,370,463,370,370,463,370,370]},
+  {name:'CloudCrossing BVBA',desc:'PDF Butler for Boomi SF',dept:'IT',entity:'B&C Int',ytd:[440,352,352,440,352,352,440,352,352,440,352,352]},
+  {name:'CAD2M BV',desc:'Drawing program',dept:'IT',entity:'B&C Int',ytd:[673,538,538,673,538,538,673,538,538,673,538,538]},
+  {name:'SynergyIT',desc:'VMware Poland license',dept:'IT',entity:'B&C Int',ytd:[0,0,0,0,0,0,0,0,0,0,0,0]},
+  {name:'SFDC Ireland',desc:'Salesforce',dept:'IT',entity:'B&C Int',ytd:[9808,7846,7846,9808,7846,7846,9808,7846,7846,9808,7846,7846]},
+  {name:'ISProjects BV',desc:'Automatic invoicing',dept:'IT',entity:'B&C Int',ytd:[4231,3385,3385,4231,3385,3385,4231,3385,3385,4231,3385,3385]},
+  {name:'Victa BV',desc:'BI tool',dept:'IT',entity:'B&C Int',ytd:[3846,3077,3077,3846,3077,3077,3846,3077,3077,3846,3077,3077]},
+  {name:'SphereMall BV',desc:'Configurator HEMA',dept:'IT',entity:'B&C Int',ytd:[16346,13077,13077,16346,13077,13077,16346,13077,13077,16346,13077,13077]},
+  {name:'Descartes Systems',desc:'EDI for Trendiy',dept:'IT',entity:'Trendiy',ytd:[1599,1279,1279,1599,1279,1279,1599,1279,1279,1599,1279,1279]},
+  {name:'Koningduller',desc:'FSC Portal Adeo QMS',dept:'IT',entity:'B&C Int',ytd:[986,789,789,986,789,789,986,789,789,986,789,789]},
+  {name:'ARP Nederland BV',desc:'Clearpass + Fortigate',dept:'IT',entity:'B&C Int',ytd:[4808,3846,3846,4808,3846,3846,4808,3846,3846,4808,3846,3846]},
+  {name:'Axians Performance',desc:'i5 Development platform',dept:'IT',entity:'B&C Int',ytd:[101,81,81,101,81,81,101,81,81,101,81,81]},
+  {name:'LucaNet Benelux BV',desc:'Financial reporting license',dept:'IT',entity:'B&C Int',ytd:[4808,3846,3846,4808,3846,3846,4808,3846,3846,4808,3846,3846]},
+  {name:'Giraffes4Zebras',desc:'',dept:'IT',entity:'B&C Int',ytd:[36,29,29,36,29,29,36,29,29,36,29,29]},
+  {name:'Trigono AS',desc:'',dept:'IT',entity:'B&C Int',ytd:[158,127,127,158,127,127,158,127,127,158,127,127]},
+  {name:'Stila a/s',desc:'',dept:'IT',entity:'B&C Int',ytd:[107,85,85,107,85,85,107,85,85,107,85,85]},
+  {name:'Mayker NV',desc:'',dept:'IT',entity:'B&C Int',ytd:[1442,1154,1154,1442,1154,1154,1442,1154,1154,1442,1154,1154]},
+  {name:'TNG',desc:'',dept:'IT',entity:'B&C Int',ytd:[962,769,769,962,769,769,962,769,769,962,769,769]},
+  {name:'SmartSheet + Consultancy',desc:'',dept:'IT',entity:'B&C Int',ytd:[962,769,769,962,769,769,962,769,769,962,769,769]},
+  {name:'Sales CRM platform',desc:'CRM licensing',dept:'Sales',entity:'B&C Int',ytd:[3500,3500,3500,3500,3500,3500,3500,3500,3500,3500,3500,3500]},
+  {name:'Finance ERP',desc:'Core finance system',dept:'Finance',entity:'B&C Int',ytd:[5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000,5000]},
+  {name:'OPS workflow software',desc:'Operations platform',dept:'OPS',entity:'B&C Int',ytd:[2800,2800,2800,2800,2800,2800,2800,2800,2800,2800,2800,2800]},
+  {name:'Logistics TMS',desc:'Transport management',dept:'Logistics',entity:'B&C Int',ytd:[4200,4200,4200,4200,4200,4200,4200,4200,4200,4200,4200,4200]},
+  {name:'HR HRIS system',desc:'HR information system',dept:'HR',entity:'B&C Int',ytd:[2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500,2500]},
+  {name:'Manufacturing MES',desc:'Manufacturing execution',dept:'Manufacturing',entity:'B&C Int',ytd:[6000,6000,6000,6000,6000,6000,6000,6000,6000,6000,6000,6000]},
+  {name:'NE platform',desc:'NE core system',dept:'NE',entity:'B&C Int',ytd:[3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000]}
 ];
+
+var BUDGET=DEFAULT_BUDGET.slice();
+var pendingBudget=null;
 
 // STORAGE
 function getLog(){try{return JSON.parse(localStorage.getItem('fic_log')||'[]');}catch(e){return[];}}
 function saveLog(l){localStorage.setItem('fic_log',JSON.stringify(l));}
 function getCons(){try{return JSON.parse(localStorage.getItem('fic_cons')||'[]');}catch(e){return[];}}
 function saveCons(c){localStorage.setItem('fic_cons',JSON.stringify(c));}
+function getCustomBudget(){try{var b=localStorage.getItem('fic_budget');return b?JSON.parse(b):null;}catch(e){return null;}}
+function saveCustomBudget(b){localStorage.setItem('fic_budget',JSON.stringify(b));}
 
 // HELPERS
-function fmt(n){return '€'+Math.round(n).toLocaleString('nl-NL');}
+function fmt(n){return '\u20ac'+Math.round(n).toLocaleString('nl-NL');}
 function today(){return new Date().toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});}
-
 function dtag(d){
   var m={IT:'background:#EBF0F4;color:#1B2E3C;',Sales:'background:#EAF4EF;color:#2D7A5F;',Finance:'background:#FBF4E6;color:#9A6B1A;',OPS:'background:#FAF0EE;color:#B83C2B;',Logistics:'background:#F0EBF8;color:#6B2D9A;',HR:'background:#FEF6E6;color:#9A7A1A;',Manufacturing:'background:#E6F2FA;color:#1A5F9A;',NE:'background:#F0F4EB;color:#4A7A2D;'};
   var s=m[d]||'background:#F0EEE9;color:#4A6070;';
@@ -492,6 +708,14 @@ function sbadge(u){
   if(u>=80)return '<span class="badge amber">Near limit</span>';
   return '<span class="badge green">On track</span>';
 }
+function statusLabel(s){
+  if(s==='breach')return '<span class="badge red">Breach</span>';
+  if(s==='warn')return '<span class="badge amber">Near limit</span>';
+  if(s==='investigate')return '<span class="badge blue">Under investigation</span>';
+  if(s==='override')return '<span class="badge override">Approved (override)</span>';
+  if(s==='flagged')return '<span class="badge amber">Flagged</span>';
+  return '<span class="badge green">Approved</span>';
+}
 function getItems(){
   var d=document.getElementById('dept-sel').value;
   var e=document.getElementById('ent-sel').value;
@@ -499,12 +723,17 @@ function getItems(){
 }
 function getInvMap(){
   var log=getLog(),map={};
-  log.forEach(function(i){var k=i.vendor+'|'+new Date(i.date).getMonth();map[k]=(map[k]||0)+i.amount;});
+  log.forEach(function(i){
+    var k=i.vendor+'|'+new Date(i.date).getMonth();
+    if(i.status!=='investigate'&&i.status!=='flagged')map[k]=(map[k]||0)+i.amount;
+  });
   return map;
 }
 function getInvByMonth(){
   var log=getLog(),a=[0,0,0,0,0,0,0,0,0,0,0,0];
-  log.forEach(function(i){a[new Date(i.date).getMonth()]+=i.amount;});
+  log.forEach(function(i){
+    if(i.status!=='investigate'&&i.status!=='flagged')a[new Date(i.date).getMonth()]+=i.amount;
+  });
   return a;
 }
 function matchV(n){
@@ -515,20 +744,70 @@ function matchV(n){
 function toB64(f){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res(r.result.split(',')[1]);};r.onerror=rej;r.readAsDataURL(f);});}
 function dl(csv,fn){var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download=fn;a.click();}
 
+// LANDING
+function selectRole(r){
+  selectedRoleVal=r;
+  document.getElementById('role-user').classList.toggle('selected',r==='user');
+  document.getElementById('role-admin').classList.toggle('selected',r==='admin');
+  document.getElementById('dept-wrap').style.display='block';
+  checkEnterReady();
+}
+function selectDept(el,d){
+  selectedDeptVal=d;
+  document.querySelectorAll('.dept-btn').forEach(function(b){b.classList.remove('sel');});
+  el.classList.add('sel');
+  checkEnterReady();
+}
+function checkEnterReady(){
+  document.getElementById('enter-btn').disabled=!(selectedRoleVal&&selectedDeptVal);
+}
+function enterApp(){
+  currentRole=selectedRoleVal;
+  currentDept=selectedDeptVal;
+  document.getElementById('landing').style.display='none';
+  document.getElementById('app').style.display='flex';
+  // Set dept filter to user's dept
+  document.getElementById('dept-sel').value=currentDept;
+  // Role UI
+  var rt=document.getElementById('role-tag');
+  if(currentRole==='admin'){rt.textContent='Admin \u00b7 '+currentDept;rt.className='role-tag admin';}
+  else{rt.textContent='User \u00b7 '+currentDept;rt.className='role-tag user';}
+  document.getElementById('admin-nav-section').style.display=currentRole==='admin'?'block':'none';
+  document.getElementById('sver').textContent='FIC v4.0 \u00b7 '+currentRole.charAt(0).toUpperCase()+currentRole.slice(1);
+  // Avatar initials from dept
+  document.getElementById('top-ava').textContent=currentDept.slice(0,2).toUpperCase();
+  // Load custom budget if any
+  var cb=getCustomBudget();
+  if(cb){BUDGET=cb;document.getElementById('budget-source-badge').textContent='Custom file';document.getElementById('budget-source-badge').style.background='var(--amber-bg)';document.getElementById('budget-source-badge').style.color='var(--amber)';}
+  updateBadges();
+  renderMonthly();
+}
+function logout(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('landing').style.display='flex';
+  selectedRoleVal='';selectedDeptVal='';
+  document.getElementById('role-user').classList.remove('selected');
+  document.getElementById('role-admin').classList.remove('selected');
+  document.querySelectorAll('.dept-btn').forEach(function(b){b.classList.remove('sel');});
+  document.getElementById('enter-btn').disabled=true;
+  document.getElementById('dept-wrap').style.display='none';
+}
+
 // PAGE NAV
 function showPage(p){
-  ['dashboard','upload','log','monthly-report','forecast','contracts','chat','renewals'].forEach(function(id){
+  ['dashboard','upload','log','monthly-report','forecast','vendor-report','contracts','chat','renewals','budget-upload'].forEach(function(id){
     document.getElementById('pg-'+id).classList.toggle('active',id===p);
     var n=document.getElementById('nav-'+id);
     if(n)n.classList.toggle('active',id===p);
   });
-  var titles={dashboard:'Dashboard',upload:'Upload invoice',log:'Invoice log','monthly-report':'Monthly report',forecast:'Year-end forecast',contracts:'Vendor contracts',chat:'Ask your budget',renewals:'Renewal calendar'};
+  var titles={dashboard:'Dashboard',upload:'Upload invoice',log:'Invoice log','monthly-report':'Monthly report',forecast:'Year-end forecast','vendor-report':'Vendor vs contract',contracts:'Vendor contracts',chat:'Ask your budget',renewals:'Renewal calendar','budget-upload':'Upload budget'};
   document.getElementById('page-title').textContent=titles[p]||p;
   document.getElementById('export-btn').style.display=p==='dashboard'?'':'none';
-  document.getElementById('print-btn').style.display=(p==='monthly-report'||p==='forecast')?'':'none';
+  document.getElementById('print-btn').style.display=(p==='monthly-report'||p==='forecast'||p==='vendor-report')?'':'none';
   if(p==='log')renderLog();
   if(p==='monthly-report')renderRpt();
   if(p==='forecast')renderFc();
+  if(p==='vendor-report')renderVendorRpt();
   if(p==='contracts')renderCons();
   if(p==='renewals')renderRen();
   if(p==='dashboard'){if(curView==='monthly')renderMonthly();else renderAnnual();}
@@ -537,34 +816,32 @@ function showPage(p){
 // DASHBOARD MONTHLY
 function renderMonthly(){
   var m=curMonth,items=getItems(),inv=getInvMap();
-  document.getElementById('m-tbl-title').textContent='Budget — '+FULL[m]+' 2026';
+  document.getElementById('m-tbl-title').textContent='Budget \u2014 '+FULL[m]+' 2026';
   document.getElementById('month-lbl').textContent=FULL[m]+' 2026';
   var tB=0,tI=0;
   items.forEach(function(c){tB+=c.ytd[m];tI+=(inv[c.name+'|'+m]||0);});
   var lc=getLog().filter(function(i){return new Date(i.date).getMonth()===m;}).length;
-  var mm=document.getElementById('m-metrics');
-  mm.innerHTML=
+  var invest=getLog().filter(function(i){return i.status==='investigate';}).length;
+  document.getElementById('m-metrics').innerHTML=
     '<div class="metric"><div class="mlbl">Monthly budget</div><div class="mval">'+fmt(tB)+'</div><div class="msub muted">'+FULL[m]+' 2026</div></div>'+
     '<div class="metric"><div class="mlbl">Invoiced</div><div class="mval">'+fmt(tI)+'</div><div class="msub muted">'+lc+' invoice'+(lc!==1?'s':'')+'</div></div>'+
     '<div class="metric"><div class="mlbl">Remaining</div><div class="mval">'+fmt(tB-tI)+'</div><div class="msub '+(tI>tB?'dn':'up')+'">'+(tI>tB?'Over budget':'Available')+'</div></div>'+
-    '<div class="metric"><div class="mlbl">Active vendors</div><div class="mval">'+items.filter(function(c){return c.ytd[m]>0;}).length+'</div><div class="msub muted">with budget</div></div>';
+    '<div class="metric"><div class="mlbl">Under investigation</div><div class="mval" style="color:'+(invest>0?'var(--amber)':'var(--navy)')+';">'+invest+'</div><div class="msub '+(invest>0?'warn-c':'muted')+'">'+(invest>0?'Pending review':'None pending')+'</div></div>';
   var sorted=items.slice().sort(function(a,b){return b.ytd[m]-a.ytd[m];});
   var rows='';
   sorted.forEach(function(c){
     var b=c.ytd[m];if(!b)return;
     var i=inv[c.name+'|'+m]||0,r=b-i;
     rows+='<tr><td style="font-weight:500;">'+c.name+'</td><td>'+dtag(c.dept)+'</td><td>'+etag(c.entity)+'</td>';
-    rows+='<td class="mono">'+fmt(b)+'</td><td class="mono">'+(i?fmt(i):'<span style="color:var(--text3);">—</span>')+'</td>';
+    rows+='<td class="mono">'+fmt(b)+'</td><td class="mono">'+(i?fmt(i):'<span style="color:var(--text3);">\u2014</span>')+'</td>';
     rows+='<td class="'+(r<0?'vneg':'vpos')+'">'+(r<0?'-':'+')+fmt(Math.abs(r))+'</td></tr>';
   });
   document.getElementById('m-tbody').innerHTML=rows;
   var hl='';
   sorted.slice(0,8).forEach(function(c){
     var v=c.ytd[m],i=inv[c.name+'|'+m]||0;
-    var p=tB>0?Math.round(v/tB*100):0;
-    var ip=v>0?Math.min(Math.round(i/v*100),100):0;
-    hl+='<div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">';
-    hl+='<span style="font-weight:500;">'+c.name+'</span><span class="mono" style="font-size:11.5px;color:var(--text2)">'+fmt(v)+'</span></div>';
+    var p=tB>0?Math.round(v/tB*100):0,ip=v>0?Math.min(Math.round(i/v*100),100):0;
+    hl+='<div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="font-weight:500;">'+c.name+'</span><span class="mono" style="font-size:11.5px;color:var(--text2)">'+fmt(v)+'</span></div>';
     hl+='<div style="height:5px;background:var(--cream2);border-radius:3px;overflow:hidden;"><div style="height:5px;width:'+Math.min(p*3,100)+'%;background:var(--cream3);border-radius:3px;"></div></div>';
     hl+='<div style="height:3px;margin-top:-4px;border-radius:3px;overflow:hidden;"><div style="height:3px;width:'+Math.min(p*3*(ip/100||0),100)+'%;background:var(--navy);border-radius:3px;"></div></div></div>';
   });
@@ -576,14 +853,12 @@ function renderMonthly(){
   var bars='';
   ti.forEach(function(idx){
     var bh=Math.round(tbm[idx]/mx*70),ih=Math.round(ibm[idx]/mx*70),isA=idx===m,ac=ibm[idx]>tbm[idx]?'var(--red)':'var(--navy)';
-    bars+='<div class="tcol"><div class="tbwrap">';
-    bars+='<div class="tbar" style="height:'+bh+'px;background:var(--cream3);opacity:'+(isA?1:0.6)+';"></div>';
+    bars+='<div class="tcol"><div class="tbwrap"><div class="tbar" style="height:'+bh+'px;background:var(--cream3);opacity:'+(isA?1:0.6)+';"></div>';
     bars+='<div class="tbar" style="height:'+Math.max(ih,2)+'px;background:'+ac+';opacity:'+(isA?1:0.6)+';"></div>';
     bars+='</div><div class="tlbl" style="font-weight:'+(isA?600:400)+';color:'+(isA?'var(--navy)':'var(--text3)')+';">'+MONTHS[idx]+'</div></div>';
   });
   document.getElementById('trendbars').innerHTML=bars;
 }
-
 function renderAnnual(){
   var items=getItems(),inv=getInvMap(),ibm=getInvByMonth();
   var aT=items.reduce(function(s,c){return s+c.ytd.reduce(function(a,b){return a+b;},0);},0);
@@ -602,8 +877,8 @@ function renderAnnual(){
     var pr=nz.length?Math.round((nz.reduce(function(a,b){return a+b;},0)/nz.length)*12):0;
     var vr=iv-(c.ytd.slice(0,3).reduce(function(a,b){return a+b;},0));
     rows+='<tr><td style="font-weight:500;">'+c.name+'</td><td>'+dtag(c.dept)+'</td><td>'+etag(c.entity)+'</td>';
-    rows+='<td class="mono dim">'+fmt(c.ytd[0])+'</td><td class="mono">'+(iv?fmt(iv):'<span style="color:var(--text3);">—</span>')+'</td>';
-    rows+='<td class="'+(vr>0?'vneg':'vpos')+'">'+(iv?(vr>0?'-':'+')+fmt(Math.abs(vr)):'—')+'</td>';
+    rows+='<td class="mono dim">'+fmt(c.ytd[0])+'</td><td class="mono">'+(iv?fmt(iv):'<span style="color:var(--text3);">\u2014</span>')+'</td>';
+    rows+='<td class="'+(vr>0?'vneg':'vpos')+'">'+(iv?(vr>0?'-':'+')+fmt(Math.abs(vr)):'\u2014')+'</td>';
     rows+='<td class="mono">'+fmt(pr)+'</td><td class="mono dim">'+fmt(an)+'</td></tr>';
   });
   document.getElementById('a-tbody').innerHTML=rows;
@@ -615,24 +890,23 @@ function renderAnnual(){
   hg+='<div style="font-size:9px;color:var(--text3);">Vendor</div>';
   MONTHS.forEach(function(mm){hg+='<div style="text-align:center;font-size:9px;font-weight:600;color:var(--text3);padding:2px 0;">'+mm+'</div>';});
   top.forEach(function(c,ci){
-    var pal=pals[ci%4],tc=tp[ci%4],sn=c.name.length>22?c.name.slice(0,21)+'…':c.name;
+    var pal=pals[ci%4],tc=tp[ci%4],sn=c.name.length>22?c.name.slice(0,21)+'\u2026':c.name;
     hg+='<div style="display:flex;align-items:center;font-size:10px;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="'+c.name+'">'+sn+'</div>';
     c.ytd.forEach(function(v,mi){
       var iv=inv[c.name+'|'+mi]||0,r=v>0?(iv>0?iv/v:0):0;
       var bg,fc,lb;
       if(!v){bg='var(--surface2)';fc='var(--text3)';lb='';}
-      else if(!iv){bg=pal[0];fc=tc;lb=fmt(v).replace('€','');}
-      else if(r>1){bg='var(--red)';fc='#fff';lb=fmt(iv).replace('€','');}
-      else if(r>0.8){bg=pal[4];fc='#fff';lb=fmt(iv).replace('€','');}
-      else if(r>0.5){bg=pal[3];fc='#fff';lb=fmt(iv).replace('€','');}
-      else{bg=pal[2];fc=tc;lb=fmt(iv).replace('€','');}
+      else if(!iv){bg=pal[0];fc=tc;lb=fmt(v).replace('\u20ac','');}
+      else if(r>1){bg='var(--red)';fc='#fff';lb=fmt(iv).replace('\u20ac','');}
+      else if(r>0.8){bg=pal[4];fc='#fff';lb=fmt(iv).replace('\u20ac','');}
+      else if(r>0.5){bg=pal[3];fc='#fff';lb=fmt(iv).replace('\u20ac','');}
+      else{bg=pal[2];fc=tc;lb=fmt(iv).replace('\u20ac','');}
       hg+='<div style="height:22px;border-radius:3px;background:'+bg+';color:'+fc+';font-size:8px;font-family:monospace;display:flex;align-items:center;justify-content:center;" title="'+c.name+' '+MONTHS[mi]+': budget '+fmt(v)+', invoiced '+fmt(iv)+'">'+lb+'</div>';
     });
   });
   hg+='</div>';
   document.getElementById('heatgrid').innerHTML=hg;
 }
-
 function setView(v){
   curView=v;
   document.getElementById('btn-monthly').classList.toggle('active',v==='monthly');
@@ -659,22 +933,12 @@ async function extractAI(f){
   ['f-vendor','f-amount','f-date','f-desc','f-dept','f-entity'].forEach(function(id){var el=document.getElementById(id);el.value='';el.classList.remove('aif');});
   try{
     var b64=await toB64(f);
-    var res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,
-        messages:[{role:'user',content:[
-          {type:f.type==='application/pdf'?'document':'image',source:{type:'base64',media_type:f.type,data:b64}},
-          {type:'text',text:'Extract invoice details. Respond ONLY with valid JSON:
-{"vendor":"name","amount":1234.56,"date":"YYYY-MM-DD","description":"brief","entity":"B&C Int or Trendiy or Other"}
-If unsure use null.'}
-        ]}]
-      })
-    });
+    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:400,messages:[{role:'user',content:[{type:f.type==='application/pdf'?'document':'image',source:{type:'base64',media_type:f.type,data:b64}},{type:'text',text:'Extract invoice details. Respond ONLY with valid JSON:\n{"vendor":"name","amount":1234.56,"date":"YYYY-MM-DD","description":"brief","entity":"B&C Int or Trendiy or Other"}\nIf unsure use null.'}]}]})});
     var data=await res.json();
     var txt=data.content?data.content.map(function(i){return i.text||'';}).join(''):'';
     var p=JSON.parse(txt.replace(/```json|```/g,'').trim());
     document.getElementById('ai-row').style.display='none';
-    document.getElementById('ai-status').textContent='✓ AI extracted — please verify';
+    document.getElementById('ai-status').textContent='\u2713 AI extracted \u2014 please verify';
     if(p.vendor)sF('f-vendor',p.vendor);
     if(p.amount)sF('f-amount',p.amount);
     if(p.date)sF('f-date',p.date);
@@ -705,25 +969,19 @@ function checkBudget(){
   var html='',status='ok';
   if(!match){
     status='warn';
-    html='<div class="rbox warn"><div class="rico warn">⚠</div><div><div style="font-size:13px;font-weight:600;color:var(--amber);">Vendor not in budget</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;"><strong>'+vendor+'</strong> not found in 2026 budget.<br>Amount: <strong>'+fmt(amount)+'</strong></div></div></div>';
+    html='<div class="rbox warn"><div class="rico warn">\u26a0</div><div><div style="font-size:13px;font-weight:600;color:var(--amber);">Vendor not in budget</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;"><strong>'+vendor+'</strong> not found in 2026 budget.<br>Amount: <strong>'+fmt(amount)+'</strong></div></div></div>';
   } else if(total>bAmt){
     status='breach';
     var over=total-bAmt;
-    html='<div class="rbox breach"><div class="rico breach">✕</div><div><div style="font-size:13px;font-weight:600;color:var(--red);">Budget breach — '+fmt(over)+' over</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">Budget: '+fmt(bAmt)+' · Already: '+fmt(already)+' · This invoice: '+fmt(amount)+'</div></div></div>';
-    var subj='[FIC Alert] Budget breach — '+vendor;
-    var body='Budget breach detected.
-
-Vendor: '+vendor+'
-Amount: '+fmt(amount)+'
-Date: '+new Date(date).toLocaleDateString('nl-NL')+'
-Budget ('+FULL[mi]+'): '+fmt(bAmt)+'
-Over budget by: '+fmt(over);
-    html+='<div style="background:var(--red-bg);border:1px solid #E8A090;border-radius:var(--radius);padding:9px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;"><span style="font-size:12px;color:var(--red);">Notify manager of breach</span><a href="mailto:?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body)+'" style="text-decoration:none;"><button class="btn danger" style="font-size:12px;padding:4px 10px;">📧 Send email</button></a></div>';
+    html='<div class="rbox breach"><div class="rico breach">\u2715</div><div><div style="font-size:13px;font-weight:600;color:var(--red);">Budget breach \u2014 '+fmt(over)+' over</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">Budget: '+fmt(bAmt)+' \u00b7 Already: '+fmt(already)+' \u00b7 This invoice: '+fmt(amount)+'</div></div></div>';
+    var subj='[FIC Alert] Budget breach \u2014 '+vendor;
+    var body='Budget breach detected.\n\nVendor: '+vendor+'\nAmount: '+fmt(amount)+'\nOver budget by: '+fmt(over);
+    html+='<div style="background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--radius);padding:9px 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;"><span style="font-size:12px;color:var(--red);">Notify manager of breach</span><a href="mailto:?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body)+'" style="text-decoration:none;"><button class="btn danger" style="font-size:12px;padding:4px 10px;">\uD83D\uDCE7 Send email</button></a></div>';
   } else if(total/bAmt>=0.8){
     status='warn';
-    html='<div class="rbox warn"><div class="rico warn">⚠</div><div><div style="font-size:13px;font-weight:600;color:var(--amber);">Near limit — '+Math.round(total/bAmt*100)+'% used</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">'+fmt(bAmt-total)+' remaining. Budget: '+fmt(bAmt)+'</div></div></div>';
+    html='<div class="rbox warn"><div class="rico warn">\u26a0</div><div><div style="font-size:13px;font-weight:600;color:var(--amber);">Near limit \u2014 '+Math.round(total/bAmt*100)+'% used</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">'+fmt(bAmt-total)+' remaining. Budget: '+fmt(bAmt)+'</div></div></div>';
   } else {
-    html='<div class="rbox ok"><div class="rico ok">✓</div><div><div style="font-size:13px;font-weight:600;color:var(--green);">Within budget — '+Math.round(total/bAmt*100)+'% used</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">'+fmt(bAmt-total)+' remaining. Budget: '+fmt(bAmt)+'</div></div></div>';
+    html='<div class="rbox ok"><div class="rico ok">\u2713</div><div><div style="font-size:13px;font-weight:600;color:var(--green);">Within budget \u2014 '+Math.round(total/bAmt*100)+'% used</div><div style="font-size:12px;color:var(--text2);margin-top:3px;line-height:1.6;">'+fmt(bAmt-total)+' remaining. Budget: '+fmt(bAmt)+'</div></div></div>';
   }
   // Contract check
   var cons=getCons(),cm=cons.find(function(c){return c.vendor&&(c.vendor.toLowerCase().indexOf(vendor.toLowerCase())>-1||vendor.toLowerCase().indexOf(c.vendor.toLowerCase().split(' ')[0])>-1);});
@@ -731,8 +989,8 @@ Over budget by: '+fmt(over);
     var aMo=cm.period==='annual'&&cm.agreedAmount?cm.agreedAmount/12:cm.agreedAmount;
     var diff=aMo?Math.abs(amount-aMo)/aMo:1;
     html+=diff>0.05?
-      '<div style="background:var(--amber-bg);border:1px solid #DDB870;border-radius:var(--radius);padding:9px 12px;font-size:12px;color:var(--amber);">📋 Contract mismatch: agreement says '+fmt(aMo)+'/mo, this invoice is '+fmt(amount)+'</div>':
-      '<div style="background:var(--green-bg);border:1px solid #90CDAF;border-radius:var(--radius);padding:9px 12px;font-size:12px;color:var(--green);">📋 ✓ Amount matches contract ('+fmt(aMo)+'/mo)</div>';
+      '<div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius);padding:9px 12px;font-size:12px;color:var(--amber);">\uD83D\uDCCB Contract mismatch: agreement says '+fmt(aMo)+'/mo, this invoice is '+fmt(amount)+'</div>':
+      '<div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius);padding:9px 12px;font-size:12px;color:var(--green);">\uD83D\uDCCB \u2713 Amount matches contract ('+fmt(aMo)+'/mo)</div>';
   }
   html+='<div style="background:var(--surface2);border-radius:var(--radius);padding:11px;display:flex;flex-direction:column;gap:5px;">';
   html+='<div style="font-size:12px;font-weight:600;margin-bottom:2px;">Invoice details</div>';
@@ -743,59 +1001,114 @@ Over budget by: '+fmt(over);
   html+='<div style="display:flex;justify-content:space-between;font-size:12px;align-items:center;"><span style="color:var(--text2)">Entity</span>'+etag(entity||'Other')+'</div>';
   if(desc)html+='<div style="display:flex;justify-content:space-between;font-size:12px;"><span style="color:var(--text2)">Notes</span><span style="color:var(--text2)">'+desc+'</span></div>';
   html+='</div>';
-  html+='<div style="display:flex;gap:8px;margin-top:4px;"><button class="btn" style="flex:1;padding:8px;" onclick="flagInv()">Flag for review</button><button class="btn pri" style="flex:1;padding:8px;" onclick="approveInv()">Approve &amp; save</button></div>';
+  // ACTION BUTTONS — different for breach vs other
+  if(status==='breach'){
+    html+='<div style="display:flex;gap:7px;margin-top:4px;flex-wrap:wrap;">';
+    html+='<button class="btn" style="flex:1;padding:8px;min-width:100px;" onclick="saveInvoiceAs(\'investigate\')">🔍 Under investigation</button>';
+    html+='<button class="btn amber-btn" style="flex:1;padding:8px;min-width:100px;" onclick="openOverride()">⚡ Approve anyway</button>';
+    html+='<button class="btn danger" style="padding:8px 10px;" onclick="saveInvoiceAs(\'flagged\')">🚩 Flag</button>';
+    html+='</div>';
+  } else {
+    html+='<div style="display:flex;gap:7px;margin-top:4px;">';
+    html+='<button class="btn" style="flex:1;padding:8px;" onclick="saveInvoiceAs(\'investigate\')">🔍 Under investigation</button>';
+    html+='<button class="btn danger" style="padding:8px 10px;" onclick="saveInvoiceAs(\'flagged\')">🚩 Flag</button>';
+    html+='<button class="btn pri" style="flex:1;padding:8px;" onclick="saveInvoiceAs(\''+status+'\')">Approve &amp; save</button>';
+    html+='</div>';
+  }
   window._pi={vendor:vendor,amount:amount,date:date,desc:desc,dept:dept,entity:entity,status:status,matched:match?match.name:''};
   document.getElementById('result-body').innerHTML=html;
 }
-function flagInv(){alert('Flagged for manager review.');}
-function approveInv(){
+
+function saveInvoiceAs(status){
   var p=window._pi;if(!p)return;
   var log=getLog();
-  log.unshift({id:'INV-'+Date.now(),vendor:p.vendor,amount:p.amount,date:p.date,desc:p.desc,dept:p.dept,entity:p.entity,status:p.status,matchedVendor:p.matched,approvedAt:new Date().toISOString()});
+  log.unshift({id:'INV-'+Date.now(),vendor:p.vendor,amount:p.amount,date:p.date,desc:p.desc,dept:p.dept,entity:p.entity,status:status,matchedVendor:p.matched,approvedAt:new Date().toISOString()});
   saveLog(log);updateBadges();
+  clearInvoiceForm();
+  var msg=status==='investigate'?'Marked as under investigation':'Invoice saved!';
+  var col=status==='investigate'?'var(--amber)':status==='flagged'?'var(--red)':'var(--green)';
+  document.getElementById('result-body').innerHTML='<div style="padding:28px 0;text-align:center;"><div style="font-size:28px;margin-bottom:8px;">'+(status==='investigate'?'🔍':status==='flagged'?'🚩':'✓')+'</div><div style="font-size:14px;font-weight:600;color:'+col+';">'+msg+'</div><div style="margin-top:14px;"><button class="btn pri" onclick="showPage(\'log\')">View invoice log</button></div></div>';
+  renderMonthly();
+}
+function openOverride(){document.getElementById('override-modal').style.display='flex';}
+function closeModal(){document.getElementById('override-modal').style.display='none';document.getElementById('override-reason').value='';}
+function confirmOverride(){
+  var reason=document.getElementById('override-reason').value.trim();
+  if(!reason){alert('Please provide a reason for the override.');return;}
+  closeModal();
+  var p=window._pi;if(!p)return;
+  var log=getLog();
+  log.unshift({id:'INV-'+Date.now(),vendor:p.vendor,amount:p.amount,date:p.date,desc:p.desc+(reason?' [Override: '+reason+']':''),dept:p.dept,entity:p.entity,status:'override',matchedVendor:p.matched,approvedAt:new Date().toISOString(),overrideReason:reason});
+  saveLog(log);updateBadges();
+  clearInvoiceForm();
+  document.getElementById('result-body').innerHTML='<div style="padding:28px 0;text-align:center;"><div style="font-size:28px;margin-bottom:8px;">⚡</div><div style="font-size:14px;font-weight:600;color:#6B2D9A;">Approved with override</div><div style="font-size:13px;color:var(--text2);margin-top:6px;">Reason recorded in log.</div><div style="margin-top:14px;"><button class="btn pri" onclick="showPage(\'log\')">View invoice log</button></div></div>';
+  renderMonthly();
+}
+function clearInvoiceForm(){
   ['f-vendor','f-amount','f-date','f-desc'].forEach(function(id){document.getElementById(id).value='';document.getElementById(id).classList.remove('aif');});
   document.getElementById('f-dept').value='';document.getElementById('f-entity').value='';
   document.getElementById('prevwrap').style.display='none';
-  document.getElementById('result-body').innerHTML='<div style="padding:30px 0;text-align:center;"><div style="font-size:30px;margin-bottom:8px;">✓</div><div style="font-size:14px;font-weight:600;color:var(--green);">Invoice saved!</div><div style="margin-top:14px;"><button class="btn pri" onclick="showPage('log')">View invoice log</button></div></div>';
-  renderMonthly();
 }
 
 // LOG
 function renderLog(){
-  var log=getLog();updateBadges();
-  var tot=log.reduce(function(s,i){return s+i.amount;},0);
-  var br=log.filter(function(i){return i.status==='breach';}).length;
-  var wn=log.filter(function(i){return i.status==='warn';}).length;
+  var allLog=getLog();
+  var filter=document.getElementById('log-filter').value;
+  var log=filter==='all'?allLog:allLog.filter(function(i){return i.status===filter;});
+  updateBadges();
+  var tot=allLog.reduce(function(s,i){return s+i.amount;},0);
+  var br=allLog.filter(function(i){return i.status==='breach';}).length;
+  var inv=allLog.filter(function(i){return i.status==='investigate';}).length;
+  var ovr=allLog.filter(function(i){return i.status==='override';}).length;
   document.getElementById('log-metrics').innerHTML=
-    '<div class="metric"><div class="mlbl">Total invoices</div><div class="mval">'+log.length+'</div><div class="msub muted">All time</div></div>'+
+    '<div class="metric"><div class="mlbl">Total invoices</div><div class="mval">'+allLog.length+'</div><div class="msub muted">All time</div></div>'+
     '<div class="metric"><div class="mlbl">Total invoiced</div><div class="mval">'+fmt(tot)+'</div><div class="msub muted">All months</div></div>'+
-    '<div class="metric"><div class="mlbl">Breaches</div><div class="mval">'+br+'</div><div class="msub '+(br>0?'dn':'muted')+'">'+(br>0?'Need review':'All clear')+'</div></div>'+
-    '<div class="metric"><div class="mlbl">Near-limit</div><div class="mval">'+wn+'</div><div class="msub '+(wn>0?'warn':'muted')+'">'+(wn>0?'Monitor':'All clear')+'</div></div>';
-  if(!log.length){document.getElementById('log-wrap').innerHTML='<div style="text-align:center;padding:40px;color:var(--text3);">No invoices yet.</div>';return;}
+    '<div class="metric"><div class="mlbl">Under investigation</div><div class="mval" style="color:'+(inv?'var(--amber)':'var(--navy)')+';">'+inv+'</div><div class="msub '+(inv?'warn-c':'muted')+'">'+(inv?'Pending review':'None pending')+'</div></div>'+
+    '<div class="metric"><div class="mlbl">Breach overrides</div><div class="mval" style="color:'+(ovr?'#6B2D9A':'var(--navy)')+';">'+ovr+'</div><div class="msub muted">Approved with reason</div></div>';
+  if(!log.length){document.getElementById('log-wrap').innerHTML='<div style="text-align:center;padding:40px;color:var(--text3);">'+(filter==='all'?'No invoices yet.':'No invoices with this status.')+'</div>';return;}
   var rows='';
   log.forEach(function(i){
-    var sb=i.status==='breach'?'<span class="badge red">Breach</span>':i.status==='warn'?'<span class="badge amber">Near limit</span>':'<span class="badge green">Approved</span>';
-    rows+='<tr><td class="dim mono" style="font-size:11px;">'+i.id+'</td><td style="font-weight:500;">'+i.vendor+'</td><td>'+dtag(i.dept||'IT')+'</td><td>'+etag(i.entity)+'</td><td class="mono" style="font-weight:600;">'+fmt(i.amount)+'</td><td class="dim">'+new Date(i.date).toLocaleDateString('nl-NL')+'</td><td>'+sb+'</td><td class="dim" style="font-size:12px;">'+(i.desc||'—')+'</td><td><button class="btn danger" style="font-size:11px;padding:2px 7px;" onclick="delInv(''+i.id+'')">Delete</button></td></tr>';
+    rows+='<tr>';
+    rows+='<td class="dim mono" style="font-size:11px;">'+i.id+'</td>';
+    rows+='<td style="font-weight:500;">'+i.vendor+'</td>';
+    rows+='<td>'+dtag(i.dept||'IT')+'</td>';
+    rows+='<td>'+etag(i.entity)+'</td>';
+    rows+='<td class="mono" style="font-weight:600;">'+fmt(i.amount)+'</td>';
+    rows+='<td class="dim">'+new Date(i.date).toLocaleDateString('nl-NL')+'</td>';
+    rows+='<td>'+statusLabel(i.status)+'</td>';
+    rows+='<td class="dim" style="font-size:12px;">'+(i.overrideReason?'<span style="color:#6B2D9A;font-size:11px;">Override: '+i.overrideReason+'</span>':i.desc||'\u2014')+'</td>';
+    // Status change actions for investigate items
+    if(i.status==='investigate'){
+      rows+='<td style="white-space:nowrap;"><button class="btn green-btn" style="font-size:11px;padding:2px 7px;margin-right:4px;" onclick="changeStatus(\''+i.id+'\',\'ok\')">Approve</button><button class="btn danger" style="font-size:11px;padding:2px 7px;" onclick="changeStatus(\''+i.id+'\',\'breach\')">Reject</button></td>';
+    } else {
+      rows+='<td><button class="btn danger" style="font-size:11px;padding:2px 7px;" onclick="delInv(\''+i.id+'\')">Delete</button></td>';
+    }
+    rows+='</tr>';
   });
-  document.getElementById('log-wrap').innerHTML='<table class="tbl"><thead><tr><th>ID</th><th>Vendor</th><th>Dept</th><th>Entity</th><th>Amount</th><th>Date</th><th>Status</th><th>Notes</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
+  document.getElementById('log-wrap').innerHTML='<table class="tbl"><thead><tr><th>ID</th><th>Vendor</th><th>Dept</th><th>Entity</th><th>Amount</th><th>Date</th><th>Status</th><th>Notes / Reason</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+function changeStatus(id,newStatus){
+  var log=getLog();
+  var idx=log.findIndex(function(i){return i.id===id;});
+  if(idx>-1){log[idx].status=newStatus;log[idx].resolvedAt=new Date().toISOString();}
+  saveLog(log);renderLog();renderMonthly();
 }
 function delInv(id){if(!confirm('Delete this invoice?'))return;saveLog(getLog().filter(function(i){return i.id!==id;}));renderLog();renderMonthly();}
 function clearLog(){if(!confirm('Clear entire log? This cannot be undone.'))return;saveLog([]);renderLog();renderMonthly();}
 function exportLog(){
   var log=getLog();if(!log.length){alert('No invoices to export.');return;}
-  var c='ID,Vendor,Dept,Entity,Amount,Date,Status,Notes
-';
-  log.forEach(function(i){c+='"'+i.id+'","'+i.vendor+'",'+(i.dept||'')+','+(i.entity||'')+','+i.amount+',"'+i.date+'","'+i.status+'",'+(i.desc||'')+'
-';});
+  var c='ID,Vendor,Dept,Entity,Amount,Date,Status,Notes,Override Reason\n';
+  log.forEach(function(i){c+='"'+i.id+'","'+i.vendor+'",'+(i.dept||'')+','+(i.entity||'')+','+i.amount+',"'+i.date+'","'+i.status+'",'+(i.desc||'')+','+(i.overrideReason||'')+'\n';});
   dl(c,'invoice-log.csv');
 }
 
 // MONTHLY REPORT
+var rptMonth=0;
 function changeRptMonth(d){rptMonth=Math.max(0,Math.min(11,rptMonth+d));renderRpt();}
 function renderRpt(){
   var m=rptMonth,items=getItems(),inv=getInvMap();
   document.getElementById('rpt-mlbl').textContent=FULL[m]+' 2026';
-  document.getElementById('rpt-title').textContent='Budget vs Actual — '+FULL[m]+' 2026';
+  document.getElementById('rpt-title').textContent='Budget vs Actual \u2014 '+FULL[m]+' 2026';
   document.getElementById('rpt-date').textContent=today();
   var tB=items.reduce(function(s,c){return s+c.ytd[m];},0);
   var tI=items.reduce(function(s,c){return s+(inv[c.name+'|'+m]||0);},0);
@@ -812,7 +1125,7 @@ function renderRpt(){
     var b=c.ytd[m];if(!b)return;
     var i=inv[c.name+'|'+m]||0,r=b-i,u=i>0?Math.round(i/b*100):0;
     rows+='<tr><td style="font-weight:500;">'+c.name+'</td><td>'+dtag(c.dept)+'</td><td>'+etag(c.entity)+'</td>';
-    rows+='<td class="mono">'+fmt(b)+'</td><td class="mono">'+(i?fmt(i):'<span style="color:var(--text3);">—</span>')+'</td>';
+    rows+='<td class="mono">'+fmt(b)+'</td><td class="mono">'+(i?fmt(i):'<span style="color:var(--text3);">\u2014</span>')+'</td>';
     rows+='<td class="'+(r<0?'vneg':'vpos')+'">'+(r<0?'-':'+')+fmt(Math.abs(r))+'</td>';
     rows+='<td><div style="display:flex;align-items:center;gap:6px;"><div class="pw"><div class="pb" style="width:'+Math.min(u,100)+'%;background:'+bc(u)+';"></div></div><span class="mono" style="font-size:11px;color:var(--text2)">'+u+'%</span></div></td>';
     rows+='<td>'+sbadge(u)+'</td></tr>';
@@ -823,20 +1136,18 @@ function renderRpt(){
   var s='<strong>'+FULL[m]+' 2026 Budget Summary</strong><br><br>';
   s+='Total budget: <strong>'+fmt(tB)+'</strong>. ';
   s+=tI>0?'Total invoiced: <strong>'+fmt(tI)+'</strong> ('+pc+'% utilisation). ':'No invoices logged yet. ';
-  if(ov.length)s+='<br><br><span style="color:var(--red);font-weight:600;">⚠ Breaches ('+ov.length+'):</span> '+ov.map(function(c){return c.name+' ('+fmt(inv[c.name+'|'+m]||0)+' vs '+fmt(c.ytd[m])+')'}).join(', ')+'.';
+  if(ov.length)s+='<br><br><span style="color:var(--red);font-weight:600;">\u26a0 Breaches ('+ov.length+'):</span> '+ov.map(function(c){return c.name;}).join(', ')+'.';
   if(nr.length)s+='<br><br><span style="color:var(--amber);font-weight:600;">Near limit ('+nr.length+'):</span> '+nr.map(function(c){return c.name;}).join(', ')+'.';
-  if(!ov.length&&!nr.length&&tI>0)s+='<br><br><span style="color:var(--green);">✓ All vendors within budget this month.</span>';
+  if(!ov.length&&!nr.length&&tI>0)s+='<br><br><span style="color:var(--green);">\u2713 All vendors within budget this month.</span>';
   document.getElementById('rpt-summary').innerHTML=s;
 }
 function exportRptCSV(){
   var m=rptMonth,items=getItems(),inv=getInvMap();
-  var c='Vendor,Dept,Entity,Budget,Invoiced,Remaining,% Used,Status
-';
+  var c='Vendor,Dept,Entity,Budget,Invoiced,Remaining,% Used,Status\n';
   items.slice().sort(function(a,b){return b.ytd[m]-a.ytd[m];}).forEach(function(c2){
     var b=c2.ytd[m];if(!b)return;
     var i=inv[c2.name+'|'+m]||0,u=i>0?Math.round(i/b*100):0;
-    c+='"'+c2.name+'","'+c2.dept+'","'+c2.entity+'",'+b+','+i+','+(b-i)+','+u+'%,'+(u>100?'Breach':u>=80?'Near limit':'On track')+'
-';
+    c+='"'+c2.name+'","'+c2.dept+'","'+c2.entity+'",'+b+','+i+','+(b-i)+','+u+'%,'+(u>100?'Breach':u>=80?'Near limit':'On track')+'\n';
   });
   dl(c,'report-'+FULL[m]+'-2026.csv');
 }
@@ -864,10 +1175,10 @@ function renderFc(){
   var rows='';
   rd.forEach(function(x){
     rows+='<tr><td style="font-weight:500;">'+x.c.name+'</td><td>'+dtag(x.c.dept)+'</td><td>'+etag(x.c.entity)+'</td>';
-    rows+='<td class="mono dim">'+fmt(x.an)+'</td><td class="mono">'+(x.iv?fmt(x.iv):'<span style="color:var(--text3);">—</span>')+'</td>';
-    rows+='<td class="dim" style="text-align:center;">'+(x.nm||'—')+'</td><td class="mono dim">'+(x.avg?fmt(x.avg):'—')+'</td>';
+    rows+='<td class="mono dim">'+fmt(x.an)+'</td><td class="mono">'+(x.iv?fmt(x.iv):'<span style="color:var(--text3);">\u2014</span>')+'</td>';
+    rows+='<td class="dim" style="text-align:center;">'+(x.nm||'\u2014')+'</td><td class="mono dim">'+(x.avg?fmt(x.avg):'\u2014')+'</td>';
     rows+='<td class="mono" style="font-weight:600;color:'+(x.pr>x.an&&x.avg?'var(--red)':'var(--text)')+';">'+(x.avg?fmt(x.pr):'<span style="color:var(--text3);">No data</span>')+'</td>';
-    rows+='<td class="'+(x.vr>0?'vneg':'vpos')+'">'+(x.avg?(x.vr>0?'-':'+')+fmt(Math.abs(x.vr)):'—')+'</td>';
+    rows+='<td class="'+(x.vr>0?'vneg':'vpos')+'">'+(x.avg?(x.vr>0?'-':'+')+fmt(Math.abs(x.vr)):'\u2014')+'</td>';
     rows+='<td>'+(x.avg?(x.pr<=x.an?'<span class="badge green">On track</span>':'<span class="badge red">At risk</span>'):'<span class="badge navy">No data</span>')+'</td></tr>';
   });
   document.getElementById('fc-tbody').innerHTML=rows;
@@ -875,11 +1186,9 @@ function renderFc(){
   var bh='';
   top.forEach(function(x){
     var bW=Math.round(x.an/mx*100),pW=x.pr?Math.round(x.pr/mx*100):0,ov=x.pr>x.an&&x.avg;
-    bh+='<div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">';
-    bh+='<span style="font-weight:500;">'+x.c.name+'</span>';
+    bh+='<div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="font-weight:500;">'+x.c.name+'</span>';
     bh+='<span class="mono" style="font-size:11px;color:var(--text2)">'+(x.pr?fmt(x.pr)+' forecast':x.iv?fmt(x.iv)+' invoiced':'no data')+' <span style="color:var(--text3);">/ '+fmt(x.an)+'</span></span></div>';
-    bh+='<div style="position:relative;height:7px;background:var(--cream2);border-radius:4px;">';
-    bh+='<div style="position:absolute;top:0;left:0;height:7px;width:'+bW+'%;background:var(--cream3);border-radius:4px;"></div>';
+    bh+='<div style="position:relative;height:7px;background:var(--cream2);border-radius:4px;"><div style="position:absolute;top:0;left:0;height:7px;width:'+bW+'%;background:var(--cream3);border-radius:4px;"></div>';
     if(x.pr)bh+='<div style="position:absolute;top:0;left:0;height:7px;width:'+pW+'%;background:'+(ov?'var(--red)':'var(--navy)')+';border-radius:4px;opacity:0.8;"></div>';
     bh+='</div></div>';
   });
@@ -887,17 +1196,126 @@ function renderFc(){
 }
 function exportFcCSV(){
   var items=getItems(),inv=getInvMap();
-  var c='Vendor,Dept,Entity,Annual Budget,Invoiced YTD,Months,Avg/Month,Forecast,Variance,Status
-';
+  var c='Vendor,Dept,Entity,Annual Budget,Invoiced YTD,Months,Avg/Month,Forecast,Variance,Status\n';
   items.forEach(function(c2){
     var an=c2.ytd.reduce(function(a,b){return a+b;},0);if(!an)return;
     var mi=Array.from({length:12},function(_,i){return inv[c2.name+'|'+i]||0;});
     var iv=mi.reduce(function(a,b){return a+b;},0),nm=mi.filter(function(v){return v>0;}).length;
     var avg=nm>0?iv/nm:0,pr=Math.round(avg*12);
-    c+='"'+c2.name+'","'+c2.dept+'","'+c2.entity+'",'+an+','+iv+','+nm+','+Math.round(avg)+','+pr+','+(pr-an)+','+((!avg)?'No data':pr<=an?'On track':'At risk')+'
-';
+    c+='"'+c2.name+'","'+c2.dept+'","'+c2.entity+'",'+an+','+iv+','+nm+','+Math.round(avg)+','+pr+','+(pr-an)+','+((!avg)?'No data':pr<=an?'On track':'At risk')+'\n';
   });
   dl(c,'forecast-fy2026.csv');
+}
+
+// VENDOR vs CONTRACT REPORT
+function renderVendorRpt(){
+  document.getElementById('vr-date').textContent=today();
+  var cons=getCons();
+  var inv=getInvMap();
+  var log=getLog();
+  var now=new Date();
+  if(!cons.length){
+    document.getElementById('vr-metrics').innerHTML='<div class="metric"><div class="mlbl">Contracts saved</div><div class="mval">0</div><div class="msub muted">Upload contracts first</div></div><div class="metric"></div><div class="metric"></div>';
+    document.getElementById('vr-list').innerHTML='<div style="text-align:center;padding:40px;color:var(--text3);font-size:13px;">No contracts saved yet. Upload contracts in the Vendor contracts section.</div>';
+    document.getElementById('vr-no-contract').innerHTML='';
+    return;
+  }
+  var within=0,breaching=0,expired_count=0;
+  var expiredCons=cons.filter(function(ct){return ct.endDate&&new Date(ct.endDate)<now;});
+  expired_count=expiredCons.length;
+  // Show expired card
+  if(expiredCons.length){
+    document.getElementById('vr-expired-card').style.display='';
+    var expHtml='';
+    expiredCons.forEach(function(ct){
+      var daysAgo=Math.abs(Math.round((now-new Date(ct.endDate))/86400000));
+      expHtml+='<div class="vr-row" style="border-color:var(--red-border);background:var(--red-bg);">';
+      expHtml+='<div class="vr-status" style="background:var(--red);"></div>';
+      expHtml+='<div style="flex:1;"><div style="font-size:13px;font-weight:600;color:var(--red);">'+ct.vendor+'</div>';
+      expHtml+='<div style="font-size:12px;color:var(--red);margin-top:2px;">Expired '+daysAgo+' days ago ('+new Date(ct.endDate).toLocaleDateString('nl-NL')+') \u00b7 '+fmt(ct.agreedAmount||0)+' '+ct.period+'</div></div>';
+      expHtml+='<span class="badge red">Expired</span></div>';
+    });
+    document.getElementById('vr-expired-list').innerHTML=expHtml;
+  } else {
+    document.getElementById('vr-expired-card').style.display='none';
+  }
+  // Main vendor vs contract list
+  var html='';
+  cons.filter(function(ct){return !ct.endDate||new Date(ct.endDate)>=now;}).forEach(function(ct){
+    var aMo=ct.period==='annual'&&ct.agreedAmount?ct.agreedAmount/12:ct.agreedAmount||0;
+    // Get all invoices for this vendor
+    var vendorInv=log.filter(function(i){
+      return i.vendor&&(i.vendor.toLowerCase().indexOf((ct.vendor||'').toLowerCase())>-1||(ct.vendor||'').toLowerCase().indexOf(i.vendor.toLowerCase().split(' ')[0])>-1);
+    });
+    var totalInvoiced=vendorInv.filter(function(i){return i.status!=='investigate'&&i.status!=='flagged';}).reduce(function(s,i){return s+i.amount;},0);
+    var invoiceCount=vendorInv.length;
+    // Compare avg monthly invoiced vs contract
+    var months_active=Array.from(new Set(vendorInv.map(function(i){return new Date(i.date).getMonth();}))).length;
+    var avgMonthly=months_active>0?totalInvoiced/months_active:0;
+    var isBreaching=aMo>0&&avgMonthly>aMo*1.05;
+    var pctUsed=aMo>0?Math.round(avgMonthly/aMo*100):0;
+    if(isBreaching)breaching++;else within++;
+    var statusColor=isBreaching?'var(--red)':'var(--green)';
+    var statusBg=isBreaching?'var(--red-bg)':'var(--green-bg)';
+    var statusBorder=isBreaching?'var(--red-border)':'var(--green-border)';
+    // Renewal warning
+    var daysLeft=ct.endDate?Math.round((new Date(ct.endDate)-now)/86400000):null;
+    var renewTag=daysLeft!==null?(daysLeft<30?'<span class="badge red" style="font-size:10px;">Renews in '+daysLeft+'d</span>':daysLeft<90?'<span class="badge amber" style="font-size:10px;">Renews in '+daysLeft+'d</span>':''):'';
+    html+='<div class="vr-row" style="border-color:'+statusBorder+';background:'+statusBg+';">';
+    html+='<div class="vr-status" style="background:'+statusColor+';"></div>';
+    html+='<div style="flex:1;">';
+    html+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">';
+    html+='<div style="font-size:13px;font-weight:600;">'+ct.vendor+'</div>'+renewTag;
+    html+='</div>';
+    html+='<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">';
+    html+='<div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;">Contract/mo</div><div class="mono" style="font-size:13px;font-weight:600;">'+fmt(aMo)+'</div></div>';
+    html+='<div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;">Avg invoiced/mo</div><div class="mono" style="font-size:13px;font-weight:600;color:'+statusColor+';">'+(avgMonthly?fmt(avgMonthly):'No invoices')+'</div></div>';
+    html+='<div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;">Total invoiced</div><div class="mono" style="font-size:13px;">'+fmt(totalInvoiced)+'</div></div>';
+    html+='<div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.04em;">Invoices</div><div style="font-size:13px;">'+invoiceCount+'</div></div>';
+    html+='</div>';
+    if(aMo>0&&avgMonthly>0){
+      var barW=Math.min(pctUsed,120);
+      html+='<div style="margin-top:8px;"><div style="height:5px;background:rgba(255,255,255,0.5);border-radius:3px;overflow:hidden;"><div style="height:5px;width:'+Math.min(barW,100)+'%;background:'+statusColor+';border-radius:3px;opacity:0.8;"></div></div>';
+      html+='<div style="font-size:11px;color:'+statusColor+';margin-top:3px;">'+pctUsed+'% of contract amount'+(isBreaching?' \u2014 exceeding contract':' \u2014 within contract')+'</div></div>';
+    }
+    html+='</div>';
+    html+='<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">';
+    html+=(isBreaching?'<span class="badge red">\u2715 Over contract</span>':'<span class="badge green">\u2713 Within contract</span>');
+    if(ct.description)html+='<div style="font-size:11px;color:var(--text2);text-align:right;max-width:120px;">'+ct.description+'</div>';
+    html+='</div></div>';
+  });
+  document.getElementById('vr-list').innerHTML=html||'<div style="text-align:center;padding:28px;color:var(--text3);">All contracts are expired or no active contracts.</div>';
+  document.getElementById('vr-metrics').innerHTML=
+    '<div class="metric"><div class="mlbl">Contracts on file</div><div class="mval">'+cons.length+'</div><div class="msub muted">Active + expired</div></div>'+
+    '<div class="metric"><div class="mlbl">Within contract</div><div class="mval" style="color:var(--green);">'+within+'</div><div class="msub up">Spend matches agreement</div></div>'+
+    '<div class="metric"><div class="mlbl">Exceeding contract</div><div class="mval" style="color:'+(breaching?'var(--red)':'var(--green)')+';">'+breaching+'</div><div class="msub '+(breaching?'dn':'muted')+'">'+(breaching?'Review needed':'All clear')+'</div></div>';
+  // Vendors without contracts
+  var invoicedVendors=Array.from(new Set(log.map(function(i){return i.vendor;})));
+  var noContract=invoicedVendors.filter(function(v){
+    return !cons.find(function(c){return c.vendor&&(c.vendor.toLowerCase().indexOf(v.toLowerCase())>-1||v.toLowerCase().indexOf(c.vendor.toLowerCase().split(' ')[0])>-1);});
+  });
+  if(noContract.length){
+    var ncHtml='<div style="display:flex;flex-wrap:wrap;gap:8px;">';
+    noContract.forEach(function(v){ncHtml+='<span class="badge amber">'+v+'</span>';});
+    ncHtml+='</div>';
+    document.getElementById('vr-no-contract').innerHTML=ncHtml;
+  } else {
+    document.getElementById('vr-no-contract').innerHTML='<div style="color:var(--green);font-size:13px;">\u2713 All invoiced vendors have contracts on file.</div>';
+  }
+}
+function exportVendorRpt(){
+  var cons=getCons(),log=getLog(),now=new Date();
+  var c='Vendor,Contract/mo,Avg Invoiced/mo,Total Invoiced,Invoices,Status,End Date\n';
+  cons.forEach(function(ct){
+    var aMo=ct.period==='annual'&&ct.agreedAmount?ct.agreedAmount/12:ct.agreedAmount||0;
+    var vendorInv=log.filter(function(i){return i.vendor&&i.vendor.toLowerCase().indexOf((ct.vendor||'').toLowerCase())>-1;});
+    var total=vendorInv.reduce(function(s,i){return s+i.amount;},0);
+    var months=Array.from(new Set(vendorInv.map(function(i){return new Date(i.date).getMonth();}))).length;
+    var avg=months>0?total/months:0;
+    var status=ct.endDate&&new Date(ct.endDate)<now?'Expired':avg>aMo*1.05?'Over contract':'Within contract';
+    c+='"'+ct.vendor+'",'+aMo+','+Math.round(avg)+','+total+','+vendorInv.length+','+status+','+(ct.endDate||'')+'\n';
+  });
+  dl(c,'vendor-contract-report.csv');
 }
 
 // CONTRACTS
@@ -909,30 +1327,15 @@ async function handleContract(f){
   document.getElementById('con-result').innerHTML='';
   try{
     var b64=await toB64(f);
-    var res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,
-        messages:[{role:'user',content:[
-          {type:f.type==='application/pdf'?'document':'image',source:{type:'base64',media_type:f.type,data:b64}},
-          {type:'text',text:'Extract contract details. Respond ONLY with valid JSON:
-{"vendor":"name","agreedAmount":1234.56,"currency":"EUR","period":"monthly or annual or one-time","startDate":"YYYY-MM-DD or null","endDate":"YYYY-MM-DD or null","description":"what this covers","keyTerms":"important clauses"}
-If unsure use null.'}
-        ]}]
-      })
-    });
+    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:700,messages:[{role:'user',content:[{type:f.type==='application/pdf'?'document':'image',source:{type:'base64',media_type:f.type,data:b64}},{type:'text',text:'Extract contract details. Respond ONLY with valid JSON:\n{"vendor":"name","agreedAmount":1234.56,"currency":"EUR","period":"monthly or annual or one-time","startDate":"YYYY-MM-DD or null","endDate":"YYYY-MM-DD or null","description":"what this covers","keyTerms":"important clauses"}\nIf unsure use null.'}]}]})});
     var data=await res.json();
     var txt=data.content?data.content.map(function(i){return i.text||'';}).join(''):'';
     var p=JSON.parse(txt.replace(/```json|```/g,'').trim());
     document.getElementById('con-ai-row').style.display='none';
-    document.getElementById('con-ai-status').textContent='✓ Contract read';
+    document.getElementById('con-ai-status').textContent='\u2713 Contract read';
     var match=p.vendor?matchV(p.vendor):null,bMo=match?match.ytd[0]:null,aMo=p.period==='annual'&&p.agreedAmount?p.agreedAmount/12:p.agreedAmount;
     var mH='';
-    if(match&&bMo&&aMo){
-      var diff=Math.abs(aMo-bMo)/bMo;
-      mH=diff>0.05?
-        '<div style="background:var(--red-bg);border:1px solid #E8A090;border-radius:var(--radius);padding:9px;margin-top:8px;font-size:12px;color:var(--red);"><strong>Budget mismatch:</strong> Contract '+fmt(aMo)+'/mo vs budgeted '+fmt(bMo)+'/mo ('+Math.round(diff*100)+'% diff)</div>':
-        '<div style="background:var(--green-bg);border:1px solid #90CDAF;border-radius:var(--radius);padding:9px;margin-top:8px;font-size:12px;color:var(--green);">✓ Contract amount matches budget ('+fmt(bMo)+'/mo)</div>';
-    }
+    if(match&&bMo&&aMo){var diff=Math.abs(aMo-bMo)/bMo;mH=diff>0.05?'<div style="background:var(--red-bg);border:1px solid var(--red-border);border-radius:var(--radius);padding:9px;margin-top:8px;font-size:12px;color:var(--red);"><strong>Budget mismatch:</strong> Contract '+fmt(aMo)+'/mo vs budgeted '+fmt(bMo)+'/mo ('+Math.round(diff*100)+'% diff)</div>':'<div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--radius);padding:9px;margin-top:8px;font-size:12px;color:var(--green);">\u2713 Contract amount matches budget ('+fmt(bMo)+'/mo)</div>';}
     window._pc=p;
     var html='<div style="background:var(--surface2);border-radius:var(--radius);padding:11px;font-size:12px;">';
     html+='<div style="font-weight:600;font-size:13px;margin-bottom:7px;">'+(p.vendor||'Unknown vendor')+'</div>';
@@ -940,7 +1343,7 @@ If unsure use null.'}
     html+='<div><span style="color:var(--text3)">Agreed amount</span><br><span style="font-weight:600;" class="mono">'+(p.agreedAmount?fmt(p.agreedAmount):'-')+'</span> <span style="color:var(--text3)">'+(p.period||'')+'</span></div>';
     html+='<div><span style="color:var(--text3)">Currency</span><br><span style="font-weight:500;">'+(p.currency||'EUR')+'</span></div>';
     html+='<div><span style="color:var(--text3)">Start</span><br>'+(p.startDate?new Date(p.startDate).toLocaleDateString('nl-NL'):'-')+'</div>';
-    html+='<div><span style="color:var(--text3)">End date</span><br><span style="color:'+(p.endDate&&(new Date(p.endDate)-new Date())<90*86400000?'var(--red)':'var(--text)')+';font-weight:500;">'+(p.endDate?new Date(p.endDate).toLocaleDateString('nl-NL'):'—')+'</span></div>';
+    html+='<div><span style="color:var(--text3)">End date</span><br><span style="color:'+(p.endDate&&(new Date(p.endDate)-now)<90*86400000?'var(--red)':'var(--text)')+';font-weight:500;">'+(p.endDate?new Date(p.endDate).toLocaleDateString('nl-NL'):'\u2014')+'</span></div>';
     html+='</div>';
     if(p.description)html+='<div style="margin-top:7px;color:var(--text2);">'+p.description+'</div>';
     if(p.keyTerms)html+='<div style="margin-top:5px;font-size:11px;color:var(--text3);border-top:1px solid var(--border);padding-top:5px;">'+p.keyTerms+'</div>';
@@ -949,7 +1352,7 @@ If unsure use null.'}
     document.getElementById('con-result').innerHTML=html;
   }catch(e){
     document.getElementById('con-ai-row').style.display='none';
-    document.getElementById('con-result').textContent='Could not read — please try again.';
+    document.getElementById('con-result').textContent='Could not read \u2014 please try again.';
   }
 }
 function saveContract(){
@@ -957,30 +1360,25 @@ function saveContract(){
   var c=getCons();
   c.unshift(Object.assign({},p,{savedAt:new Date().toISOString(),id:'CON-'+Date.now()}));
   saveCons(c);updateBadges();renderCons();
-  document.getElementById('con-result').innerHTML='<div style="text-align:center;padding:18px;"><div style="font-size:26px;margin-bottom:7px;">✓</div><div style="font-size:14px;font-weight:600;color:var(--green);">Contract saved!</div></div>';
+  document.getElementById('con-result').innerHTML='<div style="text-align:center;padding:18px;"><div style="font-size:24px;margin-bottom:7px;">\u2713</div><div style="font-size:14px;font-weight:600;color:var(--green);">Contract saved!</div></div>';
 }
 function renderCons(){
   updateBadges();
   var c=getCons();
   document.getElementById('con-total').textContent=c.length+' contract'+(c.length!==1?'s':'');
   if(!c.length){document.getElementById('con-list').innerHTML='<div style="text-align:center;padding:28px;color:var(--text3);font-size:13px;">No contracts saved yet.</div>';return;}
+  var now=new Date();
   var html='';
   c.forEach(function(ct){
     var match=ct.vendor?matchV(ct.vendor):null,bMo=match?match.ytd[0]:null,aMo=ct.period==='annual'&&ct.agreedAmount?ct.agreedAmount/12:ct.agreedAmount;
-    var mt='';
-    if(bMo&&aMo){var d=Math.abs(aMo-bMo)/bMo;mt=d>0.05?'<span style="font-size:11px;color:var(--red);font-weight:500;">⚠ '+Math.round(d*100)+'% mismatch</span>':'<span style="font-size:11px;color:var(--green);font-weight:500;">✓ Matches budget</span>';}
-    var dl=ct.endDate?Math.round((new Date(ct.endDate)-new Date())/86400000):null;
-    var et=dl!==null?(dl<30?'<span style="font-size:11px;color:var(--red);font-weight:600;">Expires in '+dl+'d</span>':dl<90?'<span style="font-size:11px;color:var(--amber);">Expires in '+dl+'d</span>':'<span style="font-size:11px;color:var(--text3);">Expires '+new Date(ct.endDate).toLocaleDateString('nl-NL')+'</span>'):'';
-    html+='<div class="conitem">';
-    html+='<div style="width:34px;height:34px;border-radius:7px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">📋</div>';
-    html+='<div style="flex:1;min-width:0;">';
-    html+='<div style="font-size:13px;font-weight:600;">'+(ct.vendor||'Unknown')+'</div>';
+    var mt='';if(bMo&&aMo){var d=Math.abs(aMo-bMo)/bMo;mt=d>0.05?'<span style="font-size:11px;color:var(--red);font-weight:500;">\u26a0 '+Math.round(d*100)+'% mismatch</span>':'<span style="font-size:11px;color:var(--green);font-weight:500;">\u2713 Matches budget</span>';}
+    var dl=ct.endDate?Math.round((new Date(ct.endDate)-now)/86400000):null;
+    var et=dl!==null?(dl<0?'<span style="font-size:11px;color:var(--red);font-weight:600;">EXPIRED</span>':dl<30?'<span style="font-size:11px;color:var(--red);font-weight:600;">Expires in '+dl+'d</span>':dl<90?'<span style="font-size:11px;color:var(--amber);">Expires in '+dl+'d</span>':'<span style="font-size:11px;color:var(--text3);">Expires '+new Date(ct.endDate).toLocaleDateString('nl-NL')+'</span>'):'';
+    html+='<div class="conitem"><div style="width:34px;height:34px;border-radius:7px;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;">\uD83D\uDCCB</div>';
+    html+='<div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:600;">'+(ct.vendor||'Unknown')+'</div>';
     if(ct.description)html+='<div style="font-size:12px;color:var(--text2);margin-top:2px;">'+ct.description+'</div>';
-    html+='<div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;align-items:center;">';
-    html+='<span class="mono" style="font-size:12px;font-weight:600;">'+(ct.agreedAmount?fmt(ct.agreedAmount):'-')+'<span style="font-weight:400;color:var(--text3);"> '+(ct.period||'')+'</span></span>'+et+mt;
-    html+='</div></div>';
-    html+='<button class="btn danger" style="font-size:11px;padding:2px 7px;flex-shrink:0;" onclick="delCon(''+ct.id+'')">Remove</button>';
-    html+='</div>';
+    html+='<div style="display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;align-items:center;"><span class="mono" style="font-size:12px;font-weight:600;">'+(ct.agreedAmount?fmt(ct.agreedAmount):'-')+'<span style="font-weight:400;color:var(--text3);"> '+(ct.period||'')+'</span></span>'+et+mt+'</div></div>';
+    html+='<button class="btn danger" style="font-size:11px;padding:2px 7px;flex-shrink:0;" onclick="delCon(\''+ct.id+'\')">Remove</button></div>';
   });
   document.getElementById('con-list').innerHTML=html;
 }
@@ -991,37 +1389,16 @@ async function sendChat(){
   var inp=document.getElementById('chat-inp'),q=inp.value.trim();
   if(!q)return;inp.value='';
   appendChat(q,'user',null);
-  var tid='t'+Date.now();appendChat('…','ai',tid);
+  var tid='t'+Date.now();appendChat('\u2026','ai',tid);
   try{
     var log=getLog(),cons=getCons();
-    var bsum=BUDGET.map(function(b){return b.name+' ('+b.dept+'/'+b.entity+'): Jan='+b.ytd[0]+', Feb='+b.ytd[1]+', Mar='+b.ytd[2]+', Apr='+b.ytd[3]+', May='+b.ytd[4]+', Jun='+b.ytd[5]+' [all €]';}).join('
-');
-    var isum=log.length?log.map(function(i){return i.vendor+': €'+i.amount+' on '+i.date+' ['+i.status+']';}).join('
-'):'No invoices yet.';
-    var csum=cons.length?cons.map(function(c){return c.vendor+': '+(c.agreedAmount?'€'+c.agreedAmount:'-')+' '+(c.period||'')+' ends '+(c.endDate||'unknown');}).join('
-'):'No contracts.';
-    var res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,
-        messages:[{role:'user',content:'You are a budget assistant for B&C International. Answer clearly using their real 2026 data. Use € for amounts.
-
-=== BUDGET ===
-'+bsum+'
-
-=== INVOICES ===
-'+isum+'
-
-=== CONTRACTS ===
-'+csum+'
-
-=== QUESTION ===
-'+q}]
-      })
-    });
+    var bsum=BUDGET.map(function(b){return b.name+' ('+b.dept+'/'+b.entity+'): Jan='+b.ytd[0]+', Feb='+b.ytd[1]+', Mar='+b.ytd[2]+' [all \u20ac]';}).join('\n');
+    var isum=log.length?log.map(function(i){return i.vendor+': \u20ac'+i.amount+' on '+i.date+' ['+i.status+']';}).join('\n'):'No invoices yet.';
+    var csum=cons.length?cons.map(function(c){return c.vendor+': '+(c.agreedAmount?'\u20ac'+c.agreedAmount:'-')+' '+(c.period||'')+' ends '+(c.endDate||'unknown');}).join('\n'):'No contracts.';
+    var res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:500,messages:[{role:'user',content:'You are a budget assistant for B&C International. Answer clearly using their real 2026 data. Use \u20ac for amounts.\n\n=== BUDGET ===\n'+bsum+'\n\n=== INVOICES ===\n'+isum+'\n\n=== CONTRACTS ===\n'+csum+'\n\n=== QUESTION ===\n'+q}]})});
     var data=await res.json();
     var ans=data.content?data.content.map(function(i){return i.text||'';}).join(''):'Sorry, I could not answer that.';
-    document.getElementById('cbub-'+tid).innerHTML=ans.replace(/
-/g,'<br>');
+    document.getElementById('cbub-'+tid).innerHTML=ans.replace(/\n/g,'<br>');
   }catch(e){document.getElementById('cbub-'+tid).textContent='Sorry, an error occurred. Please try again.';}
 }
 function appendChat(text,role,id){
@@ -1045,8 +1422,8 @@ function renderRen(){
   document.getElementById('ren-metrics').innerHTML=
     '<div class="metric"><div class="mlbl">Contracts with dates</div><div class="mval">'+c.length+'</div><div class="msub muted">of '+getCons().length+' total</div></div>'+
     '<div class="metric"><div class="mlbl">Expiring &lt; 30 days</div><div class="mval" style="color:'+(in30.length?'var(--red)':'var(--green)')+';">'+in30.length+'</div><div class="msub '+(in30.length?'dn':'muted')+'">'+(in30.length?'Action needed':'All clear')+'</div></div>'+
-    '<div class="metric"><div class="mlbl">Expiring &lt; 90 days</div><div class="mval" style="color:'+(in90.length?'var(--amber)':'var(--green)')+';">'+in90.length+'</div><div class="msub '+(in90.length?'warn':'muted')+'">'+(in90.length?'Monitor':'All clear')+'</div></div>';
-  if(!c.length){document.getElementById('ren-list').innerHTML='<div style="text-align:center;padding:28px;color:var(--text3);font-size:13px;">No contracts with end dates. Upload contracts to see renewals.</div>';document.getElementById('ren-timeline').innerHTML='';return;}
+    '<div class="metric"><div class="mlbl">Expiring &lt; 90 days</div><div class="mval" style="color:'+(in90.length?'var(--amber)':'var(--green)')+';">'+in90.length+'</div><div class="msub '+(in90.length?'warn-c':'muted')+'">'+(in90.length?'Monitor':'All clear')+'</div></div>';
+  if(!c.length){document.getElementById('ren-list').innerHTML='<div style="text-align:center;padding:28px;color:var(--text3);font-size:13px;">No contracts with end dates saved.</div>';document.getElementById('ren-timeline').innerHTML='';return;}
   function ri(ct){
     var d=Math.round((new Date(ct.endDate)-now)/86400000),isE=d<0;
     var bg=isE||d<30?'var(--red-bg)':d<90?'var(--amber-bg)':'var(--green-bg)';
@@ -1063,39 +1440,109 @@ function renderRen(){
   var tl='';
   m12.forEach(function(mo){
     var its=c.filter(function(ct){return ct.endDate&&ct.endDate.startsWith(mo.key);});
-    if(its.length){
-      tl+='<div style="display:flex;gap:8px;align-items:flex-start;">';
-      tl+='<div style="width:76px;font-size:12px;font-weight:600;color:var(--text2);padding-top:2px;flex-shrink:0;">'+mo.label+'</div>';
-      tl+='<div style="flex:1;display:flex;flex-direction:column;gap:4px;">';
-      its.forEach(function(ct){tl+='<div style="background:var(--surface2);border-radius:var(--radius);padding:6px 9px;font-size:12px;border-left:3px solid var(--navy);"><strong>'+ct.vendor+'</strong> · '+(ct.agreedAmount?fmt(ct.agreedAmount):'-')+' '+(ct.period||'')+'</div>';});
-      tl+='</div></div>';
-    }
+    if(its.length){tl+='<div style="display:flex;gap:8px;align-items:flex-start;"><div style="width:76px;font-size:12px;font-weight:600;color:var(--text2);padding-top:2px;flex-shrink:0;">'+mo.label+'</div><div style="flex:1;display:flex;flex-direction:column;gap:4px;">';its.forEach(function(ct){tl+='<div style="background:var(--surface2);border-radius:var(--radius);padding:6px 9px;font-size:12px;border-left:3px solid var(--navy);"><strong>'+ct.vendor+'</strong> \u00b7 '+(ct.agreedAmount?fmt(ct.agreedAmount):'-')+' '+(ct.period||'')+'</div>';});tl+='</div></div>';}
   });
   document.getElementById('ren-timeline').innerHTML=tl||'<div style="color:var(--text3);font-size:13px;">No renewals in next 12 months.</div>';
 }
 
+// BUDGET UPLOAD (Admin)
+function handleBudgetDrop(e){e.preventDefault();var f=e.dataTransfer.files[0];if(f)handleBudgetFile(f);}
+function handleBudgetFile(f){
+  if(!f)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=new Uint8Array(e.target.result);
+      var wb=XLSX.read(data,{type:'array'});
+      var ws=wb.Sheets[wb.SheetNames[0]];
+      var rows=XLSX.utils.sheet_to_json(ws,{header:1});
+      if(rows.length<2){throw new Error('No data rows found');}
+      // Find column indices
+      var headers=rows[0].map(function(h){return String(h).trim().toLowerCase();});
+      var vIdx=headers.findIndex(function(h){return h.includes('vendor')||h.includes('name');});
+      var dIdx=headers.findIndex(function(h){return h.includes('dept')||h.includes('department');});
+      var eIdx=headers.findIndex(function(h){return h.includes('entity');});
+      var mIdx=MONTHS.map(function(m){return headers.findIndex(function(h){return h.toLowerCase().includes(m.toLowerCase());});});
+      if(vIdx<0)throw new Error('Could not find Vendor column');
+      // Parse rows
+      var parsed=[];
+      rows.slice(1).forEach(function(row){
+        if(!row[vIdx])return;
+        var ytd=mIdx.map(function(mi){return mi>=0?parseFloat(row[mi])||0:0;});
+        parsed.push({
+          name:String(row[vIdx]).trim(),
+          desc:'',
+          dept:dIdx>=0?String(row[dIdx]||'IT').trim():'IT',
+          entity:eIdx>=0?String(row[eIdx]||'B&C Int').trim():'B&C Int',
+          ytd:ytd
+        });
+      });
+      if(!parsed.length)throw new Error('No valid vendor rows found');
+      pendingBudget=parsed;
+      // Preview
+      var preview='<div style="font-size:13px;color:var(--green);font-weight:600;margin-bottom:10px;">\u2713 '+parsed.length+' vendors loaded from file</div>';
+      preview+='<div style="max-height:240px;overflow-y:auto;"><table class="tbl"><thead><tr><th>Vendor</th><th>Dept</th><th>Entity</th><th>Jan</th><th>Feb</th><th>Mar</th><th>Annual</th></tr></thead><tbody>';
+      parsed.slice(0,10).forEach(function(r){
+        var ann=r.ytd.reduce(function(a,b){return a+b;},0);
+        preview+='<tr><td style="font-weight:500;">'+r.name+'</td><td>'+dtag(r.dept)+'</td><td>'+etag(r.entity)+'</td><td class="mono">'+fmt(r.ytd[0])+'</td><td class="mono">'+fmt(r.ytd[1])+'</td><td class="mono">'+fmt(r.ytd[2])+'</td><td class="mono">'+fmt(ann)+'</td></tr>';
+      });
+      if(parsed.length>10)preview+='<tr><td colspan="7" style="text-align:center;color:var(--text3);font-size:12px;">... and '+(parsed.length-10)+' more vendors</td></tr>';
+      preview+='</tbody></table></div>';
+      document.getElementById('budget-preview').innerHTML=preview;
+      document.getElementById('budget-apply-wrap').style.display='flex';
+      document.getElementById('budget-upload-status').innerHTML='<div style="color:var(--green);font-size:13px;">\u2713 File read successfully \u2014 click Apply to use this budget</div>';
+    }catch(err){
+      document.getElementById('budget-upload-status').innerHTML='<div style="color:var(--red);font-size:13px;">\u2715 Error: '+err.message+'</div>';
+      pendingBudget=null;
+      document.getElementById('budget-apply-wrap').style.display='none';
+    }
+  };
+  reader.readAsArrayBuffer(f);
+}
+function applyBudget(){
+  if(!pendingBudget)return;
+  BUDGET=pendingBudget;
+  saveCustomBudget(BUDGET);
+  var badge=document.getElementById('budget-source-badge');
+  badge.textContent='Custom file (\u2713 Active)';
+  badge.style.background='var(--green-bg)';
+  badge.style.color='var(--green)';
+  document.getElementById('budget-upload-status').innerHTML='<div style="color:var(--green);font-size:13px;font-weight:600;">\u2713 Budget applied! Dashboard now uses your uploaded data.</div>';
+  renderMonthly();
+}
+function resetBudget(){
+  if(!confirm('Reset to the default hardcoded budget?'))return;
+  BUDGET=DEFAULT_BUDGET.slice();
+  localStorage.removeItem('fic_budget');
+  pendingBudget=null;
+  var badge=document.getElementById('budget-source-badge');
+  badge.textContent='Default data';
+  badge.style.background='var(--green-bg)';
+  badge.style.color='var(--green)';
+  document.getElementById('budget-preview').innerHTML='<div style="text-align:center;padding:20px;color:var(--text3);font-size:13px;">Reset to default budget.</div>';
+  document.getElementById('budget-apply-wrap').style.display='none';
+  renderMonthly();
+}
+
 // BADGES
 function updateBadges(){
-  var n=getLog().length,b=document.getElementById('log-badge');b.textContent=n;b.style.display=n?'':'none';
+  var log=getLog();
+  var n=log.length,b=document.getElementById('log-badge');b.textContent=n;b.style.display=n?'':'none';
   var cn=getCons().length,cb=document.getElementById('contract-badge');cb.textContent=cn;cb.style.display=cn?'':'none';
   var soon=getCons().filter(function(ct){return ct.endDate&&Math.round((new Date(ct.endDate)-new Date())/86400000)<90;}).length;
   var rb=document.getElementById('renewal-badge');rb.textContent=soon;rb.style.display=soon?'':'none';
 }
 function exportCSV(){
   var m=curMonth,items=getItems();
-  var c='Vendor,Dept,Entity,Budget ('+FULL[m]+')
-';
-  items.slice().sort(function(a,b){return b.ytd[m]-a.ytd[m];}).forEach(function(c2){c+='"'+c2.name+'","'+c2.dept+'","'+c2.entity+'",'+c2.ytd[m]+'
-';});
+  var c='Vendor,Dept,Entity,Budget ('+FULL[m]+')\n';
+  items.slice().sort(function(a,b){return b.ytd[m]-a.ytd[m];}).forEach(function(c2){c+='"'+c2.name+'","'+c2.dept+'","'+c2.entity+'",'+c2.ytd[m]+'\n';});
   dl(c,'budget-'+FULL[m]+'-2026.csv');
 }
 
 // INIT
-updateBadges();
 document.getElementById('f-date').value=new Date().toISOString().split('T')[0];
-document.getElementById('rpt-date').textContent=today();
-document.getElementById('fc-date').textContent=today();
-renderMonthly();
+// Close modal on background click
+document.getElementById('override-modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 </script>
 </body>
 </html>
